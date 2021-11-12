@@ -59,7 +59,7 @@ public class type1 extends tower {
 				if ( Simulation.getMoney() < price ) break;
 				Simulation.decreaseMoney(price);
 				setPrice(getPrice()+price);
-				setAttack(getAttack()+100)
+				setAttack(getAttack()+100);
 				break;
 			case 3:
 				if ( Simulation.getMoney() < price ) break;
