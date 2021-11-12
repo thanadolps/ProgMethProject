@@ -72,6 +72,11 @@ public class type1 extends tower {
 		}
 	}
 
+	private void replace(type1 type1) {
+		// TODO: implement
+		throw new java.lang.UnsupportedOperationException("Not supported yet.");
+	}
+
 	@Override
 	public void upgrade_rsh(int price) {
 		// TODO Auto-generated method stub
@@ -104,6 +109,11 @@ public class type1 extends tower {
 		// TODO Auto-generated method stub
 		Simulation.increaseMoney(getPrice()/10);
 		delete();
+	}
+
+	private void delete() {
+		// TODO: implement
+		throw new java.lang.UnsupportedOperationException("Not supported yet.");
 	}
 
 }

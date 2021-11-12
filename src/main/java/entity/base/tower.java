@@ -10,14 +10,11 @@ public abstract class tower {
 	private int x;
 	private int y;
 	
-	public tower(int speedatk, int attack, int price, int x ,int y) {
+	public tower(int speedatk, int attack, int price) {
 		super();
 		this.speedatk = speedatk;
 		this.attack = attack;
 		this.price = price;
-		this.x = x;
-		this.y = y;
-		
 	}
 	
 	public int getPrice() {

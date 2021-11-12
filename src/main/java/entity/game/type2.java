@@ -27,7 +27,7 @@ public class type2 extends tower {
 	public void sell() {
 		// TODO Auto-generated method stub
 		Simulation.increaseMoney(getPrice()/10);
-		delete();
+		// delete();
 	}
 
 	@Override
