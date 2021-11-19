@@ -1,0 +1,4 @@
+tile    sprite			tower_placeable
+A		grass_tile_1	1
+B		grass_tile_3	1
+S		sand_tile		0

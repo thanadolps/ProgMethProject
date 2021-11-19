@@ -12,16 +12,16 @@ public abstract class tower {
 	private int x;
 	private int y;
 	private int r;
-	
-	public tower(int speedatk, int attack, int price, int x ,int y) {
+
+	public tower(int speedatk, int attack, int price) {
 		super();
 		this.speedatk = speedatk;
 		this.attack = attack;
 		this.price = price;
-		GameMap.addTower(x,y,this);
-		
+		GameMap.addTower(x, y, this);
+
 	}
-	
+
 	public int getX() {
 		return x;
 	}
@@ -39,19 +39,19 @@ public abstract class tower {
 	}
 
 	public abstract boolean upgrade_lsh(int price);
-	
+
 	public abstract boolean upgrade_rsh(int price);
-	
+
 	public abstract void attack();
-	
+
 	public void sell() {
 		// TODO Auto-generated method stub
-		Simulation.increaseMoney(getPrice()/10);
+		Simulation.increaseMoney(getPrice() / 10);
 		GameMap.delete(getX(), getY());
 	}
-	
+
 	public double range() {
-		double area = Math.PI*getR()*getR();
+		double area = Math.PI * getR() * getR();
 		return area;
 	}
 
@@ -70,8 +70,7 @@ public abstract class tower {
 	public void setAttack(int attack) {
 		this.attack = attack;
 	}
-	
-	
+
 	public int getLevel() {
 		return level;
 	}
@@ -89,11 +88,9 @@ public abstract class tower {
 	}
 
 	public void setR(int r) {
-		if ( r < 0 ) r = 1;
+		if (r < 0)
+			r = 1;
 		this.r = r;
 	}
-	
 
-	
-	
 }
