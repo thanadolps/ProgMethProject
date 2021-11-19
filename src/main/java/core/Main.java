@@ -13,11 +13,12 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     public static Game game = new Game();
+    public static Canvas canvas;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         var root = new Pane();
-        var canvas = new Canvas();
+        canvas = new Canvas();
         canvas.setWidth(960);
         canvas.setHeight(960);
         root.getChildren().add(canvas);
@@ -36,6 +37,7 @@ public class Main extends Application {
         double w = gc.getCanvas().getWidth();
         double h = gc.getCanvas().getHeight();
         gc.setFill(Color.BLACK);
+
         new AnimationTimer() {
             long prevNano = System.nanoTime();
 

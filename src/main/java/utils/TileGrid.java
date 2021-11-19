@@ -1,6 +1,7 @@
 package utils;
 
 import core.Draw;
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -46,7 +47,13 @@ public class TileGrid implements Draw {
             for (int j = 0; j < getIndexHeight(); j++) {
                 double x = dw*i;
                 double y = dh*j;
-                gc.drawImage(sprites[j][i], x, y, dw, dh);
+                gc.drawImage(
+                        sprites[j][i],
+                        x,
+                        y,
+                        dw,
+                        dh
+                );
             }
         }
     }
