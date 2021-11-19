@@ -1,22 +1,15 @@
-package entity.game;
+package main.java.entity.game;
 
-import logic.Simulation;
+import main.java.logic.Simulation;
+import main.java.entity.base.Bullets;
 
 public class Ice extends type1 {
+		
+	private Bullets slow = Bullets.FREEZE;
 	
-	
-	private boolean slow;
-	
-	public Ice(int speedatk, int attack, int price) {
-		super(speedatk, attack, price);
+	public Ice(int speedatk, int attack, int price , int x ,int y ) {
+		super(speedatk, attack, price , x , y);
 		// TODO Auto-generated constructor stub
 	}
-	
-	@Override
-	public void attack() {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 }

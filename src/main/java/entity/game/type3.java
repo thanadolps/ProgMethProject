@@ -1,24 +1,67 @@
-package entity.game;
+package main.java.entity.game;
 
-import entity.base.tower;
+import main.java.entity.base.tower;
+import main.java.logic.GameMap;
+import main.java.logic.Simulation;
 
 public class type3 extends tower{
 
-	public type3(int speedatk, int attack, int price) {
-		super(speedatk, attack, price);
+	public type3(int speedatk, int attack, int price,int x ,int y) {
+		super(speedatk, attack, price, x, y);
+		setR(1);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void upgrade_lsh(int price) {
+	public boolean upgrade_lsh(int price) {
 		// TODO Auto-generated method stub
-		
+		if ( Simulation.getMoney() < price ) return false;
+		switch(getLevel()) {
+		case 1: 
+			Simulation.decreaseMoney(price);
+			setPrice(getPrice()+price);
+			setSpeedatk(getSpeedatk()+100);
+			return true;
+		case 2:
+			Simulation.decreaseMoney(price);
+			setPrice(getPrice()+price);
+			setAttack(getSpeedatk()+100);
+			return true;
+		case 3:
+			Simulation.decreaseMoney(price);
+			Ice ice = new Ice(getSpeedatk()+100,getAttack(),getPrice()+price,getX(),getY());
+			GameMap.delete(getX(),getY());
+			GameMap.addTower(getX(), getY(), ice);
+			return true;
+		default:
+			return false;
+		}
 	}
 
 	@Override
-	public void upgrade_rsh(int price) {
+	public boolean upgrade_rsh(int price) {
 		// TODO Auto-generated method stub
-		
+		if ( Simulation.getMoney() < price ) return false;
+		switch(getLevel()) {
+		case 1: 
+			Simulation.decreaseMoney(price);
+			setPrice(getPrice()+price);
+			setR(getR()+1);
+			return true;
+		case 2:
+			Simulation.decreaseMoney(price);
+			setPrice(getPrice()+price);
+			setR(getR()+1);
+			return true;
+		case 3:
+			Simulation.decreaseMoney(price);
+			Ice ice = new Ice(getSpeedatk()+100,getAttack(),getPrice()+price,getX(),getY());
+			GameMap.delete(getX(),getY());
+			GameMap.addTower(getX(), getY(), ice);
+			return true;
+		default:
+			return false;
+		}
 	}
 
 	@Override
@@ -26,17 +69,4 @@ public class type3 extends tower{
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void range() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void sell() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

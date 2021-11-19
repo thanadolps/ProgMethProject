@@ -1,25 +1,35 @@
-package entity.base;
+package main.java.entity.base;
 
+import main.java.logic.GameMap;
+import main.java.logic.Simulation;
 
 public abstract class tower {
 
 	private int speedatk;
 	private int attack;
 	private int price;
-	private int level;
+	private int level = 1;
 	private int x;
 	private int y;
+	private int r;
 	
 	public tower(int speedatk, int attack, int price, int x ,int y) {
 		super();
 		this.speedatk = speedatk;
 		this.attack = attack;
 		this.price = price;
-		this.x = x;
-		this.y = y;
+		GameMap.addTower(x,y,this);
 		
 	}
 	
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
 	public int getPrice() {
 		return price;
 	}
@@ -28,15 +38,22 @@ public abstract class tower {
 		this.price = price;
 	}
 
-	public abstract void upgrade_lsh(int price);
+	public abstract boolean upgrade_lsh(int price);
 	
-	public abstract void upgrade_rsh(int price);
+	public abstract boolean upgrade_rsh(int price);
 	
 	public abstract void attack();
 	
-	public abstract void range();
+	public void sell() {
+		// TODO Auto-generated method stub
+		Simulation.increaseMoney(getPrice()/10);
+		GameMap.delete(getX(), getY());
+	}
 	
-	public abstract void sell();
+	public double range() {
+		double area = Math.PI*getR()*getR();
+		return area;
+	}
 
 	public int getSpeedatk() {
 		return speedatk;
@@ -66,10 +83,16 @@ public abstract class tower {
 	public boolean inRangetype2() {
 		return true;
 	}
-	
-	public void increaseRange() {
-		
+
+	public int getR() {
+		return r;
 	}
+
+	public void setR(int r) {
+		if ( r < 0 ) r = 1;
+		this.r = r;
+	}
+	
 
 	
 	
