@@ -1,4 +1,4 @@
-package entity.base;
+package main.java.entity.base;
 
 import core.Draw;
 import core.Tick;

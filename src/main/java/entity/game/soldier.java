@@ -1,6 +1,6 @@
-package entity.game;
+package main.java.entity.game;
 
-import entity.base.monster;
+import main.java.entity.base.monster;
 
 public class soldier extends monster {
 

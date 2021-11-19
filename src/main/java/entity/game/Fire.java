@@ -1,21 +1,15 @@
-package entity.game;
+package main.java.entity.game;
 
-import logic.Simulation;
+import main.java.entity.base.Bullets;
+import main.java.logic.Simulation;
 
 public class Fire extends type1 {
 
-	private boolean burn;
+	private Bullets fire = Bullets.BURN;
 	
-	public Fire(int speedatk, int attack, int price) {
-		super(speedatk, attack, price);
+	public Fire(int speedatk, int attack, int price , int x ,int y) {
+		super(speedatk, attack, price, x ,y );
 		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public void attack() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 }
