@@ -106,4 +106,15 @@ public class monster extends Entity {
 			this.markDestroy(); // ลบตัวนั้นออกยังนึกไม่ออก
 	}
 
+	public double getX() {
+		return pos.getX();
+	}
+
+	public double getY() {
+		return pos.getY();
+	}
+
+	public Point2D getPos() {
+		return pos;
+	}
 }
