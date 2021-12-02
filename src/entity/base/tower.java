@@ -1,7 +1,11 @@
 package entity.base;
 
+import javafx.geometry.Point2D;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import logic.GameMap;
 import logic.Simulation;
+import utils.Utils;
 
 public abstract class tower {
 
@@ -18,7 +22,7 @@ public abstract class tower {
 		this.speedatk = speedatk;
 		this.attack = attack;
 		this.price = price;
-		GameMap.addTower(x, y, this);
+		// GameMap.addTower(x, y, this);
 
 	}
 
@@ -91,6 +95,16 @@ public abstract class tower {
 		if (r < 0)
 			r = 1;
 		this.r = r;
+	}
+
+
+	public abstract void tick(Point2D pos, double dt);
+
+	protected abstract Image getSprite();
+	public void draw(Point2D pos, GraphicsContext gc, double dt) {
+		var px = Utils.grid2pixel(pos);
+		var gridDim = Utils.getGridPixelDimension();
+		gc.drawImage(getSprite(), px.getX(), px.getY(), gridDim.getX(), gridDim.getY());
 	}
 
 }

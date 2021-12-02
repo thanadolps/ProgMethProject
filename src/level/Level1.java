@@ -16,11 +16,11 @@ public class Level1 extends Level{
     TileGrid tileGrid = MapLoader.loadMap("level1");
     int count = 0;
     Track sampleTrack = new Track(new Point2D[]{
-            new Point2D(0,1),
-            new Point2D(6,1),
-            new Point2D(6,6),
-            new Point2D(1,6),
-            new Point2D(1,5)
+            new Point2D(0,1.5),
+            new Point2D(6.5,1.5),
+            new Point2D(6.5,6.5),
+            new Point2D(1.5,6.5),
+            new Point2D(1.5,5.5)
     });
 
     public Level1() throws IOException, URISyntaxException {

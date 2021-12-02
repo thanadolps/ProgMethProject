@@ -1,6 +1,8 @@
 package entity.game;
 
 import entity.base.tower;
+import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 
 public class type4 extends tower{
 	//ยังนึกไม่ออกว่าเวล3จะเป็นอะไร
@@ -26,6 +28,16 @@ public class type4 extends tower{
 	public void attack() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Image getSprite() {
+		return null;
+	}
+
+	@Override
+	public void tick(Point2D pos, double dt) {
+
 	}
 
 }

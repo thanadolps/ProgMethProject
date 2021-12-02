@@ -10,6 +10,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Pair;
+
+import java.util.HashMap;
 
 public class Main extends Application {
     public static Game game = new Game();

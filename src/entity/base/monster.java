@@ -34,7 +34,7 @@ public class monster extends Entity {
 
 	}
 
-	public boolean dead() {
+	public boolean isDead() {
 		if (getHp() <= 0)
 			return true;
 		return false;
@@ -72,10 +72,13 @@ public class monster extends Entity {
 		 * gc.fillText( String.format("hp{%s},speed{%s},track{%s}",hp,speed,track),
 		 * screen.getX(), screen.getY() );
 		 */
+		var gx = gridDim.getX();
+		var gy = gridDim.getY();
+
 		if (getSpeed() < 15) {
-			gc.fillRect(screen.getX(), screen.getY(), 0.5 * gridDim.getX(), 0.5 * gridDim.getY());
+			gc.fillRect(screen.getX() - 0.25*gx, screen.getY() - 0.25*gy, 0.5 * gx, 0.5 * gy);
 		} else {
-			gc.fillOval(screen.getX(), screen.getY(), 0.75 * gridDim.getX(), 0.75 * gridDim.getY());
+			gc.fillOval(screen.getX() - 0.75*gx/2, screen.getY() - 0.75*gy/2, 0.75 * gx, 0.75 * gy);
 		}
 	}
 
@@ -95,6 +98,12 @@ public class monster extends Entity {
 		pos = pos.add(deltaS.multiply(0.05 * speed * dt / dist));
 	}
 
+	public void die() {
+		// TODO: should also handle thing that happen when monster die
+		// eg. increase player's money
+		this.markDestroy();
+	}
+
 	public void takeDamage(Bullets bullets) {
 		if (bullets == Bullets.BURN)
 			setHp(getHp() - 50);
@@ -102,8 +111,8 @@ public class monster extends Entity {
 			setSpeed(getSpeed() - 10);
 		setHp(getHp() - bullets.label);
 		GameMap.deleteBullets(bullets);
-		if (dead())
-			this.markDestroy(); // ลบตัวนั้นออกยังนึกไม่ออก
+		if (isDead())
+			die(); // ลบตัวนั้นออกยังนึกไม่ออก
 	}
 
 	public double getX() {

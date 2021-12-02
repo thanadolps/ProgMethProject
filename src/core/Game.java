@@ -3,19 +3,19 @@ package core;
 import core.timing.Interval;
 import entity.base.Entity;
 import entity.base.monster;
+import entity.base.tower;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.util.Pair;
 import level.Level;
 import level.Level1;
 import level.spawner.Spawner;
+import logic.GameMap;
+import utils.Utils;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Game implements Draw, Tick {
     Level currentLevel;
@@ -49,6 +49,35 @@ public class Game implements Draw, Tick {
     public void draw(GraphicsContext gc, double dt) {
         currentLevel.getTileGrid().draw(gc, dt);
         monsters.forEach(monster -> monster.draw(gc, dt));
+        this.drawTower(gc, dt);
+
+        debugMonsterCount(gc);
+    }
+
+    private void drawTower(GraphicsContext gc, double dt) {
+        var towers = GameMap.getMaptower();
+        for (int j = 0; j < towers.size(); j++) {
+            var row = towers.get(j);
+            for (int i = 0; i < row.size(); i++) {
+                var tower = row.get(i);
+                if(tower != null) {
+                    tower.draw(new Point2D(i, j), gc, dt);
+                }
+            }
+        }
+    }
+
+    private void debugMonsterCount(GraphicsContext gc) {
+        var grid = getCurrentLevel().getTileGrid();
+        for (int j = 0; j < grid.getIndexHeight(); j++) {
+            for (int i = 0; i < grid.getIndexWidth(); i++) {
+                var px = Utils.grid2pixel(new Point2D(i, j));
+
+                gc.fillText(Integer.toString(getMonstersAt(i, j).size()), px.getX(), px.getY());
+            }
+        }
+
+        gc.fillText(Integer.toString(monsters.size()),  gc.getCanvas().getWidth()-24, 24);
     }
 
     @Override
@@ -60,38 +89,59 @@ public class Game implements Draw, Tick {
         }
         activeSpawner.tick(dt);
 
+        this.tickTower(dt);
+        this.tickMonster(dt);
+
+        // TODO: decrease freq of remove
+        monsters.removeIf(Entity::isDestroyed);
+    }
+
+    private void tickMonster(double dt) {
         monsters.forEach(monster -> {
-            if(monster.isDestroyed()) {
+            // Position before tick
+            var pos1 = new Pair<>((int) monster.getX(), (int) monster.getY());
+
+            if (monster.isDestroyed()) {
+                monstersMap.get(pos1).remove(monster);
                 return;
             }
 
-            // Position before tick
-            var pos1 = new Pair<>((int)monster.getX(), (int)monster.getY());
             monster.tick(dt);
-
             // if it's destroyed, remove this monster from monstersMap.
-            if(monster.isDestroyed()) {
+            if (monster.isDestroyed()) {
                 monstersMap.get(pos1).remove(monster);
                 return;
             }
 
             // Position after tick
-            var pos2 = new Pair<>((int)monster.getX(), (int)monster.getY());
+            var pos2 = new Pair<>((int) (monster.getX()), (int) (monster.getY()));
             // Change this monster location in monstersMap from pos1 to pos2 (if pos1 != pos2)
-            if(!pos1.equals(pos2)) {
+            if (!pos1.equals(pos2)) {
                 monstersMap.get(pos1).remove(monster);
                 monstersMap.compute(pos2, (k, v) -> {
-                    if(v == null) {
-                        return new HashSet<>();
+                    if (v == null) {
+                        v = new HashSet<>();
+                        v.add(monster);
+                        return v;
                     }
                     v.add(monster);
                     return v;
                 });
             }
         });
+    }
 
-        // TODO: decrease freq of remove
-        monsters.removeIf(Entity::isDestroyed);
+    private void tickTower(double dt) {
+        var towers = GameMap.getMaptower();
+        for (int j = 0; j < towers.size(); j++) {
+            var row = towers.get(j);
+            for (int i = 0; i < row.size(); i++) {
+                var tower = row.get(i);
+                if(tower != null) {
+                    tower.tick(new Point2D(i, j), dt);
+                }
+            }
+        }
     }
 
     public void addEntity(Entity entity) {
@@ -107,8 +157,6 @@ public class Game implements Draw, Tick {
         var pos = new Pair<>((int)monster.getX(), (int)monster.getY());
         monstersMap.putIfAbsent(pos, new HashSet<>());
         monstersMap.get(pos).add(monster);
-
-        System.out.println(monstersMap);
     }
 
     /**
@@ -132,7 +180,7 @@ public class Game implements Draw, Tick {
      * @implNote This method is O(1)
      */
     public Set<monster> getMonstersAt(Pair<Integer, Integer> pos) {
-        return monstersMap.get(pos);
+        return Objects.requireNonNullElseGet(monstersMap.get(pos), HashSet::new);
     }
 
     public Level getCurrentLevel() {

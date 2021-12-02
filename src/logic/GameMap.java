@@ -13,6 +13,13 @@ public class GameMap {
 	private static ObservableList<Bullets> bullets = FXCollections.observableArrayList();
 	//ไม่รู้ว่าmonsterจะเก็บไว้ยังไงดี
 
+	static {
+		makeMap();
+
+		// just for testing
+		addTower(5,3, new entity.game.type1(1,1,1, 3, 0));
+	}
+
 	public static void makeMap() {
 		for ( int i = 0 ; i<50 ; i++) {
 			ArrayList<tower> t = new ArrayList<>();
@@ -24,13 +31,13 @@ public class GameMap {
 	}
 	
 	public static void addTower(int x , int y, tower tower) {
-		ArrayList<tower> pos = maptower.get(x);
-		pos.set(y, tower);
+		ArrayList<tower> pos = maptower.get(y);
+		pos.set(x, tower);
 	}
 	
 	public static void delete(int x ,int y) {
-		ArrayList<tower> pos = maptower.get(x);
-		pos.set(y,null);
+		ArrayList<tower> pos = maptower.get(y);
+		pos.set(x,null);
 	}
 	
 	public static void shot(Bullets b) {
@@ -41,6 +48,10 @@ public class GameMap {
 		for ( int i = 0 ; i<bullets.size() ; i++ ) {
 			if ( bullets.get(i) == b ) bullets.remove(i);
 		}
+	}
+
+	public static ArrayList<ArrayList<tower>> getMaptower() {
+		return maptower;
 	}
 }
 

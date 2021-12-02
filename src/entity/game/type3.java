@@ -1,6 +1,8 @@
 package entity.game;
 
 import entity.base.tower;
+import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 import logic.GameMap;
 import logic.Simulation;
 
@@ -68,5 +70,15 @@ public class type3 extends tower{
 	public void attack() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Image getSprite() {
+		return null;
+	}
+
+	@Override
+	public void tick(Point2D pos, double dt) {
+
 	}
 }

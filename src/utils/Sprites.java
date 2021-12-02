@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class Sprites {
-    public static Image GrassASprite, GrassBSprite, SandSprite;
+    public static Image GrassASprite, GrassBSprite, SandSprite, TowerSprite;
     private static final HashMap<String, Image> imagesByName = new HashMap<>();
 
     static {
@@ -17,6 +17,7 @@ public class Sprites {
             GrassASprite = Sprites.loadImage("grass_tile_1.png");
             GrassBSprite = Sprites.loadImage("grass_tile_3.png");
             SandSprite = Sprites.loadImage("sand_tile.png");
+            TowerSprite = Sprites.loadImage("tower.png");
 
             System.out.println("Sprite Loaded:");
             imagesByName.forEach((k, v) -> {

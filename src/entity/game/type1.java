@@ -1,8 +1,13 @@
 package entity.game;
 
+import core.Game;
+import core.Main;
 import entity.base.tower;
+import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 import logic.GameMap;
 import logic.Simulation;
+import utils.Sprites;
 
 public class type1 extends tower {
 
@@ -15,6 +20,28 @@ public class type1 extends tower {
 	@Override
 	public void attack() {
 		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public Image getSprite() {
+		return Sprites.TowerSprite;
+	}
+
+	@Override
+	public void tick(Point2D pos, double dt) {
+		// Testing code
+		// Make slow monster to the right of the tower dead
+		int x = (int)pos.getX();
+		int y = (int)pos.getY();
+
+		var monsters = Main.game.getMonstersAt(x+1, y);
+		for (var m : monsters) {
+			if(m.getSpeed() < 15) {
+				m.die();
+			}
+		}
 
 	}
 
