@@ -1,6 +1,7 @@
 package core;
 
 import core.timing.Interval;
+import entity.base.Bullets;
 import entity.base.Entity;
 import entity.base.Monster;
 import javafx.geometry.Point2D;
@@ -20,6 +21,7 @@ public class Game implements Draw, Tick {
     Level currentLevel;
     Spawner activeSpawner;
     ArrayList<Monster> monsters = new ArrayList<>();
+    ArrayList<Bullets> bullets = new ArrayList<>();
     Towers towers = new Towers();
     /**
      * <p>
@@ -48,6 +50,7 @@ public class Game implements Draw, Tick {
     @Override
     public void draw(GraphicsContext gc, double dt) {
         currentLevel.getTileGrid().draw(gc, dt);
+        bullets.forEach(bullet -> {if(!bullet.isDestroyed()) bullet.draw(gc, dt);});
         monsters.forEach(monster -> monster.draw(gc, dt));
         this.drawTower(gc, dt);
 
@@ -81,10 +84,12 @@ public class Game implements Draw, Tick {
         activeSpawner.tick(dt);
 
         this.tickTower(dt);
+        bullets.forEach(bullet -> {if(!bullet.isDestroyed()) bullet.tick(dt);});
         this.tickMonster(dt);
 
         // TODO: decrease freq of remove
         monsters.removeIf(Entity::isDestroyed);
+        bullets.removeIf(Entity::isDestroyed);
     }
 
     private void tickMonster(double dt) {
@@ -139,6 +144,10 @@ public class Game implements Draw, Tick {
         monstersMap.get(pos).add(monster);
     }
 
+    public void addBullet(Bullets bullet) {
+        bullets.add(bullet);
+    }
+
     /**
      * Get set of all active monster within pos (x,y). <br>
      * For more details see {@link core.Game#getMonstersAt(Pair)}
@@ -169,5 +178,9 @@ public class Game implements Draw, Tick {
 
     public Towers getTowers() {
         return towers;
+    }
+
+    public ArrayList<Bullets> getBullets() {
+        return bullets;
     }
 }
