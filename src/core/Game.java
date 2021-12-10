@@ -41,7 +41,7 @@ public class Game implements Draw, Tick {
             currentLevel = new Level1();
             System.out.println(currentLevel);
             activeSpawner = currentLevel.nextSpawner();
-            activeSpawner.setOnSpawn(this::addEntity);
+            activeSpawner.setOnSpawn(this::addMonster);
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
@@ -79,7 +79,7 @@ public class Game implements Draw, Tick {
         if(activeSpawner.isDone()) {
             System.out.println("DONE");
             activeSpawner = currentLevel.nextSpawner();
-            activeSpawner.setOnSpawn(this::addEntity);
+            activeSpawner.setOnSpawn(this::addMonster);
         }
         activeSpawner.tick(dt);
 
@@ -127,13 +127,6 @@ public class Game implements Draw, Tick {
 
     private void tickTower(double dt) {
         towers.iterateTower((pos, tower) -> tower.tick(pos, dt));
-    }
-
-    public void addEntity(Entity entity) {
-        System.out.println("Adding " + entity);
-        if(entity instanceof Monster) {
-            this.addMonster((Monster)(entity));
-        }
     }
 
     public void addMonster(Monster monster) {
