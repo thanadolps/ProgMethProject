@@ -1,6 +1,6 @@
 package level;
 
-import entity.base.monster;
+import entity.base.Monster;
 import javafx.geometry.Point2D;
 import level.spawner.PeriodicSpawner;
 import level.spawner.SequentialSpawner;
@@ -34,8 +34,8 @@ public class Level1 extends Level{
     @Override
     public Spawner nextSpawner() {
         return new SequentialSpawner(new Spawner[]{
-            new PeriodicSpawner(() -> new monster(10, 20), 1, 5),
-            new PeriodicSpawner(() -> new monster(20, 13), 1, 5)
+            new PeriodicSpawner(() -> new Monster(10, 20), 1, 5),
+            new PeriodicSpawner(() -> new Monster(20, 13), 1, 5)
         }).setTrack(sampleTrack);
     }
 }

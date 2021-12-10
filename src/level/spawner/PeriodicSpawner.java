@@ -1,7 +1,7 @@
 package level.spawner;
 
 import core.timing.Interval;
-import entity.base.monster;
+import entity.base.Monster;
 import javafx.geometry.Point2D;
 import level.Track;
 
@@ -9,16 +9,16 @@ import java.util.function.Supplier;
 
 public class PeriodicSpawner extends Spawner {
     private final Interval timer;
-    private final Supplier<monster> factory;
+    private final Supplier<Monster> factory;
     private int limit = -1;
     private int spawnCount = 0;
     
-    public PeriodicSpawner(Supplier<monster> factory, double interval) {
+    public PeriodicSpawner(Supplier<Monster> factory, double interval) {
         this.factory = factory;
         this.timer = new Interval(interval);
     }
 
-    public PeriodicSpawner(Supplier<monster> factory, double interval, int limit) {
+    public PeriodicSpawner(Supplier<Monster> factory, double interval, int limit) {
         this(factory, interval);
         this.limit = limit;
     }

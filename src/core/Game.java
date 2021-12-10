@@ -2,7 +2,7 @@ package core;
 
 import core.timing.Interval;
 import entity.base.Entity;
-import entity.base.monster;
+import entity.base.Monster;
 import entity.base.tower;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,7 +20,7 @@ import java.util.*;
 public class Game implements Draw, Tick {
     Level currentLevel;
     Spawner activeSpawner;
-    ArrayList<monster> monsters = new ArrayList<>();
+    ArrayList<Monster> monsters = new ArrayList<>();
     /**
      * <p>
      * Hashmap which map tile position to set of all active monster in that tile.
@@ -32,7 +32,7 @@ public class Game implements Draw, Tick {
      * to match actual position of monster every frame.
      * </p>
      */
-    HashMap<Pair<Integer, Integer>, HashSet<monster>> monstersMap = new HashMap<>();
+    HashMap<Pair<Integer, Integer>, HashSet<Monster>> monstersMap = new HashMap<>();
 
     public Game() {
         try {
@@ -146,12 +146,12 @@ public class Game implements Draw, Tick {
 
     public void addEntity(Entity entity) {
         System.out.println("Adding " + entity);
-        if(entity instanceof monster) {
-            this.addMonster((monster)(entity));
+        if(entity instanceof Monster) {
+            this.addMonster((Monster)(entity));
         }
     }
 
-    public void addMonster(monster monster) {
+    public void addMonster(Monster monster) {
         monsters.add(monster);
 
         var pos = new Pair<>((int)monster.getX(), (int)monster.getY());
@@ -165,7 +165,7 @@ public class Game implements Draw, Tick {
      *
      * @implNote This method is O(1)
      */
-    public Set<monster> getMonstersAt(int x, int y) {
+    public Set<Monster> getMonstersAt(int x, int y) {
         return this.getMonstersAt(new Pair<>(x, y));
     }
 
@@ -179,7 +179,7 @@ public class Game implements Draw, Tick {
      * @see Game#monstersMap
      * @implNote This method is O(1)
      */
-    public Set<monster> getMonstersAt(Pair<Integer, Integer> pos) {
+    public Set<Monster> getMonstersAt(Pair<Integer, Integer> pos) {
         return Objects.requireNonNullElseGet(monstersMap.get(pos), HashSet::new);
     }
 

@@ -1,6 +1,6 @@
 package logic;
 
-import entity.base.monster;
+import entity.base.Monster;
 import entity.base.tower;
 import entity.game.boss;
 import entity.game.soldier;
@@ -14,7 +14,7 @@ public class Simulation {
 	private static int round = 1;
 	private static int lifepoint = 150;
 	private static Timer time = new Timer();
-	private static ArrayList<monster> myTower = new ArrayList<>();
+	private static ArrayList<Monster> myTower = new ArrayList<>();
 	
 	public static void increaseMoney(int price) {
 		if ( price < 0 ) return;
@@ -47,13 +47,13 @@ public class Simulation {
 		Simulation.lifepoint = lifepoint;
 	}
 	
-	public void monsterIN(monster monster) {
+	public void monsterIN(Monster monster) {
 		myTower.add(monster);
 	}
 	
 	public void decreasehpTower() {
 		if ( myTower.isEmpty() ) return;
-		for ( monster m : myTower ) {
+		for ( Monster m : myTower ) {
 			if ( m.getClass().equals(soldier.class)) setLifepoint(getLifepoint()-m.getDlife());
 			if ( m.getClass().equals(boss.class)) setLifepoint(getLifepoint()-m.getDlife());
 		}

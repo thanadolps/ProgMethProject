@@ -7,7 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import level.Track;
 import utils.Utils;
 
-public class monster extends Entity {
+public class Monster extends Entity {
 
 	private int hp;
 	private int speed;
@@ -24,7 +24,7 @@ public class monster extends Entity {
 		this.dlife = dlife;
 	}
 
-	public monster(int hp, int speed) {
+	public Monster(int hp, int speed) {
 		super();
 		this.hp = hp;
 		this.speed = speed;
@@ -105,9 +105,9 @@ public class monster extends Entity {
 	}
 
 	public void takeDamage(Bullets bullets) {
-		if (bullets == Bullets.BURN)
+		if (bullets.getType().equals(BulletsType.Type.BURN))
 			setHp(getHp() - 50);
-		if (bullets == Bullets.FREEZE)
+		if (bullets.getType().equals(BulletsType.Type.FREEZE))
 			setSpeed(getSpeed() - 10);
 		setHp(getHp() - bullets.label);
 		GameMap.deleteBullets(bullets);

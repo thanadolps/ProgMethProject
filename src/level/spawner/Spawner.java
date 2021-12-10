@@ -1,7 +1,7 @@
 package level.spawner;
 
 import core.Tick;
-import entity.base.monster;
+import entity.base.Monster;
 import level.Track;
 
 import java.util.Arrays;
@@ -9,10 +9,10 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 public abstract class Spawner implements Tick {
-    Consumer<monster> onSpawn;
+    Consumer<Monster> onSpawn;
     Track track;
 
-    public void setOnSpawn(Consumer<monster> onSpawn) {
+    public void setOnSpawn(Consumer<Monster> onSpawn) {
         this.onSpawn = (monster) -> {
             if(this.track != null) {
                 monster.setTrack(this.track);
