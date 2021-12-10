@@ -3,6 +3,7 @@ package entity.game;
 import entity.base.Tower;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
+import javafx.util.Pair;
 
 public class type4 extends Tower{
 	//ยังนึกไม่ออกว่าเวล3จะเป็นอะไร
@@ -36,7 +37,7 @@ public class type4 extends Tower{
 	}
 
 	@Override
-	public void tick(Point2D pos, double dt) {
+	public void tick(Pair<Integer, Integer> pos, double dt) {
 
 	}
 

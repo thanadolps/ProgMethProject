@@ -3,7 +3,7 @@ package entity.game;
 import entity.base.Tower;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
-import logic.GameMap;
+import javafx.util.Pair;
 import logic.Simulation;
 
 public class type2 extends Tower {
@@ -29,7 +29,7 @@ public class type2 extends Tower {
 	public void sell() {
 		// TODO Auto-generated method stub
 		Simulation.increaseMoney(getPrice() / 10);
-		GameMap.delete(getX(), getY());
+		Main.game.getTowers().deleteTower(getX(), getY());
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class type2 extends Tower {
 	}
 
 	@Override
-	public void tick(Point2D pos, double dt) {
+	public void tick(Pair<Integer, Integer> pos, double dt) {
 
 	}
 
@@ -61,8 +61,7 @@ public class type2 extends Tower {
 		case 3:
 			Simulation.decreaseMoney(price);
 			Ice ice = new Ice(getSpeedatk() + 100, getAttack(), getPrice() + price, getX(), getY());
-			GameMap.delete(getX(), getY());
-			GameMap.addTower(getX(), getY(), ice);
+			Main.game.getTowers().setTower(getX(), getY(), ice);
 			return true;
 		default:
 			return false;
@@ -88,8 +87,7 @@ public class type2 extends Tower {
 		case 3:
 			Simulation.decreaseMoney(price);
 			Ice ice = new Ice(getSpeedatk() + 100, getAttack(), getPrice() + price, getX(), getY());
-			GameMap.delete(getX(), getY());
-			GameMap.addTower(getX(), getY(), ice);
+			Main.game.getTowers().setTower(getX(), getY(), ice);
 			return true;
 		default:
 			return false;

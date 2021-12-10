@@ -5,7 +5,7 @@ import core.Main;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import logic.GameMap;
+import javafx.util.Pair;
 import logic.Simulation;
 import utils.Utils;
 import java.lang.Math;
@@ -56,7 +56,7 @@ public abstract class Tower {
 	public void sell() {
 		// TODO Auto-generated method stub
 		Simulation.increaseMoney(getPrice() / 10);
-		GameMap.delete(getX(), getY());
+		Main.game.getTowers().deleteTower(getX(), getY());
 	}
 
 	public double range() {
@@ -103,11 +103,11 @@ public abstract class Tower {
 	}
 
 
-	public abstract void tick(Point2D pos, double dt);
+	public abstract void tick(Pair<Integer, Integer> pos, double dt);
 
 	protected abstract Image getSprite();
-	public void draw(Point2D pos, GraphicsContext gc, double dt) {
-		var px = Utils.grid2pixel(pos);
+	public void draw(Pair<Integer, Integer> pos, GraphicsContext gc, double dt) {
+		var px = Utils.grid2pixel(Utils.pair2point(pos));
 		var gridDim = Utils.getGridPixelDimension();
 		gc.drawImage(getSprite(), px.getX(), px.getY(), gridDim.getX(), gridDim.getY());
 	}

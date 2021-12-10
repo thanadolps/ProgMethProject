@@ -2,6 +2,7 @@ package utils;
 
 import core.Main;
 import javafx.geometry.Point2D;
+import javafx.util.Pair;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -37,5 +38,9 @@ public class Utils {
 
         GridDim = new Point2D(gridW, gridH);
         return GridDim;
+    }
+
+    public static Point2D pair2point(Pair<Integer, Integer> pair) {
+        return new Point2D(pair.getKey(), pair.getValue());
     }
 }
