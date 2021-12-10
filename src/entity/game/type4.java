@@ -1,10 +1,10 @@
 package entity.game;
 
-import entity.base.tower;
+import entity.base.Tower;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 
-public class type4 extends tower{
+public class type4 extends Tower{
 	//ยังนึกไม่ออกว่าเวล3จะเป็นอะไร
 
 	public type4(int speedatk, int attack, int price, int x, int y) {

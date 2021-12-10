@@ -1,13 +1,16 @@
 package entity.base;
 
+import core.Game;
+import core.Main;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import logic.GameMap;
 import logic.Simulation;
 import utils.Utils;
+import java.lang.Math;
 
-public abstract class tower {
+public abstract class Tower {
 
 	private int speedatk;
 	private int attack;
@@ -17,11 +20,13 @@ public abstract class tower {
 	private int y;
 	private int r;
 
-	public tower(int speedatk, int attack, int price) {
+	public Tower(int speedatk, int attack, int price , int x , int y) {
 		super();
 		this.speedatk = speedatk;
 		this.attack = attack;
 		this.price = price;
+		this.x = x;
+		this.y = y;
 		// GameMap.addTower(x, y, this);
 
 	}

@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import entity.base.Bullets;
-import entity.base.tower;
+import entity.base.Tower;
 
 public class GameMap {
 
-	private static ArrayList<ArrayList<tower>> maptower = new ArrayList<ArrayList<tower>>();
+	private static ArrayList<ArrayList<Tower>> maptower = new ArrayList<ArrayList<Tower>>();
 	private static ObservableList<Bullets> bullets = FXCollections.observableArrayList();
 	//ไม่รู้ว่าmonsterจะเก็บไว้ยังไงดี
 
@@ -22,7 +22,7 @@ public class GameMap {
 
 	public static void makeMap() {
 		for ( int i = 0 ; i<50 ; i++) {
-			ArrayList<tower> t = new ArrayList<>();
+			ArrayList<Tower> t = new ArrayList<>();
 			maptower.add(t);
 			for ( int j = 0 ; j<50 ; j++) {
 				maptower.get(i).add(null);
@@ -30,13 +30,13 @@ public class GameMap {
 		}
 	}
 	
-	public static void addTower(int x , int y, tower tower) {
-		ArrayList<tower> pos = maptower.get(y);
+	public static void addTower(int x , int y, Tower tower) {
+		ArrayList<Tower> pos = maptower.get(y);
 		pos.set(x, tower);
 	}
 	
 	public static void delete(int x ,int y) {
-		ArrayList<tower> pos = maptower.get(y);
+		ArrayList<Tower> pos = maptower.get(y);
 		pos.set(x,null);
 	}
 	
@@ -50,7 +50,7 @@ public class GameMap {
 		}
 	}
 
-	public static ArrayList<ArrayList<tower>> getMaptower() {
+	public static ArrayList<ArrayList<Tower>> getMaptower() {
 		return maptower;
 	}
 }

@@ -1,12 +1,12 @@
 package entity.game;
 
-import entity.base.tower;
+import entity.base.Tower;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import logic.GameMap;
 import logic.Simulation;
 
-public class type3 extends tower{
+public class type3 extends Tower{
 
 	public type3(int speedatk, int attack, int price,int x ,int y) {
 		super(speedatk, attack, price);

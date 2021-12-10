@@ -3,7 +3,7 @@ package core;
 import core.timing.Interval;
 import entity.base.Entity;
 import entity.base.Monster;
-import entity.base.tower;
+import entity.base.Tower;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.util.Pair;
@@ -186,4 +186,10 @@ public class Game implements Draw, Tick {
     public Level getCurrentLevel() {
         return currentLevel;
     }
+
+	public ArrayList<Monster> getMonsters() {
+		return monsters;
+	}
+    
+    
 }
