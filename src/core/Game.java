@@ -3,14 +3,13 @@ package core;
 import core.timing.Interval;
 import entity.base.Entity;
 import entity.base.Monster;
-import entity.base.tower;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.util.Pair;
 import level.Level;
 import level.Level1;
 import level.spawner.Spawner;
-import logic.GameMap;
+import logic.Towers;
 import utils.Utils;
 
 import java.io.IOException;
@@ -21,6 +20,7 @@ public class Game implements Draw, Tick {
     Level currentLevel;
     Spawner activeSpawner;
     ArrayList<Monster> monsters = new ArrayList<>();
+    Towers towers = new Towers();
     /**
      * <p>
      * Hashmap which map tile position to set of all active monster in that tile.
@@ -28,7 +28,7 @@ public class Game implements Draw, Tick {
      * </p>
      *
      * <p>
-     * In game, {@link Game#tick} (monsters.forEach part) and {@link Game#addMonster} method actively update this field
+     * In game, {@link Game#tickMonster} and {@link Game#addMonster} method actively update this field
      * to match actual position of monster every frame.
      * </p>
      */
@@ -55,16 +55,7 @@ public class Game implements Draw, Tick {
     }
 
     private void drawTower(GraphicsContext gc, double dt) {
-        var towers = GameMap.getMaptower();
-        for (int j = 0; j < towers.size(); j++) {
-            var row = towers.get(j);
-            for (int i = 0; i < row.size(); i++) {
-                var tower = row.get(i);
-                if(tower != null) {
-                    tower.draw(new Point2D(i, j), gc, dt);
-                }
-            }
-        }
+        towers.iterateTower((pos, tower) -> tower.draw(pos, gc, dt));
     }
 
     private void debugMonsterCount(GraphicsContext gc) {
@@ -121,8 +112,6 @@ public class Game implements Draw, Tick {
                 monstersMap.compute(pos2, (k, v) -> {
                     if (v == null) {
                         v = new HashSet<>();
-                        v.add(monster);
-                        return v;
                     }
                     v.add(monster);
                     return v;
@@ -132,16 +121,7 @@ public class Game implements Draw, Tick {
     }
 
     private void tickTower(double dt) {
-        var towers = GameMap.getMaptower();
-        for (int j = 0; j < towers.size(); j++) {
-            var row = towers.get(j);
-            for (int i = 0; i < row.size(); i++) {
-                var tower = row.get(i);
-                if(tower != null) {
-                    tower.tick(new Point2D(i, j), dt);
-                }
-            }
-        }
+        towers.iterateTower((pos, tower) -> tower.tick(pos, dt));
     }
 
     public void addEntity(Entity entity) {
@@ -185,5 +165,9 @@ public class Game implements Draw, Tick {
 
     public Level getCurrentLevel() {
         return currentLevel;
+    }
+
+    public Towers getTowers() {
+        return towers;
     }
 }

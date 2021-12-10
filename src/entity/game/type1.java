@@ -5,7 +5,7 @@ import core.Main;
 import entity.base.tower;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
-import logic.GameMap;
+import javafx.util.Pair;
 import logic.Simulation;
 import utils.Sprites;
 
@@ -23,18 +23,17 @@ public class type1 extends tower {
 
 	}
 
-
 	@Override
 	public Image getSprite() {
 		return Sprites.TowerSprite;
 	}
 
 	@Override
-	public void tick(Point2D pos, double dt) {
+	public void tick(Pair<Integer, Integer>  pos, double dt) {
 		// Testing code
 		// Make slow monster to the right of the tower dead
-		int x = (int)pos.getX();
-		int y = (int)pos.getY();
+		int x = pos.getKey();
+		int y = pos.getValue();
 
 		var monsters = Main.game.getMonstersAt(x+1, y);
 		for (var m : monsters) {
@@ -64,8 +63,7 @@ public class type1 extends tower {
 		case 3:
 			Simulation.decreaseMoney(price);
 			Fire fire = new Fire(getSpeedatk(), getAttack() + 100, getPrice() + price, getX(), getY());
-			GameMap.delete(getX(), getY());
-			GameMap.addTower(getX(), getY(), fire);
+			Main.game.getTowers().setTower(getX(), getY(), fire);
 			return true;
 		default:
 			return false;
@@ -96,8 +94,7 @@ public class type1 extends tower {
 		case 3:
 			Simulation.decreaseMoney(price);
 			Ice ice = new Ice(getSpeedatk() + 100, getAttack(), getPrice() + price, getX(), getY());
-			GameMap.delete(getX(), getY());
-			GameMap.addTower(getX(), getY(), ice);
+			Main.game.getTowers().setTower(getX(), getY(), ice);
 			return true;
 		default:
 			return false;

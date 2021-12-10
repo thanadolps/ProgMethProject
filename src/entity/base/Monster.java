@@ -1,7 +1,5 @@
 package entity.base;
 
-import logic.GameMap;
-
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import level.Track;
@@ -105,14 +103,14 @@ public class Monster extends Entity {
 	}
 
 	public void takeDamage(Bullets bullets) {
-		if (bullets.getType().equals(BulletsType.Type.BURN))
+		/*if (bullets.getType().equals(BulletsType.Type.BURN))
 			setHp(getHp() - 50);
 		if (bullets.getType().equals(BulletsType.Type.FREEZE))
 			setSpeed(getSpeed() - 10);
 		setHp(getHp() - bullets.label);
 		GameMap.deleteBullets(bullets);
 		if (isDead())
-			die(); // ลบตัวนั้นออกยังนึกไม่ออก
+			die(); // ลบตัวนั้นออกยังนึกไม่ออก*/
 	}
 
 	public double getX() {
