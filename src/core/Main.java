@@ -2,32 +2,42 @@ package core;
 
 import core.timing.FpsCounter;
 import core.timing.Interval;
+import entity.game.type1;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import ui.TowerButton;
+import ui.TowerSelectUI;
 import utils.InputUtils;
+import utils.Sprites;
 
 public class Main extends Application {
     public static Game game = new Game();
     public static Canvas canvas;
     public static InputUtils inputUtils;
+    public static TowerSelectUI towerSelectUI;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        var root = new Pane();
+        var root = new HBox();
         canvas = new Canvas();
-        canvas.setWidth(960);
-        canvas.setHeight(960);
-        root.getChildren().add(canvas);
+        towerSelectUI = new TowerSelectUI();
 
+        setupUI();
         setupGraphics(canvas.getGraphicsContext2D());
         inputUtils = new InputUtils(canvas);
+
+        root.getChildren().addAll(canvas, towerSelectUI);
 
         var scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -35,6 +45,13 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.sizeToScene();
         primaryStage.show();
+    }
+
+    private void setupUI() {
+        canvas.setWidth(960);
+        canvas.setHeight(960);
+
+        towerSelectUI.addTowerButton(new TowerButton(() -> new type1(0,0,0,0,0)));
     }
 
     private void setupGraphics(GraphicsContext gc) {

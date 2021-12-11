@@ -101,6 +101,10 @@ public abstract class Tower {
 	public abstract void tick(Pair<Integer, Integer> pos, double dt);
 
 	protected abstract Image getSprite();
+	public Image getIconSprite() {
+		return getSprite();
+	}
+
 	public void draw(Pair<Integer, Integer> pos, GraphicsContext gc, double dt) {
 		var px = Utils.grid2pixel(Utils.pair2point(pos));
 		var gridDim = Utils.getGridPixelDimension();
