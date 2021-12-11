@@ -78,6 +78,12 @@ public class Game implements Draw, Tick {
     }
 
     private void debugUFOOverlay(GraphicsContext gc) {
+        var _selected = Main.towerSelectUI.getSelected();
+        if(_selected.isEmpty()) {
+            return;
+        }
+        var selected = _selected.get();
+
         var grid= Main.inputUtils.mouse.getGridPos();
         int x = (int)(grid.getX());
         int y = (int)(grid.getY());
@@ -91,7 +97,13 @@ public class Game implements Draw, Tick {
 
         var oldAlpha= gc.getGlobalAlpha();
         gc.setGlobalAlpha(0.5);
-        gc.drawImage(Sprites.TowerSprite, px.getX(), px.getY(), gridDim.getX(), gridDim.getY());
+        gc.drawImage(
+                selected.getImageView().getImage(),
+                px.getX(),
+                px.getY(),
+                gridDim.getX(),
+                gridDim.getY()
+        );
         gc.setGlobalAlpha(oldAlpha);
     }
 
@@ -195,8 +207,10 @@ public class Game implements Draw, Tick {
         int y = (int)(gridPoint.getY());
 
         if(mouseEvent.getButton() == MouseButton.PRIMARY) {
-            if(currentLevel.getTileGrid().isTowerPlaceable(x, y)) {
-                towers.setTower(x, y, new entity.game.type1(1, 1, 1, 3, 0));
+            var selectedTowerButton = Main.towerSelectUI.getSelected();
+            if(selectedTowerButton.isPresent() && currentLevel.getTileGrid().isTowerPlaceable(x, y)) {
+                towers.setTower(x, y, selectedTowerButton.get().getFactory().get());
+                Main.towerSelectUI.deselect();
             }
         }
         else if(mouseEvent.getButton() == MouseButton.SECONDARY) {
