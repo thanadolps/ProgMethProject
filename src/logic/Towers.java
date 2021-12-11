@@ -1,12 +1,10 @@
 package logic;
 
+import entity.base.tower;
+import javafx.util.Pair;
+
 import java.util.ArrayList;
 import java.util.function.BiConsumer;
-
-import entity.base.Bullets;
-import entity.base.tower;
-import javafx.geometry.Point2D;
-import javafx.util.Pair;
 
 public class Towers {
 
@@ -14,8 +12,6 @@ public class Towers {
 
 	public Towers() {
 		makeMap();
-		// just for testing
-		setTower(5,3, new entity.game.type1(1,1,1, 3, 0));
 	}
 
 	public void makeMap() {

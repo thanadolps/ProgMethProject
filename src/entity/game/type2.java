@@ -2,7 +2,6 @@ package entity.game;
 
 import core.Main;
 import entity.base.tower;
-import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
 import logic.Simulation;

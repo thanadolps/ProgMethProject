@@ -4,7 +4,6 @@ import core.timing.FpsCounter;
 import core.timing.Interval;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.EventType;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -12,10 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 import utils.InputUtils;
-
-import java.util.HashMap;
 
 public class Main extends Application {
     public static Game game = new Game();

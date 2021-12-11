@@ -10,7 +10,6 @@ import utils.TileGrid;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Arrays;
 
 public class Level1 extends Level{
     TileGrid tileGrid = MapLoader.loadMap("level1");

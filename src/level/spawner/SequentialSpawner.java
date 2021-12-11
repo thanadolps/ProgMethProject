@@ -1,7 +1,5 @@
 package level.spawner;
 
-import java.util.ArrayList;
-
 public class SequentialSpawner extends Spawner {
     private final Spawner[] spawners;
     private int i = 0;
