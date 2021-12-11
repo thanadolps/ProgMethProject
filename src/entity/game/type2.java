@@ -1,12 +1,12 @@
 package entity.game;
 
 import core.Main;
-import entity.base.tower;
+import entity.base.Tower;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
 import logic.Simulation;
 
-public class type2 extends tower {
+public class type2 extends Tower {
 
 	// type2 ถ้าเวล 1,2 จะยังตีอะไรไม่ได้แต่ถ้าเวล 3 จะตีมอสได้ละ
 	private boolean wide = false;

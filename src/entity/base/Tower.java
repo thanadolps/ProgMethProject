@@ -7,7 +7,7 @@ import javafx.util.Pair;
 import logic.Simulation;
 import utils.Utils;
 
-public abstract class tower {
+public abstract class Tower {
 
 	private int speedatk;
 	private int attack;
@@ -17,7 +17,7 @@ public abstract class tower {
 	private int y;
 	private int r;
 
-	public tower(int speedatk, int attack, int price) {
+	public Tower(int speedatk, int attack, int price) {
 		super();
 		this.speedatk = speedatk;
 		this.attack = attack;
