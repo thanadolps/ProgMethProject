@@ -70,7 +70,7 @@ public class Game implements Draw, Tick {
     }
 
     private void drawTowerPlacement(GraphicsContext gc) {
-        var _selected = Main.towerSelectUI.getSelected();
+        var _selected = Main.sidebar.getTowerSelectUI().getSelected();
         if(_selected.isEmpty()) {
             return;
         }
@@ -177,16 +177,21 @@ public class Game implements Draw, Tick {
         int y = (int)(gridPoint.getY());
 
         if(mouseEvent.getButton() == MouseButton.PRIMARY) {
-            var selectedTowerButton = Main.towerSelectUI.getSelected();
+            var selectedTowerButton = Main.sidebar.getTowerSelectUI().getSelected();
             if(selectedTowerButton.isPresent() && currentLevel.getTileGrid().isTowerPlaceable(x, y)) {
                 towers.setTower(x, y, selectedTowerButton.get().getFactory().get());
-                Main.towerSelectUI.deselect();
+                Main.sidebar.getTowerSelectUI().deselect();
                 return;
             }
-            towers.select(x, y);
-        }
-        else if(mouseEvent.getButton() == MouseButton.SECONDARY) {
-            towers.deleteTower(x, y);
+
+            boolean isSelect = towers.select(x, y);
+            if(isSelect) {
+                Main.sidebar.getTowerInfoUI().seeTower(x, y);
+            }
+            else {
+                Main.sidebar.getTowerInfoUI().unseeTower();
+            }
+
         }
     }
 

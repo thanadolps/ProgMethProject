@@ -19,6 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import ui.Sidebar;
 import ui.TowerButton;
 import ui.TowerSelectUI;
 import utils.InputUtils;
@@ -28,19 +29,19 @@ public class Main extends Application {
     public static Game game = new Game();
     public static Canvas canvas;
     public static InputUtils inputUtils;
-    public static TowerSelectUI towerSelectUI;
+    public static Sidebar sidebar;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         var root = new HBox();
         canvas = new Canvas();
-        towerSelectUI = new TowerSelectUI();
+        sidebar = new Sidebar();
 
         setupUI();
         setupGraphics(canvas.getGraphicsContext2D());
         inputUtils = new InputUtils(canvas);
 
-        root.getChildren().addAll(canvas, towerSelectUI);
+        root.getChildren().addAll(canvas, sidebar);
 
         var scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -54,6 +55,7 @@ public class Main extends Application {
         canvas.setWidth(960);
         canvas.setHeight(960);
 
+        var towerSelectUI = sidebar.getTowerSelectUI();
         towerSelectUI.addTowerButton(new TowerButton(TestTower1::new));
         towerSelectUI.addTowerButton(new TowerButton(TestTower2::new));
     }
