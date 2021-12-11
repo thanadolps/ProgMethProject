@@ -20,6 +20,8 @@ public class TowerButton extends Button {
         this.factory = factory;
         this.imageView = new ImageView(sprite);
 
+        this.imageView.setFitWidth(100);
+        this.imageView.setFitHeight(100);
         this.setGraphic(imageView);
     }
 
