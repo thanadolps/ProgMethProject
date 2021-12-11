@@ -46,6 +46,8 @@ public class Main extends Application {
         double h = gc.getCanvas().getHeight();
         gc.setFill(Color.BLACK);
 
+        gc.getCanvas().addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> game.handleClick(mouseEvent));
+
         new AnimationTimer() {
             long prevNano = System.nanoTime();
 
