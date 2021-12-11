@@ -2,7 +2,10 @@ package core;
 
 import core.timing.FpsCounter;
 import core.timing.Interval;
+import entity.game.experiment.TestTower1;
+import entity.game.experiment.TestTower2;
 import entity.game.type1;
+import entity.game.type2;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -51,7 +54,8 @@ public class Main extends Application {
         canvas.setWidth(960);
         canvas.setHeight(960);
 
-        towerSelectUI.addTowerButton(new TowerButton(() -> new type1(0,0,0,0,0)));
+        towerSelectUI.addTowerButton(new TowerButton(TestTower1::new));
+        towerSelectUI.addTowerButton(new TowerButton(TestTower2::new));
     }
 
     private void setupGraphics(GraphicsContext gc) {
