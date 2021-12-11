@@ -12,7 +12,6 @@ import level.Level;
 import level.Level1;
 import level.spawner.Spawner;
 import logic.Towers;
-import utils.Sprites;
 import utils.Utils;
 
 import java.io.IOException;
@@ -57,27 +56,20 @@ public class Game implements Draw, Tick {
         this.drawTower(gc, dt);
 
         // debugMonsterCount(gc);
-        debugUFOOverlay(gc);
+        drawTowerPlacement(gc);
+
     }
 
     private void drawTower(GraphicsContext gc, double dt) {
         towers.iterateTower((pos, tower) -> tower.draw(pos, gc, dt));
+        towers.getSelectedPosition().ifPresent(pos ->
+            towers.getTower(pos.getKey(), pos.getValue()).ifPresent(tower ->
+                tower.drawOverlay(pos, gc, dt)
+            )
+        );
     }
 
-    private void debugMonsterCount(GraphicsContext gc) {
-        var grid = getCurrentLevel().getTileGrid();
-        for (int j = 0; j < grid.getIndexHeight(); j++) {
-            for (int i = 0; i < grid.getIndexWidth(); i++) {
-                var px = Utils.grid2pixel(new Point2D(i, j));
-
-                gc.fillText(Integer.toString(getMonstersAt(i, j).size()), px.getX(), px.getY());
-            }
-        }
-
-        gc.fillText(Integer.toString(monsters.size()),  gc.getCanvas().getWidth()-24, 24);
-    }
-
-    private void debugUFOOverlay(GraphicsContext gc) {
+    private void drawTowerPlacement(GraphicsContext gc) {
         var _selected = Main.towerSelectUI.getSelected();
         if(_selected.isEmpty()) {
             return;
@@ -88,7 +80,7 @@ public class Game implements Draw, Tick {
         int x = (int)(grid.getX());
         int y = (int)(grid.getY());
 
-        if(!currentLevel.getTileGrid().isTowerPlaceable(x, y)) {
+        if(!Main.game.getCurrentLevel().getTileGrid().isTowerPlaceable(x, y)) {
             return;
         }
 
@@ -106,6 +98,20 @@ public class Game implements Draw, Tick {
         );
         gc.setGlobalAlpha(oldAlpha);
     }
+
+    private void debugMonsterCount(GraphicsContext gc) {
+        var grid = getCurrentLevel().getTileGrid();
+        for (int j = 0; j < grid.getIndexHeight(); j++) {
+            for (int i = 0; i < grid.getIndexWidth(); i++) {
+                var px = Utils.grid2pixel(new Point2D(i, j));
+
+                gc.fillText(Integer.toString(getMonstersAt(i, j).size()), px.getX(), px.getY());
+            }
+        }
+
+        gc.fillText(Integer.toString(monsters.size()),  gc.getCanvas().getWidth()-24, 24);
+    }
+
 
     @Override
     public void tick(double dt) {
@@ -162,6 +168,29 @@ public class Game implements Draw, Tick {
         towers.iterateTower((pos, tower) -> tower.tick(pos, dt));
     }
 
+
+    public void handleClick(MouseEvent mouseEvent) {
+        var mx = mouseEvent.getX();
+        var my = mouseEvent.getY();
+        var gridPoint = Utils.pixel2grid(new Point2D(mx, my));
+        int x = (int)(gridPoint.getX());
+        int y = (int)(gridPoint.getY());
+
+        if(mouseEvent.getButton() == MouseButton.PRIMARY) {
+            var selectedTowerButton = Main.towerSelectUI.getSelected();
+            if(selectedTowerButton.isPresent() && currentLevel.getTileGrid().isTowerPlaceable(x, y)) {
+                towers.setTower(x, y, selectedTowerButton.get().getFactory().get());
+                Main.towerSelectUI.deselect();
+                return;
+            }
+            towers.select(x, y);
+        }
+        else if(mouseEvent.getButton() == MouseButton.SECONDARY) {
+            towers.deleteTower(x, y);
+        }
+    }
+
+
     public void addMonster(Monster monster) {
         monsters.add(monster);
 
@@ -196,26 +225,6 @@ public class Game implements Draw, Tick {
      */
     public Set<Monster> getMonstersAt(Pair<Integer, Integer> pos) {
         return Objects.requireNonNullElseGet(monstersMap.get(pos), HashSet::new);
-    }
-
-
-    public void handleClick(MouseEvent mouseEvent) {
-        var mx = mouseEvent.getX();
-        var my = mouseEvent.getY();
-        var gridPoint = Utils.pixel2grid(new Point2D(mx, my));
-        int x = (int)(gridPoint.getX());
-        int y = (int)(gridPoint.getY());
-
-        if(mouseEvent.getButton() == MouseButton.PRIMARY) {
-            var selectedTowerButton = Main.towerSelectUI.getSelected();
-            if(selectedTowerButton.isPresent() && currentLevel.getTileGrid().isTowerPlaceable(x, y)) {
-                towers.setTower(x, y, selectedTowerButton.get().getFactory().get());
-                Main.towerSelectUI.deselect();
-            }
-        }
-        else if(mouseEvent.getButton() == MouseButton.SECONDARY) {
-            towers.deleteTower(x, y);
-        }
     }
 
     public Level getCurrentLevel() {

@@ -111,4 +111,13 @@ public abstract class Tower {
 		gc.drawImage(getSprite(), px.getX(), px.getY(), gridDim.getX(), gridDim.getY());
 	}
 
+	public void drawOverlay(Pair<Integer, Integer> pos, GraphicsContext gc, double dt) {
+		var px = Utils.grid2pixel(pos.getKey(), pos.getValue());
+		var gridDim = Utils.getGridPixelDimension();
+
+		var oldAlpha = gc.getGlobalAlpha();
+		gc.setGlobalAlpha(0.5);
+		gc.fillOval(px.getX(), px.getY(), gridDim.getX(), gridDim.getY());
+		gc.setGlobalAlpha(oldAlpha);
+	}
 }
