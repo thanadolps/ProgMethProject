@@ -23,23 +23,11 @@ public class type1 extends Tower {
 
 	@Override
 	public Image getSprite() {
-		return Sprites.TowerSprite;
+		return null;
 	}
 
 	@Override
 	public void tick(Pair<Integer, Integer>  pos, double dt) {
-		// Testing code
-		// Make slow monster to the right of the tower dead
-		int x = pos.getKey();
-		int y = pos.getValue();
-
-		var monsters = Main.game.getMonstersAt(x+1, y);
-		for (var m : monsters) {
-			if(m.getSpeed() < 15) {
-				m.die();
-			}
-		}
-
 	}
 
 	@Override
