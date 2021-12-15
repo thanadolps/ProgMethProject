@@ -1,6 +1,9 @@
 package entity.game.experiment;
 
 import core.Main;
+import entity.base.Bullets;
+import entity.base.BulletsType;
+import entity.base.Monster;
 import entity.base.Tower;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -29,8 +32,17 @@ public class TestTower1 extends Tower {
 
     @Override
     public void attack() {
-
+        // TODO Auto-generated method stub
+        BulletsType type = this.getType();
+        Monster m = findMonster();
+        if (m == null)
+            return;
+        Bullets b = new Bullets(this.getX(), this.getY(), this.getAttack(), type, m);
+        // ต้องใช้ tick ไหม
+        Main.game.addBullet(b);
     }
+
+
 
     @Override
     public void tick(Pair<Integer, Integer> pos, double dt) {
@@ -42,7 +54,7 @@ public class TestTower1 extends Tower {
         var monsters = Main.game.getMonstersAt(x+1, y);
         for (var m : monsters) {
             if(m.getSpeed() < 15) {
-                m.die();
+                attack();
             }
         }
     }
@@ -60,6 +72,16 @@ public class TestTower1 extends Tower {
         gc.fillRect(px.getX(), px.getY(), gridDim.getX(), gridDim.getY());
 
         gc.restore();
+    }
+
+    @Override
+    public int upgradePrice_lsh() {
+        return 0;
+    }
+
+    @Override
+    public int upgraderPrice_rsh() {
+        return 0;
     }
 
     @Override

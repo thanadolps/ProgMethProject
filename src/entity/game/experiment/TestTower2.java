@@ -62,6 +62,16 @@ public class TestTower2 extends Tower {
     }
 
     @Override
+    public int upgradePrice_lsh() {
+        return 0;
+    }
+
+    @Override
+    public int upgraderPrice_rsh() {
+        return 0;
+    }
+
+    @Override
     protected Image getSprite() {
         return Sprites.Tower2Sprite;
     }

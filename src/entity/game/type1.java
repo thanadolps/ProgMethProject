@@ -22,8 +22,8 @@ public class type1 extends Tower {
 		// TODO Auto-generated constructor stub
 	}
 
-	public type1(type1 type1) {
-		this(type1.getSpeedatk(), type1.getAttack(), type1.getPrice(), type1.getX(), type1.getY());
+	public type1(type1 other) {
+		this(other.getSpeedatk(), other.getAttack(), other.getPrice(), other.getX(), other.getY());
 	}
 
 	@Override
@@ -50,24 +50,24 @@ public class type1 extends Tower {
 	@Override
 	public Optional<Tower> get_upgrade_lsh() {
 		// TODO Auto-generated method stub
+		var new_price = getPrice() + upgradePrice_lsh();
+		var tower = new type1(this);
 		switch (getLevel()) {
 			case 1:
-				var tower = new type1(this);
-				tower.setPrice(getPrice() + price);
+				tower.setPrice(new_price);
 				tower.setSpeedatk(getSpeedatk() + 100);
 				tower.setLevel(getLevel() + 1);
 				return Optional.of(tower);
 			case 2:
-				setPrice(getPrice() + price);
-				setAttack(getAttack() + 100);
-				setLevel(getLevel() + 1);
-				return true;
+				tower.setPrice(new_price);
+				tower.setAttack(getAttack() + 100);
+				tower.setLevel(getLevel() + 1);
+				return Optional.of(tower);
 			case 3:
-				Fire fire = new Fire(getSpeedatk(), getAttack() + 100, getPrice() + price, getX(), getY());
-				Main.game.getTowers().setTower(getX(), getY(), fire);
-				return true;
+				Fire fire = new Fire(getSpeedatk(), getAttack() + 100, new_price, getX(), getY());
+				return Optional.of(fire);
 			default:
-				return false;
+				return Optional.empty();
 		}
 	}
 
@@ -77,30 +77,26 @@ public class type1 extends Tower {
 	}
 
 	@Override
-	public boolean upgrade_rsh(int price) {
+	public Optional<Tower> get_upgrade_rsh() {
 		// TODO Auto-generated method stub
-		if (Simulation.getMoney() < price)
-			return false;
+		var new_price = getPrice() + upgraderPrice_rsh();
+		var tower = new type1(this);
 		switch (getLevel()) {
 			case 1:
-				Simulation.decreaseMoney(price);
-				setPrice(getPrice() + price);
-				setR(getR() + 1);
-				setLevel(getLevel() + 1);
-				return true;
+				tower.setPrice(new_price);
+				tower.setR(getR() + 1);
+				tower.setLevel(getLevel() + 1);
+				return Optional.of(tower);
 			case 2:
-				Simulation.decreaseMoney(price);
-				setPrice(getPrice() + price);
-				setR(getR() + 1);
-				setLevel(getLevel() + 1);
-				return true;
+				tower.setPrice(new_price);
+				tower.setR(getR() + 1);
+				tower.setLevel(getLevel() + 1);
+				return Optional.of(tower);
 			case 3:
-				Simulation.decreaseMoney(price);
-				Ice ice = new Ice(getSpeedatk() + 100, getAttack(), getPrice() + price, getX(), getY());
-				Main.game.getTowers().setTower(getX(), getY(), ice);
-				return true;
+				Ice ice = new Ice(getSpeedatk() + 100, getAttack(), new_price, getX(), getY());
+				return Optional.of(ice);
 			default:
-				return false;
+				return Optional.empty();
 		}
 	}
 

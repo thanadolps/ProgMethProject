@@ -11,6 +11,8 @@ import javafx.scene.image.Image;
 import javafx.util.Pair;
 import logic.Simulation;
 
+import java.util.Optional;
+
 public class type3 extends Tower {
 
 	public type3(int speedatk, int attack, int price, int x, int y) {
@@ -20,59 +22,55 @@ public class type3 extends Tower {
 		// TODO Auto-generated constructor stub
 	}
 
+	public type3(type3 other) {
+		this(other.getSpeedatk(), other.getAttack(), other.getPrice(), other.getX(), other.getY());
+	}
+
 	@Override
-	public boolean upgrade_lsh(int price) {
+	public Optional<Tower> get_upgrade_lsh() {
 		// TODO Auto-generated method stub
-		if (Simulation.getMoney() < price)
-			return false;
+		var new_price = getPrice() + upgradePrice_lsh();
+		var tower = new type3(this);
 		switch (getLevel()) {
 			case 1:
-				Simulation.decreaseMoney(price);
-				setPrice(getPrice() + price);
-				setSpeedatk(getSpeedatk() + 100);
-				setLevel(getLevel() + 1);
-				return true;
+				tower.setPrice(new_price);
+				tower.setSpeedatk(getSpeedatk() + 100);
+				tower.setLevel(getLevel() + 1);
+				return Optional.of(tower);
 			case 2:
-				Simulation.decreaseMoney(price);
-				setPrice(getPrice() + price);
-				setAttack(getSpeedatk() + 100);
-				setLevel(getLevel() + 1);
-				return true;
+				tower.setPrice(new_price);
+				tower.setAttack(getSpeedatk() + 100);
+				tower.setLevel(getLevel() + 1);
+				return Optional.of(tower);
 			case 3:
-				Simulation.decreaseMoney(price);
-				Laser l = new Laser(getSpeedatk() + 100, getAttack(), getPrice() + price, getX(), getY());
-				Main.game.getTowers().setTower(getX(), getY(), l);
-				return true;
+				Laser l = new Laser(getSpeedatk() + 100, getAttack(), new_price, getX(), getY());
+				return Optional.of(l);
 			default:
-				return false;
+				return Optional.empty();
 		}
 	}
 
 	@Override
-	public boolean upgrade_rsh(int price) {
+	public Optional<Tower> get_upgrade_rsh() {
 		// TODO Auto-generated method stub
-		if (Simulation.getMoney() < price)
-			return false;
+		var new_price = getPrice() + upgradePrice_lsh();
+		var tower = new type3(this);
 		switch (getLevel()) {
 			case 1:
-				Simulation.decreaseMoney(price);
-				setPrice(getPrice() + price);
-				setR(getR() + 1);
-				setLevel(getLevel() + 1);
-				return true;
+				tower.setPrice(new_price);
+				tower.setR(getR() + 1);
+				tower.setLevel(getLevel() + 1);
+				return Optional.of(tower);
 			case 2:
-				Simulation.decreaseMoney(price);
-				setPrice(getPrice() + price);
-				setR(getR() + 1);
-				setLevel(getLevel() + 1);
-				return true;
+				tower.setPrice(new_price);
+				tower.setR(getR() + 1);
+				tower.setLevel(getLevel() + 1);
+				return Optional.of(tower);
 			case 3:
-				Simulation.decreaseMoney(price);
-				Boom b = new Boom(getSpeedatk() + 100, getAttack(), getPrice() + price, getX(), getY());
-				Main.game.getTowers().setTower(getX(), getY(), b);
-				return true;
+				Boom b = new Boom(getSpeedatk() + 100, getAttack(), new_price, getX(), getY());
+				return Optional.of(b);
 			default:
-				return false;
+				return Optional.empty();
 		}
 	}
 
