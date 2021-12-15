@@ -161,4 +161,9 @@ public abstract class Tower {
 		gc.fillOval(px.getX(), px.getY(), gridDim.getX(), gridDim.getY());
 		gc.setGlobalAlpha(oldAlpha);
 	}
+	
+	public abstract int upgradePrice_lsh();
+	
+	public abstract int upgraderPrice_rsh();
+	
 }

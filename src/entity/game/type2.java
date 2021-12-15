@@ -117,4 +117,34 @@ public class type2 extends Tower {
 
 	}
 
+	@Override
+	public int upgradePrice_lsh() {
+		// TODO Auto-generated method stub
+		switch ( getLevel() ) {
+		case 1: 
+			return 150;
+		case 2:
+			return 300;
+		case 3:
+			return 600;
+		default:
+			return 0;
+		}
+	}
+
+	@Override
+	public int upgraderPrice_rsh() {
+		// TODO Auto-generated method stub
+		switch ( getLevel() ) {
+		case 1: 
+			return 150;
+		case 2:
+			return 250;
+		case 3:
+			return 550;
+		default:
+			return 0;
+		}
+	}
+
 }
