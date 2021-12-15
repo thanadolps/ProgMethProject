@@ -2,7 +2,15 @@ package entity.base;
 
 import core.Game;
 import core.Main;
+import entity.game.Boom;
+import entity.game.Farm;
+import entity.game.Fire;
+import entity.game.Ice;
+import entity.game.Laser;
 import entity.game.Strength;
+import entity.game.type1;
+import entity.game.type2;
+import entity.game.type3;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -165,5 +173,17 @@ public abstract class Tower {
 	public abstract int upgradePrice_lsh();
 	
 	public abstract int upgraderPrice_rsh();
+	
+	public String getName(Tower t) {
+		if ( t.equals(Fire.class) ) return "Fire";
+		else if ( t.equals(Ice.class) ) return "Ice";
+		else if ( t.equals(Boom.class) ) return "Boom";
+		else if ( t.equals(Laser.class) ) return "Laser";
+		else if ( t.equals(Farm.class) ) return "Farm";
+		else if ( t.equals(Strength.class) ) return "Strength";
+		else if ( t.equals(type1.class) ) return "Base Tower Type 1";
+		else if ( t.equals(type2.class) ) return "Base Tower Type 2";
+		else return "Base Tower Type 3";
+	}
 	
 }
