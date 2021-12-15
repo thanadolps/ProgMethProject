@@ -9,15 +9,20 @@ import logic.Towers;
 
 public class TowerInfoUI extends TextFlow {
     Text mainText;
+    Text description;
     Button deleteBtn;
+    Button upgradeLeft = new Button();
+    Button upgradeRight = new Button();
 
     int towerX;
     int towerY;
 
     public TowerInfoUI() {
         mainText = new Text();
+        description = new Text();
         deleteBtn = new Button("DELETE");
         getChildren().addAll(mainText, deleteBtn);
+        getChildren().addAll(upgradeLeft, upgradeRight);
         unseeTower();
     }
 
@@ -35,9 +40,20 @@ public class TowerInfoUI extends TextFlow {
         var tower = _tower.get();
 
         mainText.setText(tower.toString());
+        description.setText("Tower description Na.");
         deleteBtn.setOnAction(ev -> {
             towers.deleteTower(x, y);
             unseeTower();
+        });
+
+        upgradeLeft.setText("UPGRADE to TowerA");
+        upgradeLeft.setOnAction(ev -> {
+            System.out.println("Tower upgrade left da");
+        });
+
+        upgradeRight.setText("UPGRADE to TowerB");
+        upgradeRight.setOnAction(ev -> {
+            System.out.println("Tower upgrade right da");
         });
     }
 
