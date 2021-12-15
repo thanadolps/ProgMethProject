@@ -186,4 +186,12 @@ public abstract class Tower {
 		else return "Base Tower Type 3";
 	}
 	
+	public String getBulletsType(Tower t) {
+		if ( t.getType().equals(BulletsType.BURN) ) return "BURN";
+		else if ( t.getType().equals(BulletsType.FREEZE) ) return "FREEZE";
+		else if ( t.getType().equals(BulletsType.PIERCE) ) return "LASER";
+		else if ( t.getType().equals(BulletsType.NORMAL) ) return "NORMAL TYPE";
+		else return "NULL";
+	}
+	
 }
