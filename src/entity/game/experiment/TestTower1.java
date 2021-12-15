@@ -12,7 +12,7 @@ import utils.Utils;
 
 public class TestTower1 extends Tower {
     public TestTower1() {
-        super(0,0,0);
+        super(0,0,0,0,0);
     }
 
     @Override

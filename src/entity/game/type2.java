@@ -69,7 +69,7 @@ public class type2 extends Tower {
 		case 1:
 			Simulation.decreaseMoney(price);
 			setPrice(getPrice() + price);
-			setSpeedatk(getSpeedatk()+100)
+			setSpeedatk(getSpeedatk()+100);
 			setLevel(getLevel()+1);
 			return true;
 		case 2:

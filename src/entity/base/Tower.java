@@ -113,17 +113,19 @@ public abstract class Tower {
 	}
 
 	public void inRangetype2() {
-		for (Tower t : Main.game.getTowers().getTower(x, y, null)) {
+		Main.game.getTowers().iterateTower((t, tower) -> {
 			for (Strength s : Simulation.getStrength()) {
-				double dx = t.getX() - s.getX();
-				double dy = t.getY() - s.getY();
+				double x = t.getKey();
+				double y = t.getValue();
+				double dx = x - s.getX();
+				double dy = y - s.getY();
 				double r = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 				if (r < s.getR()) {
-					t.setAttack(t.getAttack() + 100);
+					tower.setAttack(tower.getAttack() + 100);
 					return;
 				}
 			}
-		}
+		});
 	}
 
 	public int getR() {
@@ -138,7 +140,7 @@ public abstract class Tower {
 
 	public abstract void tick(Pair<Integer, Integer> pos, double dt);
 
-	protected abstract Image getSprite();<<<<<<<HEAD:src/entity/base/tower.java
+	protected abstract Image getSprite();
 
 	public Image getIconSprite() {
 		return getSprite();

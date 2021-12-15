@@ -11,7 +11,7 @@ import utils.Utils;
 
 public class TestTower2 extends Tower {
     public TestTower2() {
-        super(0,0,0);
+        super(0,0,0,0,0);
     }
 
     @Override
