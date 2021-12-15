@@ -1,6 +1,7 @@
 package core;
 
 import core.timing.Interval;
+import entity.base.Bullets;
 import entity.base.Entity;
 import entity.base.Monster;
 import entity.base.Tower;
@@ -21,6 +22,7 @@ public class Game implements Draw, Tick {
     Level currentLevel;
     Spawner activeSpawner;
     ArrayList<Monster> monsters = new ArrayList<>();
+    ArrayList<Bullets> bullets = new ArrayList<>();
     Towers towers = new Towers();
     /**
      * <p>
@@ -40,7 +42,7 @@ public class Game implements Draw, Tick {
             currentLevel = new Level1();
             System.out.println(currentLevel);
             activeSpawner = currentLevel.nextSpawner();
-            activeSpawner.setOnSpawn(this::addEntity);
+            activeSpawner.setOnSpawn(this::addMonster);
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
@@ -49,6 +51,7 @@ public class Game implements Draw, Tick {
     @Override
     public void draw(GraphicsContext gc, double dt) {
         currentLevel.getTileGrid().draw(gc, dt);
+        bullets.forEach(bullet -> {if(!bullet.isDestroyed()) bullet.draw(gc, dt);});
         monsters.forEach(monster -> monster.draw(gc, dt));
         this.drawTower(gc, dt);
 
@@ -77,15 +80,17 @@ public class Game implements Draw, Tick {
         if(activeSpawner.isDone()) {
             System.out.println("DONE");
             activeSpawner = currentLevel.nextSpawner();
-            activeSpawner.setOnSpawn(this::addEntity);
+            activeSpawner.setOnSpawn(this::addMonster);
         }
         activeSpawner.tick(dt);
 
         this.tickTower(dt);
+        bullets.forEach(bullet -> {if(!bullet.isDestroyed()) bullet.tick(dt);});
         this.tickMonster(dt);
 
         // TODO: decrease freq of remove
         monsters.removeIf(Entity::isDestroyed);
+        bullets.removeIf(Entity::isDestroyed);
     }
 
     private void tickMonster(double dt) {
@@ -125,19 +130,16 @@ public class Game implements Draw, Tick {
         towers.iterateTower((pos, tower) -> tower.tick(pos, dt));
     }
 
-    public void addEntity(Entity entity) {
-        System.out.println("Adding " + entity);
-        if(entity instanceof Monster) {
-            this.addMonster((Monster)(entity));
-        }
-    }
-
     public void addMonster(Monster monster) {
         monsters.add(monster);
 
         var pos = new Pair<>((int)monster.getX(), (int)monster.getY());
         monstersMap.putIfAbsent(pos, new HashSet<>());
         monstersMap.get(pos).add(monster);
+    }
+
+    public void addBullet(Bullets bullet) {
+        bullets.add(bullet);
     }
 
     /**
@@ -176,5 +178,9 @@ public class Game implements Draw, Tick {
 
     public Towers getTowers() {
         return towers;
+    }
+
+    public ArrayList<Bullets> getBullets() {
+        return bullets;
     }
 }
