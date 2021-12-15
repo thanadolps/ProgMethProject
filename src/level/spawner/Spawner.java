@@ -4,8 +4,6 @@ import core.Tick;
 import entity.base.Monster;
 import level.Track;
 
-import java.util.Arrays;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 public abstract class Spawner implements Tick {

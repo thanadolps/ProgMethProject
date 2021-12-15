@@ -19,7 +19,7 @@ public class Simulation {
 	private static ArrayList<Monster> myTower = new ArrayList<>();
 	private static ArrayList<Strength> strength = new ArrayList<>();
 	private static ArrayList<Farm> farm = new ArrayList<>();
-	
+
 	public static ArrayList<Farm> getFarm() {
 		return farm;
 	}
@@ -29,13 +29,15 @@ public class Simulation {
 	}
 
 	public static void increaseMoney(int price) {
-		if ( price < 0 ) return;
-		setMoney(getMoney()+price);
+		if (price < 0)
+			return;
+		setMoney(getMoney() + price);
 	}
-	
+
 	public static void decreaseMoney(int price) {
-		if ( price > getMoney() ) return;
-		setMoney(getMoney()-price);
+		if (price > getMoney())
+			return;
+		setMoney(getMoney() - price);
 	}
 
 	public static int getMoney() {
@@ -43,12 +45,14 @@ public class Simulation {
 	}
 
 	public static void setMoney(int price) {
-		if ( money < 0 ) money = 0;
-		else money = price;
+		if (money < 0)
+			money = 0;
+		else
+			money = price;
 	}
-	
+
 	public static void nextRound() {
-		//จับเวลาเวลาแต่ละroundเท่ากัน และมีช่วงพักระหว่างroundปมสามถึงสี่วิ
+		// จับเวลาเวลาแต่ละroundเท่ากัน และมีช่วงพักระหว่างroundปมสามถึงสี่วิ
 	}
 
 	public static int getLifepoint() {
@@ -58,29 +62,33 @@ public class Simulation {
 	public static void setLifepoint(int lifepoint) {
 		Simulation.lifepoint = lifepoint;
 	}
-	
+
 	public void monsterIN(Monster monster) {
 		myTower.add(monster);
 	}
-	
+
 	public void decreasehpTower() {
-		if ( myTower.isEmpty() ) return;
-		for ( Monster m : myTower ) {
-			if ( m.getClass().equals(soldier.class)) setLifepoint(getLifepoint()-m.getDlife());
-			if ( m.getClass().equals(boss.class)) setLifepoint(getLifepoint()-m.getDlife());
+		if (myTower.isEmpty())
+			return;
+		for (Monster m : myTower) {
+			if (m.getClass().equals(soldier.class))
+				setLifepoint(getLifepoint() - m.getDlife());
+			if (m.getClass().equals(boss.class))
+				setLifepoint(getLifepoint() - m.getDlife());
 		}
 		myTower.clear();
 	}
-	
+
 	public boolean getLose() {
-		if ( getLifepoint() < 0 ) return false;
+		if (getLifepoint() < 0)
+			return false;
 		return true;
 	}
-	
+
 	public void produce() {
-		for ( Farm f : farm ) {
+		for (Farm f : farm) {
 			increaseMoney(100);
 		}
 	}
-	
+
 }

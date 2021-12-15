@@ -20,7 +20,7 @@ public abstract class Tower {
 	private int x;
 	private int y;
 	private int r;
-	private BulletsType type ;
+	private BulletsType type;
 
 	public BulletsType getType() {
 		return type;
@@ -30,7 +30,7 @@ public abstract class Tower {
 		this.type = type;
 	}
 
-	public Tower(int speedatk, int attack, int price , int x , int y) {
+	public Tower(int speedatk, int attack, int price, int x, int y) {
 		super();
 		this.speedatk = speedatk;
 		this.attack = attack;
@@ -38,7 +38,6 @@ public abstract class Tower {
 		this.x = x;
 		this.y = y;
 		// GameMap.addTower(x, y, this);
-
 	}
 
 	public int getX() {
@@ -70,19 +69,20 @@ public abstract class Tower {
 	}
 
 	public Monster findMonster() {
-		double min = Double.MAX_VALUE ;
+		double min = Double.MAX_VALUE;
 		Monster save = null;
-		for ( Monster m : Main.game.getMonsters() ) {
-			double distance = Math.sqrt(Math.pow(m.getX()-getX(),2)+Math.pow(m.getY()-getY(),2));
-			if ( distance < min && distance < getR() ) {
-					min = distance;
-					save = m;
-				}
+		for (Monster m : Main.game.getMonsters()) {
+			double distance = Math.sqrt(Math.pow(m.getX() - getX(), 2) + Math.pow(m.getY() - getY(), 2));
+			if (distance < min && distance < getR()) {
+				min = distance;
+				save = m;
 			}
-		if ( save.equals(null) ) return null;
-		return save;
 		}
-	
+		if (save.equals(null))
+			return null;
+		return save;
+	}
+
 	public double range() {
 		double area = Math.PI * getR() * getR();
 		return area;
@@ -113,19 +113,18 @@ public abstract class Tower {
 	}
 
 	public void inRangetype2() {
-		for ( Tower t : Main.game.getTowers().getTower(x, y, null) ) {
-			for ( Strength s : Simulation.getStrength() ) {
-				double dx = t.getX()-s.getX();
-				double dy = t.getY()-s.getY();
-				double r = Math.sqrt(Math.pow(dx, 2)+Math.pow(dy, 2));
-				if ( r < s.getR() ) {
-					t.setAttack(t.getAttack()+100) ;
+		for (Tower t : Main.game.getTowers().getTower(x, y, null)) {
+			for (Strength s : Simulation.getStrength()) {
+				double dx = t.getX() - s.getX();
+				double dy = t.getY() - s.getY();
+				double r = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+				if (r < s.getR()) {
+					t.setAttack(t.getAttack() + 100);
 					return;
-				}
 				}
 			}
 		}
-	
+	}
 
 	public int getR() {
 		return r;
@@ -137,17 +136,27 @@ public abstract class Tower {
 		this.r = r;
 	}
 
-
 	public abstract void tick(Pair<Integer, Integer> pos, double dt);
 
-	protected abstract Image getSprite();
-	
+	protected abstract Image getSprite();<<<<<<<HEAD:src/entity/base/tower.java
+
+	public Image getIconSprite() {
+		return getSprite();
+	}
+
 	public void draw(Pair<Integer, Integer> pos, GraphicsContext gc, double dt) {
 		var px = Utils.grid2pixel(Utils.pair2point(pos));
 		var gridDim = Utils.getGridPixelDimension();
 		gc.drawImage(getSprite(), px.getX(), px.getY(), gridDim.getX(), gridDim.getY());
 	}
-	
-	
 
+	public void drawOverlay(Pair<Integer, Integer> pos, GraphicsContext gc, double dt) {
+		var px = Utils.grid2pixel(pos.getKey(), pos.getValue());
+		var gridDim = Utils.getGridPixelDimension();
+
+		var oldAlpha = gc.getGlobalAlpha();
+		gc.setGlobalAlpha(0.5);
+		gc.fillOval(px.getX(), px.getY(), gridDim.getX(), gridDim.getY());
+		gc.setGlobalAlpha(oldAlpha);
+	}
 }

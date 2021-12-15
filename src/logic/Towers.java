@@ -1,54 +1,52 @@
 package logic;
 
-import java.util.ArrayList;
-import java.util.function.BiConsumer;
-
-import entity.base.Bullets;
-import entity.base.tower;
-import javafx.geometry.Point2D;
+import entity.base.Tower;
 import javafx.util.Pair;
+
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.function.BiConsumer;
 
 public class Towers {
 
-	private final ArrayList<ArrayList<tower>> arrayGrid = new ArrayList<ArrayList<tower>>();
+	private final ArrayList<ArrayList<Tower>> arrayGrid = new ArrayList<ArrayList<Tower>>();
+	private Pair<Integer, Integer> selectedPosition = null;
 
 	public Towers() {
 		makeMap();
-		// just for testing
-		setTower(5,3, new entity.game.type1(1,1,1, 3, 0));
 	}
 
 	public void makeMap() {
 		for ( int i = 0 ; i<50 ; i++) {
-			ArrayList<tower> t = new ArrayList<>();
+			ArrayList<Tower> t = new ArrayList<>();
 			arrayGrid.add(t);
 			for ( int j = 0 ; j<50 ; j++) {
 				arrayGrid.get(i).add(null);
 			}
 		}
 	}
-	
-	public void setTower(int x , int y, tower tower) {
-		getRow(y).set(x, tower);
-	}
 
-	public tower getTower(int x, int y, tower tower) {
-		return getRow(y).get(x);
+	// Tower operation
+	public void setTower(int x , int y, Tower tower) {
+		getRow(y).set(x, tower);
 	}
 
 	public void deleteTower(int x, int y) {
 		setTower(x, y, null);
 	}
 
-	public ArrayList<tower> getRow(int y) {
+	// Querying and iterating
+	public Optional<Tower> getTower(int x, int y) {
+		return Optional.ofNullable(getRow(y).get(x));
+	}
+
+	public ArrayList<Tower> getRow(int y) {
 		return arrayGrid.get(y);
 	}
 
-	public ArrayList<ArrayList<tower>> asArrayList() {
-		return arrayGrid;
-	}
+	public ArrayList<ArrayList<Tower>> asArrayList() {return arrayGrid; }
 
-	public void iterateTower(BiConsumer<Pair<Integer, Integer>, tower> f) {
+	public void iterateTower(BiConsumer<Pair<Integer, Integer>, Tower> f) {
 		for (int j = 0; j < arrayGrid.size(); j++) {
 			var row = arrayGrid.get(j);
 			for (int i = 0; i < row.size(); i++) {
@@ -59,6 +57,25 @@ public class Towers {
 			}
 		}
 	}
+
+	// Selecting system
+
+	public boolean select(int x, int y) {
+		if(getTower(x, y).isEmpty() || getSelectedPosition().equals(Optional.of(new Pair<>(x, y)))) {
+			selectedPosition = null;
+			return false;
+		}
+		else {
+			selectedPosition = new Pair<>(x, y);
+			return true;
+		}
+	}
+
+	public Optional<Pair<Integer, Integer>> getSelectedPosition() {
+		return Optional.ofNullable(selectedPosition);
+	}
+
+	// Getter
 
 	public int getWidth() {
 		var row = getRow(0);

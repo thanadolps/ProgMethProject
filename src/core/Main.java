@@ -2,31 +2,46 @@ package core;
 
 import core.timing.FpsCounter;
 import core.timing.Interval;
+import entity.game.experiment.TestTower1;
+import entity.game.experiment.TestTower2;
+import entity.game.type1;
+import entity.game.type2;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Pair;
-
-import java.util.HashMap;
+import ui.Sidebar;
+import ui.TowerButton;
+import ui.TowerSelectUI;
+import utils.InputUtils;
+import utils.Sprites;
 
 public class Main extends Application {
     public static Game game = new Game();
     public static Canvas canvas;
+    public static InputUtils inputUtils;
+    public static Sidebar sidebar;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        var root = new Pane();
+        var root = new HBox();
         canvas = new Canvas();
-        canvas.setWidth(960);
-        canvas.setHeight(960);
-        root.getChildren().add(canvas);
-        
+        sidebar = new Sidebar();
+
+        setupUI();
         setupGraphics(canvas.getGraphicsContext2D());
+        inputUtils = new InputUtils(canvas);
+
+        root.getChildren().addAll(canvas, sidebar);
 
         var scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -36,10 +51,21 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    private void setupUI() {
+        canvas.setWidth(960);
+        canvas.setHeight(960);
+
+        var towerSelectUI = sidebar.getTowerSelectUI();
+        towerSelectUI.addTowerButton(new TowerButton(TestTower1::new));
+        towerSelectUI.addTowerButton(new TowerButton(TestTower2::new));
+    }
+
     private void setupGraphics(GraphicsContext gc) {
         double w = gc.getCanvas().getWidth();
         double h = gc.getCanvas().getHeight();
         gc.setFill(Color.BLACK);
+
+        gc.getCanvas().addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> game.handleClick(mouseEvent));
 
         new AnimationTimer() {
             long prevNano = System.nanoTime();

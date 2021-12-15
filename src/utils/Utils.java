@@ -16,10 +16,24 @@ public class Utils {
                 .toArray(String[][]::new);
     }
 
-    public static Point2D grid2pixel(Point2D pos) {
+    public static Point2D grid2pixel(double x, double y) {
         var gridDim = getGridPixelDimension();
 
-        return new Point2D(pos.getX()*gridDim.getX(), pos.getY()*gridDim.getY());
+        return new Point2D(x*gridDim.getX(), y*gridDim.getY());
+    }
+
+    public static Point2D grid2pixel(Point2D pos) {
+        return grid2pixel(pos.getX(), pos.getY());
+    }
+
+    public static Point2D pixel2grid(double x, double y) {
+        var gridDim = getGridPixelDimension();
+
+        return new Point2D(x/gridDim.getX(), y/gridDim.getY());
+    }
+
+    public static Point2D pixel2grid(Point2D pos) {
+        return pixel2grid(pos.getX(), pos.getY());
     }
 
     private static Point2D GridDim;

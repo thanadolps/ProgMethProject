@@ -2,8 +2,6 @@ package utils;
 
 import javafx.scene.image.Image;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.HashMap;
 
 public class TilesProp {

@@ -1,12 +1,13 @@
 package core;
 
-import core.timing.Interval;
 import entity.base.Bullets;
 import entity.base.Entity;
 import entity.base.Monster;
 import entity.base.Tower;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Pair;
 import level.Level;
 import level.Level1;
@@ -55,11 +56,48 @@ public class Game implements Draw, Tick {
         monsters.forEach(monster -> monster.draw(gc, dt));
         this.drawTower(gc, dt);
 
-        debugMonsterCount(gc);
+        // debugMonsterCount(gc);
+        drawTowerPlacement(gc);
+
     }
 
     private void drawTower(GraphicsContext gc, double dt) {
         towers.iterateTower((pos, tower) -> tower.draw(pos, gc, dt));
+        towers.getSelectedPosition().ifPresent(pos ->
+            towers.getTower(pos.getKey(), pos.getValue()).ifPresent(tower ->
+                tower.drawOverlay(pos, gc, dt)
+            )
+        );
+    }
+
+    private void drawTowerPlacement(GraphicsContext gc) {
+        var _selected = Main.sidebar.getTowerSelectUI().getSelected();
+        if(_selected.isEmpty()) {
+            return;
+        }
+        var selected = _selected.get();
+
+        var grid= Main.inputUtils.mouse.getGridPos();
+        int x = (int)(grid.getX());
+        int y = (int)(grid.getY());
+
+        if(!Main.game.getCurrentLevel().getTileGrid().isTowerPlaceable(x, y)) {
+            return;
+        }
+
+        var px = Utils.grid2pixel(x, y);
+        var gridDim = Utils.getGridPixelDimension();
+
+        var oldAlpha= gc.getGlobalAlpha();
+        gc.setGlobalAlpha(0.5);
+        gc.drawImage(
+                selected.getImageView().getImage(),
+                px.getX(),
+                px.getY(),
+                gridDim.getX(),
+                gridDim.getY()
+        );
+        gc.setGlobalAlpha(oldAlpha);
     }
 
     private void debugMonsterCount(GraphicsContext gc) {
@@ -74,6 +112,7 @@ public class Game implements Draw, Tick {
 
         gc.fillText(Integer.toString(monsters.size()),  gc.getCanvas().getWidth()-24, 24);
     }
+
 
     @Override
     public void tick(double dt) {
@@ -129,6 +168,34 @@ public class Game implements Draw, Tick {
     private void tickTower(double dt) {
         towers.iterateTower((pos, tower) -> tower.tick(pos, dt));
     }
+
+
+    public void handleClick(MouseEvent mouseEvent) {
+        var mx = mouseEvent.getX();
+        var my = mouseEvent.getY();
+        var gridPoint = Utils.pixel2grid(new Point2D(mx, my));
+        int x = (int)(gridPoint.getX());
+        int y = (int)(gridPoint.getY());
+
+        if(mouseEvent.getButton() == MouseButton.PRIMARY) {
+            var selectedTowerButton = Main.sidebar.getTowerSelectUI().getSelected();
+            if(selectedTowerButton.isPresent() && currentLevel.getTileGrid().isTowerPlaceable(x, y)) {
+                towers.setTower(x, y, selectedTowerButton.get().getFactory().get());
+                Main.sidebar.getTowerSelectUI().deselect();
+                return;
+            }
+
+            boolean isSelect = towers.select(x, y);
+            if(isSelect) {
+                Main.sidebar.getTowerInfoUI().seeTower(x, y);
+            }
+            else {
+                Main.sidebar.getTowerInfoUI().unseeTower();
+            }
+
+        }
+    }
+
 
     public void addMonster(Monster monster) {
         monsters.add(monster);

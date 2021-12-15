@@ -5,11 +5,10 @@ import javafx.scene.image.Image;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 public class Sprites {
-    public static Image GrassASprite, GrassBSprite, SandSprite, TowerSprite;
+    public static Image GrassASprite, GrassBSprite, SandSprite, TowerSprite, Tower2Sprite;
     private static final HashMap<String, Image> imagesByName = new HashMap<>();
 
     static {
@@ -18,6 +17,7 @@ public class Sprites {
             GrassBSprite = Sprites.loadImage("grass_tile_3.png");
             SandSprite = Sprites.loadImage("sand_tile.png");
             TowerSprite = Sprites.loadImage("tower.png");
+            Tower2Sprite = Sprites.loadImage("tower2.png");
 
             System.out.println("Sprite Loaded:");
             imagesByName.forEach((k, v) -> {

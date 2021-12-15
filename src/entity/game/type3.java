@@ -5,14 +5,16 @@ import entity.base.BulletsType;
 import entity.base.Monster;
 import entity.base.Tower;
 import javafx.geometry.Point2D;
+import core.Main;
+import entity.base.Tower;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
 import logic.Simulation;
 
-public class type3 extends Tower{
+public class type3 extends Tower {
 
-	public type3(int speedatk, int attack, int price,int x ,int y) {
-		super(speedatk, attack, price,x ,y);
+	public type3(int speedatk, int attack, int price, int x, int y) {
+		super(speedatk, attack, price, x, y);
 		setR(1);
 		setType(BulletsType.NORMAL);
 		// TODO Auto-generated constructor stub
@@ -21,54 +23,56 @@ public class type3 extends Tower{
 	@Override
 	public boolean upgrade_lsh(int price) {
 		// TODO Auto-generated method stub
-		if ( Simulation.getMoney() < price ) return false;
-		switch(getLevel()) {
-		case 1: 
-			Simulation.decreaseMoney(price);
-			setPrice(getPrice()+price);
-			setSpeedatk(getSpeedatk()+100);
-			setLevel(getLevel()+1);
-			return true;
-		case 2:
-			Simulation.decreaseMoney(price);
-			setPrice(getPrice()+price);
-			setAttack(getSpeedatk()+100);
-			setLevel(getLevel()+1);
-			return true;
-		case 3:
-			Simulation.decreaseMoney(price);
-			Ice ice = new Ice(getSpeedatk()+100,getAttack(),getPrice()+price,getX(),getY());
-			Main.game.getTowers().setTower(getX(), getY(), ice);
-			return true;
-		default:
+		if (Simulation.getMoney() < price)
 			return false;
+		switch (getLevel()) {
+			case 1:
+				Simulation.decreaseMoney(price);
+				setPrice(getPrice() + price);
+				setSpeedatk(getSpeedatk() + 100);
+				setLevel(getLevel() + 1);
+				return true;
+			case 2:
+				Simulation.decreaseMoney(price);
+				setPrice(getPrice() + price);
+				setAttack(getSpeedatk() + 100);
+				setLevel(getLevel() + 1);
+				return true;
+			case 3:
+				Simulation.decreaseMoney(price);
+				Ice ice = new Ice(getSpeedatk() + 100, getAttack(), getPrice() + price, getX(), getY());
+				Main.game.getTowers().setTower(getX(), getY(), ice);
+				return true;
+			default:
+				return false;
 		}
 	}
 
 	@Override
 	public boolean upgrade_rsh(int price) {
 		// TODO Auto-generated method stub
-		if ( Simulation.getMoney() < price ) return false;
-		switch(getLevel()) {
-		case 1: 
-			Simulation.decreaseMoney(price);
-			setPrice(getPrice()+price);
-			setR(getR()+1);
-			setLevel(getLevel()+1);
-			return true;
-		case 2:
-			Simulation.decreaseMoney(price);
-			setPrice(getPrice()+price);
-			setR(getR()+1);
-			setLevel(getLevel()+1);
-			return true;
-		case 3:
-			Simulation.decreaseMoney(price);
-			Ice ice = new Ice(getSpeedatk()+100,getAttack(),getPrice()+price,getX(),getY());
-			Main.game.getTowers().setTower(getX(), getY(), ice);
-			return true;
-		default:
+		if (Simulation.getMoney() < price)
 			return false;
+		switch (getLevel()) {
+			case 1:
+				Simulation.decreaseMoney(price);
+				setPrice(getPrice() + price);
+				setR(getR() + 1);
+				setLevel(getLevel() + 1);
+				return true;
+			case 2:
+				Simulation.decreaseMoney(price);
+				setPrice(getPrice() + price);
+				setR(getR() + 1);
+				setLevel(getLevel() + 1);
+				return true;
+			case 3:
+				Simulation.decreaseMoney(price);
+				Ice ice = new Ice(getSpeedatk() + 100, getAttack(), getPrice() + price, getX(), getY());
+				Main.game.getTowers().setTower(getX(), getY(), ice);
+				return true;
+			default:
+				return false;
 		}
 	}
 
@@ -77,9 +81,10 @@ public class type3 extends Tower{
 		// TODO Auto-generated method stub
 		BulletsType type = this.getType();
 		Monster m = findMonster();
-		if ( m.equals(null) ) return;
-		Bullets b = new Bullets(this.getX(),this.getY(),this.getAttack(),type,m);
-		//ต้องใช้ tick ไหม
+		if (m.equals(null))
+			return;
+		Bullets b = new Bullets(this.getX(), this.getY(), this.getAttack(), type, m);
+		// ต้องใช้ tick ไหม
 		b.tick(1.0);
 	}
 

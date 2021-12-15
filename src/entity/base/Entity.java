@@ -2,7 +2,6 @@ package entity.base;
 
 import core.Draw;
 import core.Tick;
-import javafx.scene.canvas.GraphicsContext;
 
 public abstract class Entity implements Draw, Tick {
     private boolean destroyed = false;

@@ -2,8 +2,6 @@ package level.spawner;
 
 import core.timing.Interval;
 import entity.base.Monster;
-import javafx.geometry.Point2D;
-import level.Track;
 
 import java.util.function.Supplier;
 
