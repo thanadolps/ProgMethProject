@@ -19,8 +19,8 @@ import java.util.Optional;
 public class TestTower1 extends Tower {
     private final Interval attackTimer = new Interval(0.5);
 
-    public TestTower1() {
-        super(0,0,0,0,0);
+    public TestTower1(int x, int y) {
+        super(0,0,0,x, y);
     }
 
     @Override

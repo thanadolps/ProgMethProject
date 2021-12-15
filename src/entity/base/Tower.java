@@ -185,7 +185,13 @@ public abstract class Tower implements Cloneable {
 		var oldAlpha = gc.getGlobalAlpha();
 		gc.setGlobalAlpha(0.5);
 		gc.fillOval(px.getX(), px.getY(), gridDim.getX(), gridDim.getY());
+
+		gc.setGlobalAlpha(0.2);
+		var r = Utils.grid2pixel(getR(), getR());
+		gc.fillOval(px.getX() - r.getX(), px.getY() - r.getY(), 2*r.getX(), 2*r.getY());
+
 		gc.setGlobalAlpha(oldAlpha);
+
 	}
 	
 	public abstract int upgradePrice_lsh();

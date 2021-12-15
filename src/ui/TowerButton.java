@@ -10,13 +10,14 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 public class TowerButton extends Button {
     ImageView imageView;
-    Supplier<Tower> factory;
+    BiFunction<Integer, Integer, Tower> factory;
 
-    public TowerButton(Supplier<Tower> factory, Image sprite) {
+    public TowerButton(BiFunction<Integer, Integer, Tower> factory, Image sprite) {
         this.factory = factory;
         this.imageView = new ImageView(sprite);
 
@@ -25,8 +26,8 @@ public class TowerButton extends Button {
         this.setGraphic(imageView);
     }
 
-    public TowerButton(Supplier<Tower> factory) {
-        this(factory, factory.get().getIconSprite());
+    public TowerButton(BiFunction<Integer, Integer, Tower> factory) {
+        this(factory, factory.apply(0, 0).getIconSprite());
     }
 
     public void highlight() {
@@ -41,7 +42,7 @@ public class TowerButton extends Button {
         return imageView;
     }
 
-    public Supplier<Tower> getFactory() {
+    public BiFunction<Integer, Integer, Tower> getFactory() {
         return factory;
     }
 }

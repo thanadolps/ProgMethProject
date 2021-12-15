@@ -12,8 +12,8 @@ import utils.Utils;
 import java.util.Optional;
 
 public class TestTower2 extends Tower {
-    public TestTower2() {
-        super(0,0,0,0,0);
+    public TestTower2(int x, int y) {
+        super(0,0,0,x,y);
     }
 
     @Override
