@@ -4,11 +4,12 @@ import javafx.scene.canvas.GraphicsContext;
 import java.lang.Math;
 
 import core.Main;
+import utils.Utils;
 
 public class Bullets extends Entity {
 	
-	private int x ;
-	private int y ;
+	private double x ;
+	private double y ;
 	private int attack;
 	private BulletsType type;
 	private Monster m;
@@ -16,7 +17,9 @@ public class Bullets extends Entity {
 	@Override
 	public void draw(GraphicsContext gc, double dt) {
 		// TODO Auto-generated method stub
-		
+		var px = Utils.grid2pixel(x, y);
+		gc.fillOval(px.getX(), px.getY(), 10, 10);
+		// gc.fillText(x + ", " + y, px.getX(), px.getY());
 	}
 
 	@Override
@@ -43,7 +46,7 @@ public class Bullets extends Entity {
 		double dx = m.getX()-x;
 		double dy = m.getY()-y;
 		double r = Math.sqrt(Math.pow(dx, 2)+Math.pow(dy, 2));
-		if ( r > 1 ) return false;
+		if ( r > 0.5 ) return false;
 		return true;
 	}
 	
@@ -53,6 +56,7 @@ public class Bullets extends Entity {
 	}
 	
 	public Bullets(int x , int y , int attack , BulletsType type , Monster m ) {
+		super();
 		this.x = x;
 		this.y = y;
 		this.attack = attack;
@@ -75,19 +79,19 @@ public class Bullets extends Entity {
 	}
 
 
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 

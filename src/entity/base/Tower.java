@@ -38,6 +38,7 @@ public abstract class Tower implements Cloneable {
 		this.price = price;
 		this.x = x;
 		this.y = y;
+		this.type = BulletsType.NORMAL;
 		// GameMap.addTower(x, y, this);
 	}
 

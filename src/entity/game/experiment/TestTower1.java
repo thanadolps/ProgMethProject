@@ -1,6 +1,7 @@
 package entity.game.experiment;
 
 import core.Main;
+import core.timing.Interval;
 import entity.base.Bullets;
 import entity.base.BulletsType;
 import entity.base.Monster;
@@ -16,6 +17,8 @@ import utils.Utils;
 import java.util.Optional;
 
 public class TestTower1 extends Tower {
+    private final Interval attackTimer = new Interval(0.5);
+
     public TestTower1() {
         super(0,0,0,0,0);
     }
@@ -28,6 +31,16 @@ public class TestTower1 extends Tower {
     @Override
     public Optional<Tower> get_upgrade_rsh() {
         return Optional.empty();
+    }
+
+    @Override
+    public int getR() {
+        return 4;
+    }
+
+    @Override
+    public BulletsType getType() {
+        return super.getType();
     }
 
     @Override
@@ -48,15 +61,7 @@ public class TestTower1 extends Tower {
     public void tick(Pair<Integer, Integer> pos, double dt) {
         // Testing code
         // Make slow monster to the right of the tower dead
-        int x = pos.getKey();
-        int y = pos.getValue();
-
-        var monsters = Main.game.getMonstersAt(x+1, y);
-        for (var m : monsters) {
-            if(m.getSpeed() < 15) {
-                attack();
-            }
-        }
+        attackTimer.tick(dt, (p) -> attack());
     }
 
     @Override
