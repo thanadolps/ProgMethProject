@@ -1,7 +1,9 @@
 package logic;
 
 import entity.base.Monster;
-import entity.base.tower;
+import entity.base.Tower;
+import entity.game.Farm;
+import entity.game.Strength;
 import entity.game.boss;
 import entity.game.soldier;
 
@@ -15,7 +17,17 @@ public class Simulation {
 	private static int lifepoint = 150;
 	private static Timer time = new Timer();
 	private static ArrayList<Monster> myTower = new ArrayList<>();
+	private static ArrayList<Strength> strength = new ArrayList<>();
+	private static ArrayList<Farm> farm = new ArrayList<>();
 	
+	public static ArrayList<Farm> getFarm() {
+		return farm;
+	}
+
+	public static ArrayList<Strength> getStrength() {
+		return strength;
+	}
+
 	public static void increaseMoney(int price) {
 		if ( price < 0 ) return;
 		setMoney(getMoney()+price);
@@ -63,6 +75,12 @@ public class Simulation {
 	public boolean getLose() {
 		if ( getLifepoint() < 0 ) return false;
 		return true;
+	}
+	
+	public void produce() {
+		for ( Farm f : farm ) {
+			increaseMoney(100);
+		}
 	}
 	
 }

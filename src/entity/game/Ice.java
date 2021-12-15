@@ -1,14 +1,12 @@
 package entity.game;
 
-import logic.Simulation;
-import entity.base.Bullets;
+import entity.base.BulletsType;
 
 public class Ice extends type1 {
 		
-	private Bullets slow = Bullets.FREEZE;
-	
 	public Ice(int speedatk, int attack, int price , int x ,int y ) {
 		super(speedatk, attack, price , x , y);
+		setType(BulletsType.FREEZE);
 		// TODO Auto-generated constructor stub
 	}
 

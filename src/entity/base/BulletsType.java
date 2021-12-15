@@ -1,13 +1,9 @@
 package entity.base;
 
-public enum class BulletsType {
+public enum BulletsType {
 	
-	enum Type{
-		
-		BURN,
-		FREEZE,
-		NORMAL;
-		
-	}
-	
+	BURN,
+	FREEZE,
+	PIERCE,
+	NORMAL;
 }

@@ -1,5 +1,8 @@
 package entity.game;
 
+import entity.base.Bullets;
+import entity.base.BulletsType;
+import entity.base.Monster;
 import entity.base.Tower;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
@@ -9,8 +12,9 @@ import logic.Simulation;
 public class type3 extends Tower{
 
 	public type3(int speedatk, int attack, int price,int x ,int y) {
-		super(speedatk, attack, price);
+		super(speedatk, attack, price,x ,y);
 		setR(1);
+		setType(BulletsType.NORMAL);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -23,11 +27,13 @@ public class type3 extends Tower{
 			Simulation.decreaseMoney(price);
 			setPrice(getPrice()+price);
 			setSpeedatk(getSpeedatk()+100);
+			setLevel(getLevel()+1);
 			return true;
 		case 2:
 			Simulation.decreaseMoney(price);
 			setPrice(getPrice()+price);
 			setAttack(getSpeedatk()+100);
+			setLevel(getLevel()+1);
 			return true;
 		case 3:
 			Simulation.decreaseMoney(price);
@@ -48,11 +54,13 @@ public class type3 extends Tower{
 			Simulation.decreaseMoney(price);
 			setPrice(getPrice()+price);
 			setR(getR()+1);
+			setLevel(getLevel()+1);
 			return true;
 		case 2:
 			Simulation.decreaseMoney(price);
 			setPrice(getPrice()+price);
 			setR(getR()+1);
+			setLevel(getLevel()+1);
 			return true;
 		case 3:
 			Simulation.decreaseMoney(price);
@@ -67,7 +75,12 @@ public class type3 extends Tower{
 	@Override
 	public void attack() {
 		// TODO Auto-generated method stub
-		
+		BulletsType type = this.getType();
+		Monster m = findMonster();
+		if ( m.equals(null) ) return;
+		Bullets b = new Bullets(this.getX(),this.getY(),this.getAttack(),type,m);
+		//ต้องใช้ tick ไหม
+		b.tick(1.0);
 	}
 
 	@Override
