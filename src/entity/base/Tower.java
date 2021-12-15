@@ -186,4 +186,9 @@ public abstract class Tower implements Cloneable {
 		gc.fillOval(px.getX(), px.getY(), gridDim.getX(), gridDim.getY());
 		gc.setGlobalAlpha(oldAlpha);
 	}
+	
+	public abstract int upgradePrice_lsh();
+	
+	public abstract int upgraderPrice_rsh();
+	
 }

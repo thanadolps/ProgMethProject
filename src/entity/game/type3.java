@@ -40,8 +40,8 @@ public class type3 extends Tower {
 				return true;
 			case 3:
 				Simulation.decreaseMoney(price);
-				Ice ice = new Ice(getSpeedatk() + 100, getAttack(), getPrice() + price, getX(), getY());
-				Main.game.getTowers().setTower(getX(), getY(), ice);
+				Laser l = new Laser(getSpeedatk() + 100, getAttack(), getPrice() + price, getX(), getY());
+				Main.game.getTowers().setTower(getX(), getY(), l);
 				return true;
 			default:
 				return false;
@@ -68,8 +68,8 @@ public class type3 extends Tower {
 				return true;
 			case 3:
 				Simulation.decreaseMoney(price);
-				Ice ice = new Ice(getSpeedatk() + 100, getAttack(), getPrice() + price, getX(), getY());
-				Main.game.getTowers().setTower(getX(), getY(), ice);
+				Boom b = new Boom(getSpeedatk() + 100, getAttack(), getPrice() + price, getX(), getY());
+				Main.game.getTowers().setTower(getX(), getY(), b);
 				return true;
 			default:
 				return false;
@@ -96,5 +96,35 @@ public class type3 extends Tower {
 	@Override
 	public void tick(Pair<Integer, Integer> pos, double dt) {
 
+	}
+
+	@Override
+	public int upgradePrice_lsh() {
+		// TODO Auto-generated method stub
+		switch ( getLevel() ) {
+		case 1: 
+			return 200;
+		case 2:
+			return 250;
+		case 3:
+			return 450;
+		default:
+			return 0;
+		}
+	}
+
+	@Override
+	public int upgraderPrice_rsh() {
+		// TODO Auto-generated method stub
+		switch ( getLevel() ) {
+		case 1: 
+			return 100;
+		case 2:
+			return 300;
+		case 3:
+			return 450;
+		default:
+			return 0;
+		}
 	}
 }
