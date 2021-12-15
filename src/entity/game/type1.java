@@ -11,6 +11,8 @@ import javafx.util.Pair;
 import logic.Simulation;
 import utils.Sprites;
 
+import java.util.Optional;
+
 public class type1 extends Tower {
 
 	public type1(int speedatk, int attack, int price, int x, int y) {
@@ -20,12 +22,16 @@ public class type1 extends Tower {
 		// TODO Auto-generated constructor stub
 	}
 
+	public type1(type1 type1) {
+		this(type1.getSpeedatk(), type1.getAttack(), type1.getPrice(), type1.getX(), type1.getY());
+	}
+
 	@Override
 	public void attack() {
 		// TODO Auto-generated method stub
 		BulletsType type = this.getType();
 		Monster m = findMonster();
-		if (m.equals(null))
+		if (m == null)
 			return;
 		Bullets b = new Bullets(this.getX(), this.getY(), this.getAttack(), type, m);
 		// ต้องใช้ tick ไหม
@@ -42,25 +48,21 @@ public class type1 extends Tower {
 	}
 
 	@Override
-	public boolean upgrade_lsh(int price) {
+	public Optional<Tower> get_upgrade_lsh() {
 		// TODO Auto-generated method stub
-		if (Simulation.getMoney() < price)
-			return false;
 		switch (getLevel()) {
 			case 1:
-				Simulation.decreaseMoney(price);
-				setPrice(getPrice() + price);
-				setSpeedatk(getSpeedatk() + 100);
-				setLevel(getLevel() + 1);
-				return true;
+				var tower = new type1(this);
+				tower.setPrice(getPrice() + price);
+				tower.setSpeedatk(getSpeedatk() + 100);
+				tower.setLevel(getLevel() + 1);
+				return Optional.of(tower);
 			case 2:
-				Simulation.decreaseMoney(price);
 				setPrice(getPrice() + price);
 				setAttack(getAttack() + 100);
 				setLevel(getLevel() + 1);
 				return true;
 			case 3:
-				Simulation.decreaseMoney(price);
 				Fire fire = new Fire(getSpeedatk(), getAttack() + 100, getPrice() + price, getX(), getY());
 				Main.game.getTowers().setTower(getX(), getY(), fire);
 				return true;

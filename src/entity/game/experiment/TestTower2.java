@@ -9,19 +9,21 @@ import javafx.util.Pair;
 import utils.Sprites;
 import utils.Utils;
 
+import java.util.Optional;
+
 public class TestTower2 extends Tower {
     public TestTower2() {
         super(0,0,0,0,0);
     }
 
     @Override
-    public boolean upgrade_lsh(int price) {
-        return false;
+    public Optional<Tower> get_upgrade_lsh() {
+        return Optional.empty();
     }
 
     @Override
-    public boolean upgrade_rsh(int price) {
-        return false;
+    public Optional<Tower> get_upgrade_rsh() {
+        return Optional.empty();
     }
 
     @Override

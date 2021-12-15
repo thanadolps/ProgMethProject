@@ -11,6 +11,8 @@ import javafx.scene.image.Image;
 import javafx.util.Pair;
 import logic.Simulation;
 
+import java.util.Optional;
+
 public class type2 extends Tower {
 
 	// type2 ถ้าเวล 1,2 ตีได้ปกติ แต่ตอนเวล 3 จะตีไม่ได้
@@ -61,23 +63,19 @@ public class type2 extends Tower {
 	}
 
 	@Override
-	public boolean upgrade_lsh(int price) {
+	public Optional<Tower> get_upgrade_lsh() {
 		// TODO Auto-generated method stub
-		if (Simulation.getMoney() < price)
-			return false;
 		switch (getLevel()) {
 		case 1:
-			Simulation.decreaseMoney(price);
 			setPrice(getPrice() + price);
 			setSpeedatk(getSpeedatk()+100);
 			setLevel(getLevel()+1);
-			return true;
+			return Optional.of(this);
 		case 2:
-			Simulation.decreaseMoney(price);
 			setPrice(getPrice() + price);
 			setR(getR() + 1);
 			setLevel(getLevel()+1);
-			return true;
+			return Optional.of(this);
 		case 3:
 			Simulation.decreaseMoney(price);
 			Farm f = new Farm(getSpeedatk(), getAttack(), getPrice() + price, getX(), getY());

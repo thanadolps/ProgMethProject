@@ -10,8 +10,9 @@ import javafx.util.Pair;
 import logic.Simulation;
 import utils.Utils;
 import java.lang.Math;
+import java.util.Optional;
 
-public abstract class Tower {
+public abstract class Tower implements Cloneable {
 
 	private int speedatk;
 	private int attack;
@@ -56,9 +57,35 @@ public abstract class Tower {
 		this.price = price;
 	}
 
-	public abstract boolean upgrade_lsh(int price);
+	public abstract Optional<Tower> get_upgrade_lsh();
 
-	public abstract boolean upgrade_rsh(int price);
+	public abstract Optional<Tower> get_upgrade_rsh();
+
+	public boolean upgrade_lsh(int price) {
+		if (Simulation.getMoney() < price) {
+			return false;
+		}
+		var new_tower = get_upgrade_lsh();
+		if(new_tower.isPresent()) {
+			var tower = new_tower.get();
+			Simulation.decreaseMoney(price);
+			Main.game.getTowers().setTower(tower.getX(), tower.getY(), tower);
+		}
+		return true;
+	}
+
+	public boolean upgrade_rsh(int price) {
+		if (Simulation.getMoney() < price) {
+			return false;
+		}
+		var new_tower = get_upgrade_rsh();
+		if(new_tower.isPresent()) {
+			var tower = new_tower.get();
+			Simulation.decreaseMoney(price);
+			Main.game.getTowers().setTower(tower.getX(), tower.getY(), tower);
+		}
+		return true;
+	}
 
 	public abstract void attack();
 
@@ -78,8 +105,6 @@ public abstract class Tower {
 				save = m;
 			}
 		}
-		if (save.equals(null))
-			return null;
 		return save;
 	}
 
