@@ -43,7 +43,7 @@ public class type3 extends Tower {
 				tower.setLevel(getLevel() + 1);
 				return Optional.of(tower);
 			case 3:
-				Laser l = new Laser(getSpeedatk() + 100, getAttack(), new_price, getX(), getY());
+				Laser l = new Laser(getSpeedatk() , getAttack() + 50, new_price, getX(), getY());
 				return Optional.of(l);
 			default:
 				return Optional.empty();
