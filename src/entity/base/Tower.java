@@ -28,7 +28,7 @@ public abstract class Tower implements Cloneable {
 	private int level = 1;
 	private int x;
 	private int y;
-	private int r;
+	private double r;
 	private BulletsType type;
 
 	private Interval attackTimer;
@@ -189,11 +189,11 @@ public abstract class Tower implements Cloneable {
 		return check[0];
 	}
 
-	public int getR() {
+	public double getR() {
 		return r;
 	}
 
-	public void setR(int r) {
+	public void setR(double r) {
 		if (r < 0)
 			r = 1;
 		this.r = r;

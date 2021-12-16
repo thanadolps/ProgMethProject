@@ -14,7 +14,7 @@ public class type3 extends Tower {
 
 	public type3(int speedatk, int attack, int price, int x, int y) {
 		super(speedatk, attack, price, x, y);
-		setR(1);
+		setR(1.5);
 		setType(BulletsType.NORMAL);
 		// TODO Auto-generated constructor stub
 	}

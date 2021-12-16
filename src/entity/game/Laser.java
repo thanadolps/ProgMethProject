@@ -1,6 +1,10 @@
 package entity.game;
 
+import core.Main;
+import entity.base.Bullets;
 import entity.base.BulletsType;
+import entity.base.Monster;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import utils.Sprites;
 

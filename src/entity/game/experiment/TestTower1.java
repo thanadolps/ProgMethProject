@@ -33,7 +33,7 @@ public class TestTower1 extends Tower {
     }
 
     @Override
-    public int getR() {
+    public double getR() {
         return 4;
     }
 

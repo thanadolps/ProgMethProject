@@ -147,4 +147,12 @@ public class Bullets extends Entity {
 	public int getAttack() {
 		return attack;
 	}
+
+	public void setLastVx(double lastVx) {
+		this.lastVx = lastVx;
+	}
+
+	public void setLastVy(double lastVy) {
+		this.lastVy = lastVy;
+	}
 }

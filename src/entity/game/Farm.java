@@ -36,7 +36,7 @@ public class Farm extends type2 {
 	public void attack() {}
 
 	@Override
-	public int getR() {
+	public double getR() {
 		return 0;
 	}
 }
