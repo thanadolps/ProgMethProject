@@ -1,6 +1,7 @@
 package core;
 
 import entity.base.*;
+import entity.game.Farm;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseButton;
@@ -119,10 +120,18 @@ public class Game implements Draw, Tick {
 
     @Override
     public void tick(double dt) {
-        if(activeSpawner.isDone()) {
-            System.out.println("DONE");
+        boolean isTurnEnd = activeSpawner.isDone() && getMonsters().isEmpty();
+        if(isTurnEnd) {
             activeSpawner = currentLevel.nextSpawner();
             activeSpawner.setOnSpawn(this::addMonster);
+
+            getTowers().iterateTower((pos, tower) -> {
+                if(tower instanceof Farm) {
+                    Simulation.increaseMoney(100);
+                }
+            });
+
+            Simulation.nextRound();
         }
         activeSpawner.tick(dt);
 

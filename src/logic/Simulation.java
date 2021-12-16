@@ -56,6 +56,12 @@ public class Simulation {
 
 	public static void nextRound() {
 		// จับเวลาเวลาแต่ละroundเท่ากัน และมีช่วงพักระหว่างroundปมสามถึงสี่วิ
+		round += 1;
+		Main.sidebar.getTowerInfoUI().refresh();
+	}
+
+	public static int getRound() {
+		return round;
 	}
 
 	public static int getLifepoint() {
@@ -88,7 +94,7 @@ public class Simulation {
 		return true;
 	}
 
-	public void produce() {
+	public static void produce() {
 		for (Farm f : farm) {
 			increaseMoney(100);
 		}

@@ -157,7 +157,7 @@ public class TowerInfoUI extends VBox {
         bulletstype.setText("BulletsType = "+tower.getType());
         bulletstype.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         
-        round.setText("round = ??");
+        round.setText("round = " + Simulation.getRound());
         round.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
         
         maxhp.setText("/150");
