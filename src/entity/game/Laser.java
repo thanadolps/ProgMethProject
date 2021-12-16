@@ -4,9 +4,12 @@ import core.Main;
 import entity.base.Bullets;
 import entity.base.BulletsType;
 import entity.base.Monster;
+import entity.base.Tower;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import utils.Sprites;
+
+import java.util.Optional;
 
 public class Laser extends type3{
 
@@ -32,5 +35,15 @@ public class Laser extends type3{
 		b.setLastVx(d.getX());
 		b.setLastVy(d.getY());
 		Main.game.addBullet(b);
+	}
+
+	@Override
+	public Optional<Tower> get_upgrade_rsh() {
+		return Optional.empty();
+	}
+
+	@Override
+	public Optional<Tower> get_upgrade_lsh() {
+		return Optional.empty();
 	}
 }

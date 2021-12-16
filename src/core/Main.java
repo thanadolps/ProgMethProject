@@ -54,8 +54,8 @@ public class Main extends Application {
     }
 
     private void setupUI() {
-        canvas.setWidth(960);
-        canvas.setHeight(960);
+        canvas.setWidth(800);
+        canvas.setHeight(800);
 
         var towerSelectUI = sidebar.getTowerSelectUI();
         towerSelectUI.addTowerButton(new TowerButton((x, y) ->
