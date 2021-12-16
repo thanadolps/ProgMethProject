@@ -105,7 +105,7 @@ public class TowerInfoUI extends VBox {
         
         
         //description.setText("Tower description Na.");
-        attack.setText("Attack = "+tower.getBaseAttack());
+        attack.setText("Attack = "+tower.getBaseAttack()+"+"+tower.getExtraAttack());
         attack.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         
         speedattack.setText("SpeedAttack = "+tower.getSpeedatk());
@@ -124,8 +124,7 @@ public class TowerInfoUI extends VBox {
         bulletstype.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         
         sellBtn.setOnAction(ev -> {
-            towers.deleteTower(x, y);
-            Simulation.increaseMoney(tower.getPrice());
+            tower.sell();
             unseeTower();
         });
 

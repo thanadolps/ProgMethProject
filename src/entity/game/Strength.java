@@ -1,5 +1,6 @@
 package entity.game;
 
+import core.Main;
 import entity.base.Tower;
 import javafx.scene.image.Image;
 import logic.Simulation;

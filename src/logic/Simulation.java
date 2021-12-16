@@ -26,7 +26,7 @@ public class Simulation {
 	}
 
 	public static void restart() {
-		money = 1000;
+		money = 10000;
 		round = 1;
 		lifepoint = 150;
 		time = new Timer();

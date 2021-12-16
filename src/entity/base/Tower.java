@@ -154,6 +154,14 @@ public abstract class Tower implements Cloneable {
 		this.baseAttack = baseAttack;
 	}
 
+	public int getExtraAttack() {
+		return extraAttack;
+	}
+
+	public int getAttack() {
+		return getBaseAttack() + getExtraAttack();
+	}
+
 	/*public void พำดพำห้ExtraAttack() {
 		// checkNearbyStrength
 	}*/
@@ -170,23 +178,33 @@ public abstract class Tower implements Cloneable {
 	 * คำนวนว่่า tower อยู่ในวง buff จาก tower แบบ strength ไหม
 	 * @return boolean, อยู่ในวง buff ไหม
 	 */
-	public boolean checkNearbyStrength() {
-		final boolean[] check = {false};
-		Main.game.getTowers().iterateTower((t, tower) -> {
-			for (Strength s : Simulation.getStrength()) {
-				if(s == this) {return;}
-				double x = t.getKey();
-				double y = t.getValue();
-				double dx = x - s.getX();
-				double dy = y - s.getY();
+	public boolean checkNearbyStrengthBuff() {
+		var grid = Main.game.getCurrentLevel().getTileGrid();
+		var towers = Main.game.getTowers();
+
+		for (int j = 0; j < grid.getIndexHeight(); j++) {
+			var row = towers.getRow(j);
+			for (int i = 0; i < grid.getIndexWidth(); i++) {
+				var tower = row.get(i);
+				if(tower == this || !(tower instanceof Strength)) {continue;}
+
+				double dx = getCenterX() - tower.getCenterX();
+				double dy = getCenterY() - tower.getCenterY();
 				double r = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-				if (r < s.getR()) {
-					check[0] = true;
-					break;
+				if (r < tower.getR()) {
+					return true;
 				}
 			}
-		});
-		return check[0];
+		}
+
+		return false;
+	}
+
+	/**
+	 * คำนวน damage ที่ได้จาก strength tower ใหม่.
+	 */
+	public void recalculateStrengthBuff() {
+		extraAttack = checkNearbyStrengthBuff() ? 200 : 0;
 	}
 
 	public double getR() {

@@ -38,7 +38,7 @@ public class type2 extends Tower {
 		Monster m = findMonster();
 		if (m == null)
 			return;
-		Bullets b = new Bullets(this.getCenterX(), this.getCenterY(), this.getBaseAttack(), type, m);
+		Bullets b = new Bullets(this.getCenterX(), this.getCenterY(), this.getAttack(), type, m);
 		Main.game.addBullet(b);
 	}
 
@@ -46,8 +46,10 @@ public class type2 extends Tower {
 	public void sell() {
 		// TODO Auto-generated method stub
 		Simulation.increaseMoney(getPrice() / 10);
-		if (this.getClass().equals(Strength.class))
+		if (this.getClass().equals(Strength.class)) {
 			Simulation.getStrength().remove(this);
+			Main.game.getTowers().iterateTower((pos, tower) -> tower.recalculateStrengthBuff());
+		}
 		if (this.getClass().equals(Farm.class))
 			Simulation.getFarm().remove(this);
 		Main.game.getTowers().deleteTower(getX(), getY());

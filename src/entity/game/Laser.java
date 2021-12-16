@@ -30,7 +30,7 @@ public class Laser extends type3{
 		Monster m = findMonster();
 		if (m == null)
 			return;
-		Bullets b = new Bullets(this.getCenterX(), this.getCenterY(), this.getBaseAttack(), type, null);
+		Bullets b = new Bullets(this.getCenterX(), this.getCenterY(), this.getAttack(), type, null);
 		var d = m.getPos().subtract(b.getX(), b.getY()).normalize().multiply(b.getSpeed());
 		b.setLastVx(d.getX());
 		b.setLastVy(d.getY());

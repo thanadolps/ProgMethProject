@@ -1,6 +1,8 @@
 package logic;
 
+import core.Main;
 import entity.base.Tower;
+import entity.game.Strength;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -29,10 +31,12 @@ public class Towers {
 	// Tower operation
 	public void setTower(int x , int y, Tower tower) {
 		getRow(y).set(x, tower);
+		iterateTower((p, t) -> t.recalculateStrengthBuff());
 	}
 
 	public void deleteTower(int x, int y) {
 		setTower(x, y, null);
+		iterateTower((p, t) -> t.recalculateStrengthBuff());
 	}
 
 	// Querying and iterating

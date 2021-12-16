@@ -2,8 +2,6 @@ package core;
 
 import core.timing.FpsCounter;
 import core.timing.Interval;
-import entity.game.experiment.TestTower1;
-import entity.game.experiment.TestTower2;
 import entity.game.type1;
 import entity.game.type2;
 import entity.game.type3;

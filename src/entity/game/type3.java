@@ -80,7 +80,7 @@ public class type3 extends Tower {
 		Monster m = findMonster();
 		if (m == null)
 			return;
-		Bullets b = new Bullets(this.getCenterX(), this.getCenterY(), this.getBaseAttack(), type, m);
+		Bullets b = new Bullets(this.getCenterX(), this.getCenterY(), this.getAttack(), type, m);
 		Main.game.addBullet(b);
 	}
 
