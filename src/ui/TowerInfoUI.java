@@ -23,7 +23,7 @@ public class TowerInfoUI extends VBox {
     Text round;
     //Text description;
     Text attack,price,speedattack,bulletstype,range,level;
-    Button deleteBtn;
+    Button sellBtn;
     Button upgradeLeft = new Button();
     Button upgradeRight = new Button();
     Text vac,vac2,vac3,vac4 ;
@@ -41,7 +41,7 @@ public class TowerInfoUI extends VBox {
         bulletstype = new Text();
         range = new Text();
         level = new Text();
-        deleteBtn = new Button("DELETE");
+        sellBtn = new Button("SELL");
         grid = new GridPane();
         round = new Text();
         vac = new Text();
@@ -69,11 +69,11 @@ public class TowerInfoUI extends VBox {
         
         upgradeRight.setStyle("-fx-text-fill: white;-fx-font-weight: bold; -fx-font-family: \"Arial Narrow\"; -fx-background-color: darkgreen;");
         
-        deleteBtn.setStyle("-fx-text-fill: white; -fx-font-weight: bold;-fx-font-family: \"Arial Narrow\"; -fx-background-color: darkred;");
+        sellBtn.setStyle("-fx-text-fill: white; -fx-font-weight: bold;-fx-font-family: \"Arial Narrow\"; -fx-background-color: darkred;");
         
         HBox hb = new HBox(50);
         hb.setAlignment(Pos.CENTER);
-        hb.getChildren().addAll( upgradeLeft, upgradeRight,deleteBtn );
+        hb.getChildren().addAll( upgradeLeft, upgradeRight, sellBtn);
         
         HBox hb2 = new HBox(50);
         hb2.setAlignment(Pos.CENTER);
@@ -172,8 +172,9 @@ public class TowerInfoUI extends VBox {
         money.setText("Current Money = "+logic.Simulation.getMoney());
         money.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
         
-        deleteBtn.setOnAction(ev -> {
+        sellBtn.setOnAction(ev -> {
             towers.deleteTower(x, y);
+            Simulation.increaseMoney(tower.getPrice());
             unseeTower();
         });
 
