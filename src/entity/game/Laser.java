@@ -20,4 +20,17 @@ public class Laser extends type3{
 	public Image getSprite() {
 		return Sprites.TowerLaser;
 	}
+
+	@Override
+	public void attack() {
+		BulletsType type = this.getType();
+		Monster m = findMonster();
+		if (m == null)
+			return;
+		Bullets b = new Bullets(this.getCenterX(), this.getCenterY(), this.getBaseAttack(), type, null);
+		var d = m.getPos().subtract(b.getX(), b.getY()).normalize().multiply(b.getSpeed());
+		b.setLastVx(d.getX());
+		b.setLastVy(d.getY());
+		Main.game.addBullet(b);
+	}
 }
