@@ -5,10 +5,7 @@ import entity.base.Bullets;
 import entity.base.BulletsType;
 import entity.base.Monster;
 import entity.base.Tower;
-import javafx.geometry.Point2D;
-import entity.base.Tower;
 import javafx.scene.image.Image;
-import javafx.util.Pair;
 import logic.Simulation;
 import utils.Sprites;
 
@@ -29,7 +26,7 @@ public class type2 extends Tower {
 	}
 
 	public type2(type2 other) {
-		this(other.getSpeedatk(), other.getAttack(), other.getPrice(), other.getX(), other.getY());
+		this(other.getSpeedatk(), other.getBaseAttack(), other.getPrice(), other.getX(), other.getY());
 	}
 
 	@Override
@@ -41,7 +38,7 @@ public class type2 extends Tower {
 		Monster m = findMonster();
 		if (m == null)
 			return;
-		Bullets b = new Bullets(this.getCenterX(), this.getCenterY(), this.getAttack(), type, m);
+		Bullets b = new Bullets(this.getCenterX(), this.getCenterY(), this.getBaseAttack(), type, m);
 		Main.game.addBullet(b);
 	}
 
@@ -78,7 +75,7 @@ public class type2 extends Tower {
 			tower.setLevel(getLevel()+1);
 			return Optional.of(tower);
 		case 3:
-			Farm f = new Farm(getSpeedatk(), getAttack(), new_price, getX(), getY());
+			Farm f = new Farm(getSpeedatk(), getBaseAttack(), new_price, getX(), getY());
 			return Optional.of(f);
 		default:
 			return Optional.empty();
@@ -93,7 +90,7 @@ public class type2 extends Tower {
 		switch (getLevel()) {
 			case 1:
 				tower.setPrice(new_price);
-				tower.setAttack(getAttack() + 100);
+				tower.setBaseAttack(getBaseAttack() + 100);
 				tower.setLevel(getLevel() + 1);
 				return Optional.of(tower);
 			case 2:
@@ -102,7 +99,7 @@ public class type2 extends Tower {
 				tower.setLevel(getLevel() + 1);
 				return Optional.of(tower);
 			case 3:
-				Strength s = new Strength(getSpeedatk(), getAttack(), new_price, getX(), getY());
+				Strength s = new Strength(getSpeedatk(), getBaseAttack(), new_price, getX(), getY());
 				return Optional.of(s);
 			default:
 				return Optional.empty();

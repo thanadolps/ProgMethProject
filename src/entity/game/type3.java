@@ -4,12 +4,8 @@ import entity.base.Bullets;
 import entity.base.BulletsType;
 import entity.base.Monster;
 import entity.base.Tower;
-import javafx.geometry.Point2D;
 import core.Main;
-import entity.base.Tower;
 import javafx.scene.image.Image;
-import javafx.util.Pair;
-import logic.Simulation;
 
 import java.util.Optional;
 
@@ -23,7 +19,7 @@ public class type3 extends Tower {
 	}
 
 	public type3(type3 other) {
-		this(other.getSpeedatk(), other.getAttack(), other.getPrice(), other.getX(), other.getY());
+		this(other.getSpeedatk(), other.getBaseAttack(), other.getPrice(), other.getX(), other.getY());
 	}
 
 	@Override
@@ -39,11 +35,11 @@ public class type3 extends Tower {
 				return Optional.of(tower);
 			case 2:
 				tower.setPrice(new_price);
-				tower.setAttack(getSpeedatk() + 100);
+				tower.setBaseAttack(getSpeedatk() + 100);
 				tower.setLevel(getLevel() + 1);
 				return Optional.of(tower);
 			case 3:
-				Laser l = new Laser(getSpeedatk() , getAttack() + 50, new_price, getX(), getY());
+				Laser l = new Laser(getSpeedatk() , getBaseAttack() + 50, new_price, getX(), getY());
 				return Optional.of(l);
 			default:
 				return Optional.empty();
@@ -67,7 +63,7 @@ public class type3 extends Tower {
 				tower.setLevel(getLevel() + 1);
 				return Optional.of(tower);
 			case 3:
-				Boom b = new Boom(getSpeedatk() + 100, getAttack(), new_price, getX(), getY());
+				Boom b = new Boom(getSpeedatk() + 100, getBaseAttack(), new_price, getX(), getY());
 				return Optional.of(b);
 			default:
 				return Optional.empty();
@@ -81,7 +77,7 @@ public class type3 extends Tower {
 		Monster m = findMonster();
 		if (m == null)
 			return;
-		Bullets b = new Bullets(this.getCenterX(), this.getCenterY(), this.getAttack(), type, m);
+		Bullets b = new Bullets(this.getCenterX(), this.getCenterY(), this.getBaseAttack(), type, m);
 		Main.game.addBullet(b);
 	}
 

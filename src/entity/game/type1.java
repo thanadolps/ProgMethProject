@@ -5,10 +5,7 @@ import entity.base.Bullets;
 import entity.base.BulletsType;
 import entity.base.Monster;
 import entity.base.Tower;
-import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
-import javafx.util.Pair;
-import logic.Simulation;
 import utils.Sprites;
 
 import java.util.Optional;
@@ -23,7 +20,7 @@ public class type1 extends Tower {
 	}
 
 	public type1(type1 other) {
-		this(other.getSpeedatk(), other.getAttack(), other.getPrice(), other.getX(), other.getY());
+		this(other.getSpeedatk(), other.getBaseAttack(), other.getPrice(), other.getX(), other.getY());
 	}
 
 	@Override
@@ -33,7 +30,7 @@ public class type1 extends Tower {
 		Monster m = findMonster();
 		if (m == null)
 			return;
-		Bullets b = new Bullets(this.getCenterX(), this.getCenterY(), this.getAttack(), type, m);
+		Bullets b = new Bullets(this.getCenterX(), this.getCenterY(), this.getBaseAttack(), type, m);
 		Main.game.addBullet(b);
 	}
 
@@ -55,20 +52,15 @@ public class type1 extends Tower {
 				return Optional.of(tower);
 			case 2:
 				tower.setPrice(new_price);
-				tower.setAttack(getAttack() + 100);
+				tower.setBaseAttack(getBaseAttack() + 100);
 				tower.setLevel(getLevel() + 1);
 				return Optional.of(tower);
 			case 3:
-				Fire fire = new Fire(getSpeedatk(), getAttack() + 100, new_price, getX(), getY());
+				Fire fire = new Fire(getSpeedatk(), getBaseAttack() + 100, new_price, getX(), getY());
 				return Optional.of(fire);
 			default:
 				return Optional.empty();
 		}
-	}
-
-	private void replace(type1 type1) {
-		// TODO: implement
-		throw new java.lang.UnsupportedOperationException("Not supported yet.");
 	}
 
 	@Override
@@ -88,7 +80,7 @@ public class type1 extends Tower {
 				tower.setLevel(getLevel() + 1);
 				return Optional.of(tower);
 			case 3:
-				Ice ice = new Ice(getSpeedatk() + 100, getAttack(), new_price, getX(), getY());
+				Ice ice = new Ice(getSpeedatk() + 100, getBaseAttack(), new_price, getX(), getY());
 				return Optional.of(ice);
 			default:
 				return Optional.empty();

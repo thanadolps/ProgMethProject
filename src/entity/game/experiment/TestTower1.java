@@ -9,7 +9,6 @@ import entity.base.Tower;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.FillRule;
 import javafx.util.Pair;
 import utils.Sprites;
 import utils.Utils;
@@ -50,7 +49,7 @@ public class TestTower1 extends Tower {
         Monster m = findMonster();
         if (m == null)
             return;
-        Bullets b = new Bullets(this.getX(), this.getY(), this.getAttack(), type, m);
+        Bullets b = new Bullets(this.getX(), this.getY(), this.getBaseAttack(), type, m);
         // ต้องใช้ tick ไหม
         Main.game.addBullet(b);
     }

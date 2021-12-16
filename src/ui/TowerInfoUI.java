@@ -139,7 +139,7 @@ public class TowerInfoUI extends VBox {
         
         
         //description.setText("Tower description Na.");
-        attack.setText("Attack = "+tower.getAttack());
+        attack.setText("Attack = "+tower.getBaseAttack());
         speedattack.setText("SpeedAttack = "+tower.getSpeedatk());
         price.setText("Price = "+tower.getPrice());
         range.setText("Range = "+tower.getR());
@@ -207,7 +207,14 @@ public class TowerInfoUI extends VBox {
         });
     }
 
+    public void refresh() {
+        if(towerX >=0 && towerY >= 0)
+            seeTower(towerX, towerY);
+    }
+
     public void unseeTower() {
+        towerX = -1;
+        towerY = -1;
         setVisible(false);
     }
 }

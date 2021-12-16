@@ -1,16 +1,18 @@
 package utils;
 
+import entity.base.Bullets;
 import javafx.scene.media.AudioClip;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Sound {
-    public static AudioClip TowerPlace;
+    public static AudioClip TowerPlace, BulletHit;
 
     static {
         try {
-            TowerPlace = loadAudio("tower_place.wav");
+            TowerPlace = loadAudio("plant.wav");
+            BulletHit = loadAudio("splat.wav");
         } catch (IOException e) {
             System.err.println("Fail to load audio.");
             e.printStackTrace();

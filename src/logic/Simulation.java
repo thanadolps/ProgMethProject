@@ -1,5 +1,6 @@
 package logic;
 
+import core.Main;
 import entity.base.Monster;
 import entity.base.Tower;
 import entity.game.Farm;
@@ -32,6 +33,7 @@ public class Simulation {
 		if (price < 0)
 			return;
 		setMoney(getMoney() + price);
+		Main.sidebar.getTowerInfoUI().refresh();
 	}
 
 	public static void decreaseMoney(int price) {

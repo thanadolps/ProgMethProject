@@ -1,9 +1,12 @@
 package entity.base;
 
+import core.Main;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import level.Track;
+import logic.Simulation;
+import utils.Sound;
 import utils.Utils;
 
 public class Monster extends Entity {
@@ -114,6 +117,9 @@ public class Monster extends Entity {
 		// burn and freeze effect
 		burnDuration = Math.max(burnDuration - dt, 0);
 		freezeDuration = Math.max(freezeDuration - dt, 0);
+		if(burnDuration > 0) {
+			// takeDamage(burnDmg);
+		}
 	}
 
 	/**
@@ -122,6 +128,7 @@ public class Monster extends Entity {
 	public void die() {
 		// TODO: should also handle thing that happen when monster die
 		// eg. increase player's money
+		Simulation.increaseMoney(getBounty());
 		this.markDestroy();
 	}
 
@@ -130,6 +137,7 @@ public class Monster extends Entity {
 	 * @param bullets bullet ที่ยิงโดน
 	 */
 	public void takeBullet(Bullets bullets) {
+		Sound.BulletHit.play();
 		if(takeDamage(bullets.getAttack())) {
 			// Monster is dead, early return
 			return;
@@ -146,6 +154,7 @@ public class Monster extends Entity {
 	 * @return boolean, แสดงว่าหลังโดน damage ตายไหม
 	 */
 	public boolean takeDamage(int dmg) {
+		Main.game.addDmgInd(new DmgInd(getX(), getY(), dmg));
 		setHp(getHp() - dmg);
 		if(getHp() <= 0) {
 			die();
@@ -156,6 +165,10 @@ public class Monster extends Entity {
 
 	public double getHitBoxRadius() {
 		return 0.5;
+	}
+
+	public int getBounty() {
+		return 100;
 	}
 
 	public double getX() {

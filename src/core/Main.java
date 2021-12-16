@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import ui.Sidebar;
 import ui.TowerButton;
@@ -72,6 +73,7 @@ public class Main extends Application {
         double w = gc.getCanvas().getWidth();
         double h = gc.getCanvas().getHeight();
         gc.setFill(Color.BLACK);
+        gc.setFont(new Font(18));
 
         gc.getCanvas().addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> game.handleClick(mouseEvent));
 

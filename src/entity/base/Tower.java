@@ -1,6 +1,5 @@
 package entity.base;
 
-import core.Game;
 import core.Main;
 import core.timing.Interval;
 import entity.game.Boom;
@@ -12,7 +11,6 @@ import entity.game.Strength;
 import entity.game.type1;
 import entity.game.type2;
 import entity.game.type3;
-import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
@@ -24,7 +22,8 @@ import java.util.Optional;
 public abstract class Tower implements Cloneable {
 
 	private int speedatk;
-	private int attack;
+	private int baseAttack;
+	private int extraAttack;
 	private int price;
 	private int level = 1;
 	private int x;
@@ -42,10 +41,10 @@ public abstract class Tower implements Cloneable {
 		this.type = type;
 	}
 
-	public Tower(int speedatk, int attack, int price, int x, int y) {
+	public Tower(int speedatk, int baseAttack, int price, int x, int y) {
 		super();
 		this.speedatk = speedatk;
-		this.attack = attack;
+		this.baseAttack = baseAttack;
 		this.price = price;
 		this.x = x;
 		this.y = y;
@@ -149,13 +148,17 @@ public abstract class Tower implements Cloneable {
 		attackTimer.resetTime();
 	}
 
-	public int getAttack() {
-		return attack;
+	public int getBaseAttack() {
+		return baseAttack;
 	}
 
-	public void setAttack(int attack) {
-		this.attack = attack;
+	public void setBaseAttack(int baseAttack) {
+		this.baseAttack = baseAttack;
 	}
+
+	/*public void พำดพำห้ExtraAttack() {
+		// checkNearbyStrength
+	}*/
 
 	public int getLevel() {
 		return level;
@@ -165,20 +168,27 @@ public abstract class Tower implements Cloneable {
 		this.level = level;
 	}
 
-	public void inRangetype2() {
+	/**
+	 * คำนวนว่่า tower อยู่ในวง buff จาก tower แบบ strength ไหม
+	 * @return boolean, อยู่ในวง buff ไหม
+	 */
+	public boolean checkNearbyStrength() {
+		final boolean[] check = {false};
 		Main.game.getTowers().iterateTower((t, tower) -> {
 			for (Strength s : Simulation.getStrength()) {
+				if(s == this) {return;}
 				double x = t.getKey();
 				double y = t.getValue();
 				double dx = x - s.getX();
 				double dy = y - s.getY();
 				double r = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 				if (r < s.getR()) {
-					tower.setAttack(tower.getAttack() + 100);
-					return;
+					check[0] = true;
+					break;
 				}
 			}
 		});
+		return check[0];
 	}
 
 	public int getR() {

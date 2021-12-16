@@ -1,9 +1,6 @@
 package core;
 
-import entity.base.Bullets;
-import entity.base.Entity;
-import entity.base.Monster;
-import entity.base.Tower;
+import entity.base.*;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseButton;
@@ -26,6 +23,7 @@ public class Game implements Draw, Tick {
     Spawner activeSpawner;
     ArrayList<Monster> monsters = new ArrayList<>();
     ArrayList<Bullets> bullets = new ArrayList<>();
+    ArrayList<DmgInd> dmgInds = new ArrayList<>();
     Towers towers = new Towers();
     /**
      * <p>
@@ -58,6 +56,7 @@ public class Game implements Draw, Tick {
         gc.setFill(Color.BLACK);
         monsters.forEach(monster -> monster.draw(gc, dt));
         this.drawTower(gc, dt);
+        dmgInds.forEach(dmgInd -> dmgInd.draw(gc, dt));
 
         // debugMonsterCount(gc);
         drawTowerPlacement(gc);
@@ -129,10 +128,12 @@ public class Game implements Draw, Tick {
         this.tickTower(dt);
         bullets.forEach(bullet -> {if(!bullet.isDestroyed()) bullet.tick(dt);});
         this.tickMonster(dt);
+        dmgInds.forEach(dmgInd -> dmgInd.tick(dt));
 
         // TODO: decrease freq of remove
         monsters.removeIf(Entity::isDestroyed);
         bullets.removeIf(Entity::isDestroyed);
+        dmgInds.removeIf(Entity::isDestroyed);
     }
 
     private void tickMonster(double dt) {
@@ -213,6 +214,10 @@ public class Game implements Draw, Tick {
 
     public void addBullet(Bullets bullet) {
         bullets.add(bullet);
+    }
+
+    public void addDmgInd(DmgInd dmgInd) {
+        dmgInds.add(dmgInd);
     }
 
     /**
