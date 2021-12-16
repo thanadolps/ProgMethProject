@@ -1,6 +1,7 @@
 package ui;
 
 import core.Main;
+import entity.base.Tower;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -132,7 +133,7 @@ public class TowerInfoUI extends VBox {
         var tower = _tower.get();
 
         //mainText.setText(tower.toString());
-        mainText.setText(tower.getName(tower));
+        mainText.setText(Tower.getName(tower));
         mainText.setFont(Font.font("Tahoma", FontWeight.BOLD, 30));
         
         
@@ -164,15 +165,31 @@ public class TowerInfoUI extends VBox {
             unseeTower();
         });
 
-        upgradeLeft.setText("UPGRADE to TowerA");
-        upgradeLeft.setOnAction(ev -> {
-            System.out.println("Tower upgrade left da");
-        });
+        var left_tower = tower.get_upgrade_lsh();
+        if(left_tower.isPresent()) {
+            upgradeLeft.setDisable(false);
+            upgradeLeft.setText("UPGRADE to " + Tower.getName(left_tower.get()));
+            upgradeLeft.setOnAction(ev -> {
+                tower.upgrade_lsh(tower.upgradePrice_lsh());
+            });
+        }
+        else {
+            upgradeLeft.setText("Upgrade Maxed out");
+            upgradeLeft.setDisable(true);
+        }
 
-        upgradeRight.setText("UPGRADE to TowerB");
-        upgradeRight.setOnAction(ev -> {
-            System.out.println("Tower upgrade right da");
-        });
+        var right_tower = tower.get_upgrade_rsh();
+        if(right_tower.isPresent()) {
+            upgradeRight.setDisable(false);
+            upgradeRight.setText("UPGRADE to " + Tower.getName(right_tower.get()));
+            upgradeRight.setOnAction(ev -> {
+                tower.upgrade_rsh(tower.upgraderPrice_rsh());
+            });
+        }
+        else {
+            upgradeRight.setText("Upgrade Maxed out");
+            upgradeRight.setDisable(true);
+        }
     }
 
     public void unseeTower() {

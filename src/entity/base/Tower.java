@@ -206,16 +206,17 @@ public abstract class Tower implements Cloneable {
 	
 	public abstract int upgraderPrice_rsh();
 	
-	public String getName(Tower t) {
-		if ( t.equals(Fire.class) ) return "Fire";
-		else if ( t.equals(Ice.class) ) return "Ice";
-		else if ( t.equals(Boom.class) ) return "Boom";
-		else if ( t.equals(Laser.class) ) return "Laser";
-		else if ( t.equals(Farm.class) ) return "Farm";
-		else if ( t.equals(Strength.class) ) return "Strength";
-		else if ( t.equals(type1.class) ) return "Base Tower Type 1";
-		else if ( t.equals(type2.class) ) return "Base Tower Type 2";
-		else return "Base Tower Type 3";
+	public static String getName(Tower t) {
+		if ( t.getClass().equals(Fire.class) ) return "Fire";
+		else if ( t.getClass().equals(Ice.class) ) return "Ice";
+		else if ( t.getClass().equals(Boom.class) ) return "Boom";
+		else if ( t.getClass().equals(Laser.class) ) return "Laser";
+		else if ( t.getClass().equals(Farm.class) ) return "Farm";
+		else if ( t.getClass().equals(Strength.class) ) return "Strength";
+		else if ( t.getClass().equals(type1.class) ) return "Base Tower Type 1";
+		else if ( t.getClass().equals(type2.class) ) return "Base Tower Type 2";
+		else if (t.getClass().equals(type3.class)) return "Base Tower Type 3";
+		else return "Unknown Tower";
 	}
 	
 	public String getBulletsType(Tower t) {
