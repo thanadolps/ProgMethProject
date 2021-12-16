@@ -30,6 +30,6 @@ public class Soldier extends Monster {
 
     @Override
     public int getBounty() {
-        return 10;
+        return 50;
     }
 }

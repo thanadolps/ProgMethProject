@@ -122,7 +122,7 @@ public class Game implements Draw, Tick {
 
             getTowers().iterateTower((pos, tower) -> {
                 if(tower instanceof Farm) {
-                    Simulation.increaseMoney(100);
+                    Simulation.increaseMoney(150);
                 }
             });
 

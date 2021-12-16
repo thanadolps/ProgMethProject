@@ -15,10 +15,19 @@ public class Bullets extends Entity {
 	private double y ;
 	private double lastVx = 0;
 	private double lastVy = 0;
-	private int attack;
+	private final int attack;
 	private BulletsType type;
 	private Monster m;
 	private final HashSet<Monster> attackHistory = new HashSet<>();
+
+	public Bullets(double x , double y , int attack , BulletsType type , Monster m ) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.attack = attack;
+		this.type = type;
+		this.m = m;
+	}
 
 	@Override
 	public void draw(GraphicsContext gc, double dt) {
@@ -103,20 +112,6 @@ public class Bullets extends Entity {
 		double dy = m.getY()-y;
 		double r = Math.sqrt(Math.pow(dx, 2)+Math.pow(dy, 2));
 		return r <= m.getHitBoxRadius();
-	}
-	
-	public Bullets() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	public Bullets(double x , double y , int attack , BulletsType type , Monster m ) {
-		super();
-		this.x = x;
-		this.y = y;
-		this.attack = attack;
-		this.type = type;
-		this.m = m;
 	}
 
 

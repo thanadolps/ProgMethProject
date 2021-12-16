@@ -21,6 +21,6 @@ public class SpeedSoldier extends Soldier {
 
 	@Override
 	public int getBounty() {
-		return 20;
+		return 75;
 	}
 }

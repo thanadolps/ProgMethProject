@@ -27,6 +27,6 @@ public class Boss extends Monster {
 
 	@Override
 	public int getBounty() {
-		return 0;
+		return 500;
 	}
 }

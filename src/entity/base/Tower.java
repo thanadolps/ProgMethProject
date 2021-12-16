@@ -26,12 +26,12 @@ public abstract class Tower implements Cloneable {
 	private int extraAttack;
 	private int price;
 	private int level = 1;
-	private int x;
-	private int y;
+	private final int x;
+	private final int y;
 	private double r;
 	private BulletsType type;
 
-	private Interval attackTimer;
+	private final Interval attackTimer;
 
 	public BulletsType getType() {
 		return type;
