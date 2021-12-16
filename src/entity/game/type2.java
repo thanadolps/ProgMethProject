@@ -10,6 +10,7 @@ import entity.base.Tower;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
 import logic.Simulation;
+import utils.Sprites;
 
 import java.util.Optional;
 
@@ -57,7 +58,7 @@ public class type2 extends Tower {
 
 	@Override
 	public Image getSprite() {
-		return null;
+		return Sprites.TowerType2;
 	}
 
 	@Override
@@ -70,12 +71,12 @@ public class type2 extends Tower {
 			tower.setPrice(new_price);
 			tower.setSpeedatk(getSpeedatk()+100);
 			tower.setLevel(getLevel()+1);
-			return Optional.of(this);
+			return Optional.of(tower);
 		case 2:
 			tower.setPrice(new_price);
 			tower.setR(getR() + 1);
 			tower.setLevel(getLevel()+1);
-			return Optional.of(this);
+			return Optional.of(tower);
 		case 3:
 			Farm f = new Farm(getSpeedatk(), getAttack(), new_price, getX(), getY());
 			return Optional.of(f);
