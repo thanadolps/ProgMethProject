@@ -21,23 +21,44 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import ui.Sidebar;
-import ui.TowerButton;
-import ui.TowerSelectUI;
+import level.Level1;
+import logic.Simulation;
+import ui.*;
 import utils.InputUtils;
 import utils.Sprites;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 public class Main extends Application {
-    public static Game game = new Game();
+    public static Game game;
     public static Canvas canvas;
     public static InputUtils inputUtils;
     public static Sidebar sidebar;
+    public static Stage stage;
+    public static AnimationTimer gameLoop;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        stage = primaryStage;
+        stage.setScene(new Scene(new TitleScreen()));
+        stage.setTitle("Tower d' Fence");
+        stage.setResizable(false);
+        stage.sizeToScene();
+        stage.show();
+    }
+
+    public static void restart() {
         var root = new HBox();
         canvas = new Canvas();
         sidebar = new Sidebar();
+
+        try {
+            game = new Game(new Level1());
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+        Simulation.restart();
 
         setupUI();
         setupGraphics(canvas.getGraphicsContext2D());
@@ -46,14 +67,10 @@ public class Main extends Application {
         root.getChildren().addAll(canvas, sidebar);
 
         var scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Tower d' Fence");
-        primaryStage.setResizable(false);
-        primaryStage.sizeToScene();
-        primaryStage.show();
+        stage.setScene(scene);
     }
 
-    private void setupUI() {
+    private static void setupUI() {
         canvas.setWidth(800);
         canvas.setHeight(800);
 
@@ -69,7 +86,7 @@ public class Main extends Application {
         );
     }
 
-    private void setupGraphics(GraphicsContext gc) {
+    private static void setupGraphics(GraphicsContext gc) {
         double w = gc.getCanvas().getWidth();
         double h = gc.getCanvas().getHeight();
         gc.setFill(Color.BLACK);
@@ -77,7 +94,7 @@ public class Main extends Application {
 
         gc.getCanvas().addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> game.handleClick(mouseEvent));
 
-        new AnimationTimer() {
+        gameLoop = new AnimationTimer() {
             long prevNano = System.nanoTime();
 
             // 0.016 sec/frame = 60 frame/sec
@@ -105,7 +122,15 @@ public class Main extends Application {
                     fpsCounter.tick(deltaTime);
                 });
             }
-        }.start();
+        };
+        gameLoop.start();
+    }
+
+    public static void switchToEndScreen() {
+        if(gameLoop != null) {
+            gameLoop.stop();
+        }
+        stage.setScene(new Scene(new EndScreen()));
     }
 
     public static void main(String[] args) {

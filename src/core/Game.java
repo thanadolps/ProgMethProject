@@ -40,15 +40,10 @@ public class Game implements Draw, Tick {
      */
     HashMap<Pair<Integer, Integer>, HashSet<Monster>> monstersMap = new HashMap<>();
 
-    public Game() {
-        try {
-            currentLevel = new Level1();
-            System.out.println(currentLevel);
-            activeSpawner = currentLevel.nextSpawner();
-            activeSpawner.setOnSpawn(this::addMonster);
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
-        }
+    public Game(Level level) {
+        currentLevel = level;
+        activeSpawner = currentLevel.nextSpawner();
+        activeSpawner.setOnSpawn(this::addMonster);
     }
 
     @Override
@@ -202,7 +197,7 @@ public class Game implements Draw, Tick {
                 Main.sidebar.getTowerSelectUI().deselect();
 
                 Simulation.decreaseMoney(tower.getPrice());
-                Main.sidebar.getTowerInfoUI().refresh();
+                Main.sidebar.refresh();
                 Sound.TowerPlace.play();
                 return;
             }

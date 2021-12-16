@@ -13,13 +13,31 @@ import java.util.Timer;
 
 public class Simulation {
 
-	private static int money = 1000;
-	private static int round = 1;
-	private static int lifepoint = 150;
-	private static Timer time = new Timer();
-	private static ArrayList<Monster> myTower = new ArrayList<>();
-	private static ArrayList<Strength> strength = new ArrayList<>();
-	private static ArrayList<Farm> farm = new ArrayList<>();
+	private static int money;
+	private static int round ;
+	private static int lifepoint;
+	private static Timer time;
+	private static ArrayList<Monster> myTower;
+	private static ArrayList<Strength> strength;
+	private static ArrayList<Farm> farm;
+
+	static {
+		restart();
+	}
+
+	public static void restart() {
+		money = 1000;
+		round = 1;
+		lifepoint = 150;
+		time = new Timer();
+		myTower = new ArrayList<>();
+		strength = new ArrayList<>();
+		farm = new ArrayList<>();
+
+		if(Main.sidebar != null) {
+			Main.sidebar.refresh();
+		}
+	}
 
 	public static ArrayList<Farm> getFarm() {
 		return farm;
@@ -33,7 +51,7 @@ public class Simulation {
 		if (price < 0)
 			return;
 		setMoney(getMoney() + price);
-		Main.sidebar.getTowerInfoUI().refresh();
+		Main.sidebar.refresh();
 	}
 
 	public static boolean decreaseMoney(int price) {
@@ -57,7 +75,7 @@ public class Simulation {
 	public static void nextRound() {
 		// จับเวลาเวลาแต่ละroundเท่ากัน และมีช่วงพักระหว่างroundปมสามถึงสี่วิ
 		round += 1;
-		Main.sidebar.getTowerInfoUI().refresh();
+		Main.sidebar.refresh();
 	}
 
 	public static int getRound() {
@@ -74,12 +92,15 @@ public class Simulation {
 
 	public static void onMonsterEnter(Monster monster) {
 		setLifepoint(getLifepoint() - monster.getDlife());
-		Main.sidebar.getTowerInfoUI().refresh();
+		Main.sidebar.refresh();
 		if(Math.random() < 0.5) {
 			Sound.Hurt1.play();
 		}
 		else {
 			Sound.Hurt2.play();
+		}
+		if(isLose()) {
+			Main.switchToEndScreen();
 		}
 	}
 
@@ -95,10 +116,8 @@ public class Simulation {
 		myTower.clear();
 	}
 
-	public boolean getLose() {
-		if (getLifepoint() < 0)
-			return false;
-		return true;
+	public static boolean isLose() {
+		return getLifepoint() < 0;
 	}
 
 	public static void produce() {

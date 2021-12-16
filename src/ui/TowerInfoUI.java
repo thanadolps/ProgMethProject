@@ -20,14 +20,12 @@ import java.util.function.Consumer;
 public class TowerInfoUI extends VBox {
 	GridPane grid;
     Text mainText;
-    Text round;
     //Text description;
     Text attack,price,speedattack,bulletstype,range,level;
     Button sellBtn;
     Button upgradeLeft = new Button();
     Button upgradeRight = new Button();
     Text vac,vac2,vac3,vac4 ;
-    Text lifepoint,maxhp,myhp,money;
 
     int towerX;
     int towerY;
@@ -43,14 +41,9 @@ public class TowerInfoUI extends VBox {
         level = new Text();
         sellBtn = new Button("SELL");
         grid = new GridPane();
-        round = new Text();
         vac = new Text();
         vac2 = new Text();
-        lifepoint = new Text();
-        maxhp = new Text();
-        myhp = new Text();
         vac3 = new Text();
-        money = new Text();
         vac4 = new Text();
 
         HBox empty = new HBox();
@@ -58,12 +51,6 @@ public class TowerInfoUI extends VBox {
         
         HBox empty2 = new HBox();
         empty2.getChildren().add(vac2);
-
-        HBox empty3 = new HBox();
-        empty3.getChildren().add(vac3);
-        
-        HBox empty4 = new HBox();
-        empty4.getChildren().add(vac4);
         
         upgradeLeft.setStyle("-fx-text-fill: white;-fx-font-weight: bold; -fx-font-family: \"Arial Narrow\"; -fx-background-color: darkgreen;");
         
@@ -90,32 +77,11 @@ public class TowerInfoUI extends VBox {
         grid.add(range, 0,2);
         grid.add(bulletstype, 2,2);
         
-        HBox hb3 = new HBox(50);
-        hb3.setAlignment(Pos.CENTER);
-        hb3.getChildren().add(round);
-        
-        HBox hb4 = new HBox(50);
-        hb4.setAlignment(Pos.CENTER);
-        hb4.getChildren().add(lifepoint);
-        
-        HBox hb5 = new HBox(50);
-        hb5.setAlignment(Pos.CENTER);
-        hb5.getChildren().addAll(lifepoint,myhp,maxhp);
-        
-        HBox hb6 = new HBox(50);
-        hb6.setAlignment(Pos.CENTER);
-        hb6.getChildren().add(money);
-        
         getChildren().add(empty2);
         getChildren().add(hb2);
         getChildren().add(grid);
         getChildren().add(hb);
         getChildren().add(empty);
-        getChildren().add(hb3);
-        getChildren().add(empty3);
-        getChildren().add(hb5);
-        getChildren().add(empty4);
-        getChildren().add(hb6);
         //getChildren().addAll(upgradeLeft, upgradeRight);
         unseeTower();
     }
@@ -156,21 +122,6 @@ public class TowerInfoUI extends VBox {
         
         bulletstype.setText("BulletsType = "+tower.getType());
         bulletstype.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        
-        round.setText("round = " + Simulation.getRound());
-        round.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
-        
-        maxhp.setText("/150");
-        maxhp.setStyle("-fx-font-size: 32px;-fx-font-family:\"Arial Black\";-fx-fill: #006400;");
-        maxhp.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
-        myhp.setText(logic.Simulation.getLifepoint()+"");
-        myhp.setStyle("-fx-font-size: 32px;-fx-font-family:\"Arial Black\";-fx-fill: #8B0000;");
-        myhp.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
-        lifepoint.setText("LifePoint = ");
-        lifepoint.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
-        
-        money.setText("Current Money = "+logic.Simulation.getMoney());
-        money.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
         
         sellBtn.setOnAction(ev -> {
             towers.deleteTower(x, y);
