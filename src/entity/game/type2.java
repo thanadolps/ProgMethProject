@@ -38,7 +38,7 @@ public class type2 extends Tower {
 			return;
 		BulletsType type = this.getType();
 		Monster m = findMonster();
-		if (m.equals(null))
+		if (m == null)
 			return;
 		Bullets b = new Bullets(this.getX(), this.getY(), this.getAttack(), type, m);
 		// ต้องใช้ tick ไหม
@@ -118,31 +118,23 @@ public class type2 extends Tower {
 	@Override
 	public int upgradePrice_lsh() {
 		// TODO Auto-generated method stub
-		switch ( getLevel() ) {
-		case 1: 
-			return 150;
-		case 2:
-			return 300;
-		case 3:
-			return 600;
-		default:
-			return 0;
-		}
+		return switch (getLevel()) {
+			case 1 -> 150;
+			case 2 -> 300;
+			case 3 -> 600;
+			default -> 0;
+		};
 	}
 
 	@Override
 	public int upgraderPrice_rsh() {
 		// TODO Auto-generated method stub
-		switch ( getLevel() ) {
-		case 1: 
-			return 150;
-		case 2:
-			return 250;
-		case 3:
-			return 550;
-		default:
-			return 0;
-		}
+		return switch (getLevel()) {
+			case 1 -> 150;
+			case 2 -> 250;
+			case 3 -> 550;
+			default -> 0;
+		};
 	}
 
 }

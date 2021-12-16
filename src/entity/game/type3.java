@@ -79,7 +79,7 @@ public class type3 extends Tower {
 		// TODO Auto-generated method stub
 		BulletsType type = this.getType();
 		Monster m = findMonster();
-		if (m.equals(null))
+		if (m == null)
 			return;
 		Bullets b = new Bullets(this.getX(), this.getY(), this.getAttack(), type, m);
 		// ต้องใช้ tick ไหม
@@ -99,30 +99,22 @@ public class type3 extends Tower {
 	@Override
 	public int upgradePrice_lsh() {
 		// TODO Auto-generated method stub
-		switch ( getLevel() ) {
-		case 1: 
-			return 200;
-		case 2:
-			return 250;
-		case 3:
-			return 450;
-		default:
-			return 0;
-		}
+		return switch (getLevel()) {
+			case 1 -> 200;
+			case 2 -> 250;
+			case 3 -> 450;
+			default -> 0;
+		};
 	}
 
 	@Override
 	public int upgraderPrice_rsh() {
 		// TODO Auto-generated method stub
-		switch ( getLevel() ) {
-		case 1: 
-			return 100;
-		case 2:
-			return 300;
-		case 3:
-			return 450;
-		default:
-			return 0;
-		}
+		return switch (getLevel()) {
+			case 1 -> 100;
+			case 2 -> 300;
+			case 3 -> 450;
+			default -> 0;
+		};
 	}
 }
