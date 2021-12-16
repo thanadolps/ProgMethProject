@@ -9,7 +9,7 @@ import java.lang.Math;
 
 public class Boom extends type3 {
 
-		public Boom(int speedatk, int attack, int price, int x , int y ) {
+		public Boom(double speedatk, int attack, int price, int x , int y ) {
 			super(speedatk, attack, price, x ,y);
 			setType(null);
 			// TODO Auto-generated constructor stub

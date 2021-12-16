@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public class type3 extends Tower {
 
-	public type3(int speedatk, int attack, int price, int x, int y) {
+	public type3(double speedatk, int attack, int price, int x, int y) {
 		super(speedatk, attack, price, x, y);
 		setR(1.5);
 		setType(BulletsType.NORMAL);
@@ -31,16 +31,17 @@ public class type3 extends Tower {
 		switch (getLevel()) {
 			case 1:
 				tower.setPrice(new_price);
-				tower.setSpeedatk(getSpeedatk() + 100);
+				tower.setSpeedatk(getSpeedatk() + 0.5);
 				tower.setLevel(getLevel() + 1);
 				return Optional.of(tower);
 			case 2:
 				tower.setPrice(new_price);
-				tower.setBaseAttack(getSpeedatk() + 100);
+				tower.setBaseAttack(getBaseAttack() + 200);
 				tower.setLevel(getLevel() + 1);
 				return Optional.of(tower);
 			case 3:
-				Laser l = new Laser(getSpeedatk() , getBaseAttack() + 50, new_price, getX(), getY());
+				Laser l = new Laser(getSpeedatk() , getBaseAttack() + 900, new_price, getX(), getY());
+				l.setR(getR() + 0.5);
 				return Optional.of(l);
 			default:
 				return Optional.empty();
@@ -55,16 +56,17 @@ public class type3 extends Tower {
 		switch (getLevel()) {
 			case 1:
 				tower.setPrice(new_price);
-				tower.setR(getR() + 1);
+				tower.setR(getR() + 0.25);
 				tower.setLevel(getLevel() + 1);
 				return Optional.of(tower);
 			case 2:
 				tower.setPrice(new_price);
-				tower.setR(getR() + 1);
+				tower.setSpeedatk(getSpeedatk() + 0.5);
 				tower.setLevel(getLevel() + 1);
 				return Optional.of(tower);
 			case 3:
-				Boom b = new Boom(getSpeedatk() + 100, getBaseAttack(), new_price, getX(), getY());
+				Boom b = new Boom(getSpeedatk(), getBaseAttack() + 400, new_price, getX(), getY());
+				b.setR(getR());
 				return Optional.of(b);
 			default:
 				return Optional.empty();

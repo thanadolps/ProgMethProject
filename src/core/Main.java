@@ -59,13 +59,13 @@ public class Main extends Application {
 
         var towerSelectUI = sidebar.getTowerSelectUI();
         towerSelectUI.addTowerButton(new TowerButton((x, y) ->
-                new type1(10,1,10, x, y))
+                new type1(1,200,10, x, y))
         );
         towerSelectUI.addTowerButton(new TowerButton((x, y) ->
-                new type2(10,1,10, x, y))
+                new type2(1,300,10, x, y))
         );
         towerSelectUI.addTowerButton(new TowerButton((x, y) ->
-                new type3(10,1,10, x, y))
+                new type3(0.5,400,10, x, y))
         );
     }
 

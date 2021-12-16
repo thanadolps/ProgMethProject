@@ -120,7 +120,7 @@ public class Game implements Draw, Tick {
 
     @Override
     public void tick(double dt) {
-        boolean isTurnEnd = activeSpawner.isDone() && getMonsters().isEmpty();
+        boolean isTurnEnd = activeSpawner.isDone();
         if(isTurnEnd) {
             activeSpawner = currentLevel.nextSpawner();
             activeSpawner.setOnSpawn(this::addMonster);

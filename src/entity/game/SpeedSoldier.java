@@ -8,8 +8,7 @@ import utils.Utils;
 public class SpeedSoldier extends Soldier {
 
 	public SpeedSoldier() {
-		super();
-		setBaseSpeed(2);
+		super(1500, 2);
 		setDlife(2);
 		// TODO Auto-generated constructor stub
 	}

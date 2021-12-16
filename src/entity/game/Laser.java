@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class Laser extends type3{
 
-	public Laser(int speedatk, int attack, int price, int x, int y) {
+	public Laser(double speedatk, int attack, int price, int x, int y) {
 		super(speedatk, attack, price, x, y);
 		setType(BulletsType.PIERCE);
 		// TODO Auto-generated constructor stub

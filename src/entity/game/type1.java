@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public class type1 extends Tower {
 
-	public type1(int speedatk, int attack, int price, int x, int y) {
+	public type1(double speedatk, int attack, int price, int x, int y) {
 		super(speedatk, attack, price, x, y);
 		setR(2);
 		setType(BulletsType.NORMAL);
@@ -47,16 +47,16 @@ public class type1 extends Tower {
 		switch (getLevel()) {
 			case 1:
 				tower.setPrice(new_price);
-				tower.setSpeedatk(getSpeedatk() + 100);
+				tower.setSpeedatk(getSpeedatk() + 2);
 				tower.setLevel(getLevel() + 1);
 				return Optional.of(tower);
 			case 2:
 				tower.setPrice(new_price);
-				tower.setBaseAttack(getBaseAttack() + 100);
+				tower.setBaseAttack(getBaseAttack() + 200);
 				tower.setLevel(getLevel() + 1);
 				return Optional.of(tower);
 			case 3:
-				Fire fire = new Fire(getSpeedatk(), getBaseAttack() + 100, new_price, getX(), getY());
+				Fire fire = new Fire(getSpeedatk(), getBaseAttack() + 500, new_price, getX(), getY());
 				return Optional.of(fire);
 			default:
 				return Optional.empty();
@@ -71,16 +71,17 @@ public class type1 extends Tower {
 		switch (getLevel()) {
 			case 1:
 				tower.setPrice(new_price);
-				tower.setR(getR() + 1);
+				tower.setR(getR() + 0.5);
 				tower.setLevel(getLevel() + 1);
 				return Optional.of(tower);
 			case 2:
 				tower.setPrice(new_price);
-				tower.setR(getR() + 1);
+				tower.setR(getR() + 0.5);
 				tower.setLevel(getLevel() + 1);
 				return Optional.of(tower);
 			case 3:
-				Ice ice = new Ice(getSpeedatk() + 100, getBaseAttack(), new_price, getX(), getY());
+				Ice ice = new Ice(getSpeedatk() + 4, getBaseAttack(), new_price, getX(), getY());
+				ice.setR(getR());
 				return Optional.of(ice);
 			default:
 				return Optional.empty();

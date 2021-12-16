@@ -21,7 +21,7 @@ import java.util.Optional;
 
 public abstract class Tower implements Cloneable {
 
-	private int speedatk;
+	private double speedatk;
 	private int baseAttack;
 	private int extraAttack;
 	private int price;
@@ -41,7 +41,7 @@ public abstract class Tower implements Cloneable {
 		this.type = type;
 	}
 
-	public Tower(int speedatk, int baseAttack, int price, int x, int y) {
+	public Tower(double speedatk, int baseAttack, int price, int x, int y) {
 		super();
 		this.speedatk = speedatk;
 		this.baseAttack = baseAttack;
@@ -133,14 +133,14 @@ public abstract class Tower implements Cloneable {
 	}
 
 	public double getPeriod() {
-		return 10.0/(double)(speedatk);
+		return 1.0/(double)(speedatk);
 	}
 
-	public int getSpeedatk() {
+	public double getSpeedatk() {
 		return speedatk;
 	}
 
-	public void setSpeedatk(int speedatk) {
+	public void setSpeedatk(double speedatk) {
 		this.speedatk = speedatk;
 		attackTimer.setPeriod(getPeriod());
 		attackTimer.resetTime();

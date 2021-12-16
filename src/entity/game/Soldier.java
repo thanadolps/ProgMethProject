@@ -14,7 +14,7 @@ public class Soldier extends Monster {
     }
 
     public Soldier() {
-        super(10, 1);
+        super(1000, 1);
     }
 
 

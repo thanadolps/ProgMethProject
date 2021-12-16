@@ -9,7 +9,7 @@ import utils.Utils;
 public class Boss extends Monster {
 
 	public Boss() {
-		super(50, 1);
+		super(10000, 0.5);
 		setDlife(50);
 		// TODO Auto-generated constructor stub
 	}

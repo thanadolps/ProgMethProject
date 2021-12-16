@@ -18,7 +18,7 @@ public class type2 extends Tower {
 	private boolean strength = false;
 	private boolean speed = false;
 
-	public type2(int speedatk, int attack, int price, int x, int y) {
+	public type2(double speedatk, int attack, int price, int x, int y) {
 		super(speedatk, attack, price, x, y);
 		setR(2);
 		setType(BulletsType.NORMAL);
@@ -66,12 +66,12 @@ public class type2 extends Tower {
 		switch (getLevel()) {
 		case 1:
 			tower.setPrice(new_price);
-			tower.setSpeedatk(getSpeedatk()+100);
+			tower.setSpeedatk(getSpeedatk()+2);
 			tower.setLevel(getLevel()+1);
 			return Optional.of(tower);
 		case 2:
 			tower.setPrice(new_price);
-			tower.setR(getR() + 1);
+			tower.setR(getR() + 0.25);
 			tower.setLevel(getLevel()+1);
 			return Optional.of(tower);
 		case 3:
@@ -90,16 +90,17 @@ public class type2 extends Tower {
 		switch (getLevel()) {
 			case 1:
 				tower.setPrice(new_price);
-				tower.setBaseAttack(getBaseAttack() + 100);
+				tower.setBaseAttack(getBaseAttack() + 200);
 				tower.setLevel(getLevel() + 1);
 				return Optional.of(tower);
 			case 2:
 				tower.setPrice(new_price);
-				tower.setR(getR() + 1);
+				tower.setR(getR() + 0.25);
 				tower.setLevel(getLevel() + 1);
 				return Optional.of(tower);
 			case 3:
 				Strength s = new Strength(getSpeedatk(), getBaseAttack(), new_price, getX(), getY());
+				s.setR(getR());
 				return Optional.of(s);
 			default:
 				return Optional.empty();

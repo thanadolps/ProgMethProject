@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class Strength extends type2 {
 
-	public Strength(int speedatk, int attack, int price, int x, int y) {
+	public Strength(double speedatk, int attack, int price, int x, int y) {
 		super(speedatk, attack, price, x, y);
 		setR(getR() + 1);
 		setType(null);
