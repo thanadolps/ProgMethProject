@@ -2,17 +2,21 @@ package entity.base;
 
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import level.Track;
 import utils.Utils;
 
 public class Monster extends Entity {
 
 	private int hp;
-	private int speed;
+	private double baseSpeed;
 	private Track track;
 	Point2D pos;
 	int trackIndex;
 	private int dlife = 1;
+
+	private double freezeDuration = 0;
+	private double burnDuration= 0;
 
 	public int getDlife() {
 		return dlife;
@@ -22,10 +26,10 @@ public class Monster extends Entity {
 		this.dlife = dlife;
 	}
 
-	public Monster(int hp, int speed) {
+	public Monster(int hp, double baseSpeed) {
 		super();
 		this.hp = hp;
-		this.speed = speed;
+		this.baseSpeed = baseSpeed;
 	}
 
 	public void run() {
@@ -43,17 +47,29 @@ public class Monster extends Entity {
 	}
 
 	public void setHp(int hp) {
-		if (hp <= 0)
+		if (hp <= 0) {
+			this.hp = 0;
 			return;
+		}
 		this.hp = hp;
 	}
 
-	public int getSpeed() {
-		return speed;
+	public double getBaseSpeed() {
+		return baseSpeed;
 	}
 
-	public void setSpeed(int speed) {
-		this.speed = speed;
+
+	public void setBaseSpeed(double baseSpeed) {
+		this.baseSpeed = baseSpeed;
+	}
+
+	/**
+	 * ให้ความเร็วของมอนตอนนี้ ใช้ในการเตลื่อนที่ของมอน.
+	 * โดยปกติจะเป็นตัวเดียวกับ getBaseSpeed() แต่ไม่จำเป็น. เช่นเวลาโดน freeze bullet, getSpeed จะให้ค่าช้ากว่า getBaseSpeed()
+	 * @return ความเร็วในการเคลื่อนที่ของมอน
+	 */
+	public double getSpeed() {
+		return freezeDuration>0? getBaseSpeed()/2 : getBaseSpeed();
 	}
 
 	public void setTrack(Track track) {
@@ -66,26 +82,26 @@ public class Monster extends Entity {
 	public void draw(GraphicsContext gc, double dt) {
 		var screen = Utils.grid2pixel(pos);
 		var gridDim = Utils.getGridPixelDimension();
-		/*
-		 * gc.fillText( String.format("hp{%s},speed{%s},track{%s}",hp,speed,track),
-		 * screen.getX(), screen.getY() );
-		 */
+
 		var gx = gridDim.getX();
 		var gy = gridDim.getY();
 
-		if (getSpeed() < 15) {
-			gc.fillRect(screen.getX() - 0.25*gx, screen.getY() - 0.25*gy, 0.5 * gx, 0.5 * gy);
-		} else {
-			gc.fillOval(screen.getX() - 0.75*gx/2, screen.getY() - 0.75*gy/2, 0.75 * gx, 0.75 * gy);
+		if(freezeDuration > 0) {
+			gc.setFill(Color.BLUE);
 		}
+
+		gc.fillRect(screen.getX() - 0.25*gx, screen.getY() - 0.25*gy, 0.5 * gx, 0.5 * gy);
+
+		gc.setFill(Color.BLACK);
 	}
 
 	@Override
 	public void tick(double dt) {
+		// Move monster along the path
 		var target = track.path[trackIndex];
 		var deltaS = target.subtract(pos);
 		var dist = deltaS.magnitude();
-		if (dist < 0.01) {
+		if (dist < 0.05) {
 			trackIndex += 1;
 			if (trackIndex >= track.path.length) {
 				System.out.println("Monster entered");
@@ -93,24 +109,53 @@ public class Monster extends Entity {
 			}
 			return;
 		}
-		pos = pos.add(deltaS.multiply(0.05 * speed * dt / dist));
+		pos = pos.add(deltaS.multiply(getSpeed() * dt / dist));
+
+		// burn and freeze effect
+		burnDuration = Math.max(burnDuration - dt, 0);
+		freezeDuration = Math.max(freezeDuration - dt, 0);
 	}
 
+	/**
+	 * ทำให้มอนตาย
+	 */
 	public void die() {
 		// TODO: should also handle thing that happen when monster die
 		// eg. increase player's money
 		this.markDestroy();
 	}
 
-	public void takeDamage(Bullets bullets) {
-		/*if (bullets.getType().equals(BulletsType.Type.BURN))
-			setHp(getHp() - 50);
-		if (bullets.getType().equals(BulletsType.Type.FREEZE))
-			setSpeed(getSpeed() - 10);
-		setHp(getHp() - bullets.label);
-		GameMap.deleteBullets(bullets);
-		if (isDead())
-			die(); // ลบตัวนั้นออกยังนึกไม่ออก*/
+	/**
+	 * ประมวณผลเมื่อ monster โดน bullet ยิงโดน. จัดการเรื่องโดน damage และสถานะ freeze/burn จาก bullet.
+	 * @param bullets bullet ที่ยิงโดน
+	 */
+	public void takeBullet(Bullets bullets) {
+		if(takeDamage(bullets.getAttack())) {
+			// Monster is dead, early return
+			return;
+		}
+		switch (bullets.getType()) {
+			case BURN -> burnDuration += 1;
+			case FREEZE -> freezeDuration += 1;
+		}
+	}
+
+	/**
+	 * ทำให้ monster นี้โดน damage คือเสียเลือด. หากเลือดเหลือน้อยกว่าเท่ากับ 0 มันจะตาย
+	 * @param dmg จำนวนเลือดที่เสีย
+	 * @return boolean, แสดงว่าหลังโดน damage ตายไหม
+	 */
+	public boolean takeDamage(int dmg) {
+		setHp(getHp() - dmg);
+		if(getHp() <= 0) {
+			die();
+			return true;
+		}
+		return false;
+	}
+
+	public double getHitBoxRadius() {
+		return 0.5;
 	}
 
 	public double getX() {

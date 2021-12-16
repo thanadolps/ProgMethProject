@@ -2,6 +2,8 @@ package entity.base;
 
 import javafx.scene.canvas.GraphicsContext;
 import java.lang.Math;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 import core.Main;
 import javafx.scene.paint.Color;
@@ -11,9 +13,12 @@ public class Bullets extends Entity {
 	
 	private double x ;
 	private double y ;
+	private double lastVx = 0;
+	private double lastVy = 0;
 	private int attack;
 	private BulletsType type;
 	private Monster m;
+	private final HashSet<Monster> attackHistory = new HashSet<>();
 
 	@Override
 	public void draw(GraphicsContext gc, double dt) {
@@ -32,30 +37,72 @@ public class Bullets extends Entity {
 
 	@Override
 	public void tick(double dt) {
-		// TODO Auto-generated method stub
+		// Monster is unassigned case
+		if(m == null) {
+			// continue moving forward
+			this.x += lastVx * dt;
+			this.y += lastVy * dt;
+
+			for(var m: Main.game.getMonstersAt((int)getX(), (int)getY())) {
+				if(attackHistory.contains(m)) {
+					continue;
+				}
+
+				var dx = m.getX() - getX();
+				var dy = m.getY() - getY();
+				var dist_sq = dx*dx + dy*dy;
+				if(dist_sq <= m.getHitBoxRadius()*m.getHitBoxRadius()) {
+					m.takeBullet(this);
+					attackHistory.add(m);
+					if(!type.equals(BulletsType.PIERCE)) {
+						markDestroy();
+					}
+				}
+			}
+
+			return;
+		}
+
+		// Bullet Homing Motion
 		double h = Main.game.getCurrentLevel().getTileGrid().getIndexHeight();
 		double w = Main.game.getCurrentLevel().getTileGrid().getIndexWidth();
 		double vx = m.getX()-x;
 		double vy = m.getY()-y;
 		double d = Math.sqrt(Math.pow(vx, 2)+Math.pow(vy, 2));
-		//dsx = vx(speed)/d
-		double dsx = vx*1.2/d;
-		double dsy = vy*1.2/d;
+		double dsx = vx*getSpeed()/d;
+		double dsy = vy*getSpeed()/d;
 		this.x += dsx*dt;
 		this.y += dsy*dt;
-		//ทำไงให้ bullets หาย
-		if ( hitMonster(m) && !type.equals(BulletsType.PIERCE)) markDestroy();
+		lastVx = dsx;
+		lastVy = dsy;
+
+		// Monster dead case
+		if(m.isDestroyed() || m.isDead()) {
+			m = null;
+			return;
+		}
+
+		// Hit monster case
+		if ( hitMonster(m) ) {
+			m.takeBullet(this);
+			if(!type.equals(BulletsType.PIERCE)) {
+				markDestroy();
+			}
+		}
+
+		// Out of map case
 		if ( !((0<=x && x<=w) && (0<=y && y<=h)) ) markDestroy();
-		
-		
 	}
-	
+
+	public double getSpeed() {
+		return 3;
+	}
+
 	public boolean hitMonster(Monster m) {
 		double dx = m.getX()-x;
 		double dy = m.getY()-y;
 		double r = Math.sqrt(Math.pow(dx, 2)+Math.pow(dy, 2));
-		if ( r > 0.5 ) return false;
-		return true;
+		return r <= m.getHitBoxRadius();
 	}
 	
 	public Bullets() {
@@ -70,20 +117,6 @@ public class Bullets extends Entity {
 		this.attack = attack;
 		this.type = type;
 		this.m = m;
-	}
-
-	public void getDamage() {
-		if ( type.equals(BulletsType.BURN) ) {
-			m.setHp(m.getHp()-attack-50);
-		}
-		else if ( type.equals(BulletsType.FREEZE)) {
-			m.setHp(attack);
-			m.setSpeed(m.getSpeed()-10);
-		}
-		else {
-			m.setHp(attack);
-		}
-		this.markDestroy();
 	}
 
 
@@ -110,9 +143,8 @@ public class Bullets extends Entity {
 	public void setType(BulletsType type) {
 		this.type = type;
 	}
-	
-	
-	
-	
-	
+
+	public int getAttack() {
+		return attack;
+	}
 }

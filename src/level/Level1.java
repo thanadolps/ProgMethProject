@@ -33,8 +33,8 @@ public class Level1 extends Level{
     @Override
     public Spawner nextSpawner() {
         return new SequentialSpawner(new Spawner[]{
-            new PeriodicSpawner(() -> new Monster(10, 20), 1, 5),
-            new PeriodicSpawner(() -> new Monster(20, 13), 1, 5)
+            new PeriodicSpawner(() -> new Monster(10, 1), 1, 5),
+            new PeriodicSpawner(() -> new Monster(20, 2), 1, 5)
         }).setTrack(sampleTrack);
     }
 }

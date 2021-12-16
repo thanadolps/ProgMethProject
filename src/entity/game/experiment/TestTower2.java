@@ -40,7 +40,7 @@ public class TestTower2 extends Tower {
 
         var monsters = Main.game.getMonstersAt(x-1, y);
         for (var m : monsters) {
-            if(m.getSpeed() > 15) {
+            if(m.getBaseSpeed() > 15) {
                 m.die();
             }
         }

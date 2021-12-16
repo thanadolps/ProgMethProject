@@ -12,7 +12,7 @@ import java.util.Timer;
 
 public class Simulation {
 
-	private static int money = 500;
+	private static int money = 1000;
 	private static int round = 1;
 	private static int lifepoint = 150;
 	private static Timer time = new Timer();
