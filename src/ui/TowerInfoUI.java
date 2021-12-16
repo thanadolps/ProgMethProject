@@ -83,12 +83,12 @@ public class TowerInfoUI extends VBox {
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
-        grid.add(attack, 0, 0);
-        grid.add(speedattack, 1, 0);
-        grid.add(level, 2, 0);
-        grid.add(price, 0, 1);
-        grid.add(range, 1, 1);
-        grid.add(bulletstype, 2, 1);
+        grid.add(attack, 0, 0 );
+        grid.add(speedattack, 2,0);
+        grid.add(level, 0,1);
+        grid.add(price, 2,1);
+        grid.add(range, 0,2);
+        grid.add(bulletstype, 2,2);
         
         HBox hb3 = new HBox(50);
         hb3.setAlignment(Pos.CENTER);
@@ -140,11 +140,22 @@ public class TowerInfoUI extends VBox {
         
         //description.setText("Tower description Na.");
         attack.setText("Attack = "+tower.getBaseAttack());
+        attack.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        
         speedattack.setText("SpeedAttack = "+tower.getSpeedatk());
+        speedattack.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        
         price.setText("Price = "+tower.getPrice());
+        price.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        
         range.setText("Range = "+tower.getR());
+        range.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        
         level.setText("level = "+tower.getLevel());
+        level.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        
         bulletstype.setText("BulletsType = "+tower.getType());
+        bulletstype.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         
         round.setText("round = ??");
         round.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
