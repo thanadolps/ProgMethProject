@@ -14,6 +14,7 @@ import level.Level;
 import level.Level1;
 import level.spawner.Spawner;
 import logic.Towers;
+import utils.Sound;
 import utils.Utils;
 
 import java.io.IOException;
@@ -185,6 +186,8 @@ public class Game implements Draw, Tick {
                 Tower tower = selectedTowerButton.get().getFactory().apply(x, y);
                 towers.setTower(x, y, tower);
                 Main.sidebar.getTowerSelectUI().deselect();
+
+                Sound.TowerPlace.play();
                 return;
             }
 
