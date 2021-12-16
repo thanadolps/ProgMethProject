@@ -1,8 +1,11 @@
 package entity.game;
 
+import entity.base.Tower;
 import javafx.scene.image.Image;
 import logic.Simulation;
 import utils.Sprites;
+
+import java.util.Optional;
 
 public class Farm extends type2 {
 	
@@ -20,5 +23,20 @@ public class Farm extends type2 {
 	}
 
 	@Override
+	public Optional<Tower> get_upgrade_lsh() {
+		return Optional.empty();
+	}
+
+	@Override
+	public Optional<Tower> get_upgrade_rsh() {
+		return Optional.empty();
+	}
+
+	@Override
 	public void attack() {}
+
+	@Override
+	public int getR() {
+		return 0;
+	}
 }

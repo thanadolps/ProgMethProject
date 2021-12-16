@@ -12,13 +12,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.text.TextFlow;
-import javafx.util.Pair;
 import logic.Simulation;
 import logic.Towers;
 
-import java.util.Optional;
 import java.util.function.Consumer;
 
 public class TowerInfoUI extends VBox {
@@ -173,23 +169,19 @@ public class TowerInfoUI extends VBox {
         updateUpgradeBtn(
                 upgradeLeft,
                 ev -> tower.upgrade_lsh(tower.upgradePrice_lsh()),
-                x,
-                y,
-                tower,
+                x, y, tower.upgradePrice_lsh(),
                 tower.get_upgrade_lsh().orElse(null)
         );
 
         updateUpgradeBtn(
                 upgradeRight,
                 ev -> tower.upgrade_rsh(tower.upgraderPrice_rsh()),
-                x,
-                y,
-                tower,
+                x, y, tower.upgraderPrice_rsh(),
                 tower.get_upgrade_rsh().orElse(null)
         );
     }
 
-    private void updateUpgradeBtn(Button ele, Consumer<ActionEvent> upgradeAction, int x, int y, Tower tower, Tower new_tower) {
+    private void updateUpgradeBtn(Button ele, Consumer<ActionEvent> upgradeAction, int x, int y, int price, Tower new_tower) {
         // No upgrade available case
         if(new_tower == null) {
             ele.setText("Upgrade Maxed out");
@@ -200,7 +192,6 @@ public class TowerInfoUI extends VBox {
         String upgradeMsg = "UPGRADE to\n" + Tower.getName(new_tower) + "\n";
 
         // Not enough money case
-        var price = tower.upgraderPrice_rsh();
         if(Simulation.getMoney() < price) {
             ele.setText(upgradeMsg + "Insufficient fund: " + price);
             ele.setDisable(true);

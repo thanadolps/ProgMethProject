@@ -109,11 +109,19 @@ public abstract class Tower implements Cloneable {
 		Main.game.getTowers().deleteTower(getX(), getY());
 	}
 
+	public double getCenterX() {
+		return x + 0.5;
+	}
+
+	public double getCenterY() {
+		return y + 0.5;
+	}
+
 	public Monster findMonster() {
 		double min = Double.MAX_VALUE;
 		Monster save = null;
 		for (Monster m : Main.game.getMonsters()) {
-			double distance = Math.sqrt(Math.pow(m.getX() - getX(), 2) + Math.pow(m.getY() - getY(), 2));
+			double distance = Math.sqrt(Math.pow(m.getX() - getCenterX(), 2) + Math.pow(m.getY() - getCenterY(), 2));
 			if (distance < min && distance < getR()) {
 				min = distance;
 				save = m;
@@ -209,7 +217,7 @@ public abstract class Tower implements Cloneable {
 
 		gc.setGlobalAlpha(0.2);
 		var r = Utils.grid2pixel(getR(), getR());
-		gc.fillOval(px.getX() - r.getX(), px.getY() - r.getY(), 2*r.getX(), 2*r.getY());
+		gc.fillOval(px.getX() - r.getX() + gridDim.getX()/2, px.getY() - r.getY() + gridDim.getX()/2, 2*r.getX(), 2*r.getY());
 
 		gc.setGlobalAlpha(oldAlpha);
 

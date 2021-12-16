@@ -63,7 +63,7 @@ public class Bullets extends Entity {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Bullets(int x , int y , int attack , BulletsType type , Monster m ) {
+	public Bullets(double x , double y , int attack , BulletsType type , Monster m ) {
 		super();
 		this.x = x;
 		this.y = y;
