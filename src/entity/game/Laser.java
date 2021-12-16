@@ -1,6 +1,8 @@
 package entity.game;
 
 import entity.base.BulletsType;
+import javafx.scene.image.Image;
+import utils.Sprites;
 
 public class Laser extends type3{
 
@@ -10,4 +12,8 @@ public class Laser extends type3{
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public Image getSprite() {
+		return Sprites.TowerLaser;
+	}
 }

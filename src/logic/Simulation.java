@@ -66,8 +66,8 @@ public class Simulation {
 		Simulation.lifepoint = lifepoint;
 	}
 
-	public void monsterIN(Monster monster) {
-		myTower.add(monster);
+	public static void onMonsterEnter(Monster monster) {
+		setLifepoint(getLifepoint() - monster.getDlife());
 	}
 
 	public void decreasehpTower() {
