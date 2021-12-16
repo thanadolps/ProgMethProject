@@ -7,6 +7,7 @@ import entity.game.Farm;
 import entity.game.Strength;
 import entity.game.boss;
 import entity.game.soldier;
+import utils.Sound;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -74,6 +75,13 @@ public class Simulation {
 
 	public static void onMonsterEnter(Monster monster) {
 		setLifepoint(getLifepoint() - monster.getDlife());
+		Main.sidebar.getTowerInfoUI().refresh();
+		if(Math.random() < 0.5) {
+			Sound.Hurt1.play();
+		}
+		else {
+			Sound.Hurt2.play();
+		}
 	}
 
 	public void decreasehpTower() {

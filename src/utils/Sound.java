@@ -7,12 +7,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Sound {
-    public static AudioClip TowerPlace, BulletHit;
+    public static AudioClip TowerPlace, BulletHit, Hurt1, Hurt2;
 
     static {
         try {
             TowerPlace = loadAudio("plant.wav");
             BulletHit = loadAudio("splat.wav");
+            Hurt1 = loadAudio("hurt1.wav");
+            Hurt2 = loadAudio("hurt2.wav");
         } catch (IOException e) {
             System.err.println("Fail to load audio.");
             e.printStackTrace();
