@@ -36,10 +36,11 @@ public class Simulation {
 		Main.sidebar.getTowerInfoUI().refresh();
 	}
 
-	public static void decreaseMoney(int price) {
+	public static boolean decreaseMoney(int price) {
 		if (price > getMoney())
-			return;
+			return false;
 		setMoney(getMoney() - price);
+		return true;
 	}
 
 	public static int getMoney() {
@@ -65,8 +66,8 @@ public class Simulation {
 		Simulation.lifepoint = lifepoint;
 	}
 
-	public void monsterIN(Monster monster) {
-		myTower.add(monster);
+	public static void onMonsterEnter(Monster monster) {
+		setLifepoint(getLifepoint() - monster.getDlife());
 	}
 
 	public void decreasehpTower() {

@@ -75,26 +75,24 @@ public abstract class Tower implements Cloneable {
 	public abstract Optional<Tower> get_upgrade_rsh();
 
 	public boolean upgrade_lsh(int price) {
-		if (Simulation.getMoney() < price) {
+		if (!Simulation.decreaseMoney(price)) {
 			return false;
 		}
 		var new_tower = get_upgrade_lsh();
 		if(new_tower.isPresent()) {
 			var tower = new_tower.get();
-			Simulation.decreaseMoney(price);
 			Main.game.getTowers().setTower(tower.getX(), tower.getY(), tower);
 		}
 		return true;
 	}
 
 	public boolean upgrade_rsh(int price) {
-		if (Simulation.getMoney() < price) {
+		if (!Simulation.decreaseMoney(price)) {
 			return false;
 		}
 		var new_tower = get_upgrade_rsh();
 		if(new_tower.isPresent()) {
 			var tower = new_tower.get();
-			Simulation.decreaseMoney(price);
 			Main.game.getTowers().setTower(tower.getX(), tower.getY(), tower);
 		}
 		return true;

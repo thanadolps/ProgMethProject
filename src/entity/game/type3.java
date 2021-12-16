@@ -6,6 +6,7 @@ import entity.base.Monster;
 import entity.base.Tower;
 import core.Main;
 import javafx.scene.image.Image;
+import utils.Sprites;
 
 import java.util.Optional;
 
@@ -83,7 +84,7 @@ public class type3 extends Tower {
 
 	@Override
 	public Image getSprite() {
-		return null;
+		return Sprites.TowerType3;
 	}
 
 	@Override

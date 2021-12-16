@@ -107,7 +107,7 @@ public class Monster extends Entity {
 		if (dist < 0.05) {
 			trackIndex += 1;
 			if (trackIndex >= track.path.length) {
-				System.out.println("Monster entered");
+				Simulation.onMonsterEnter(this);
 				this.markDestroy();
 			}
 			return;

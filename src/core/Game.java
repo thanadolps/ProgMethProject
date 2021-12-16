@@ -10,6 +10,7 @@ import javafx.util.Pair;
 import level.Level;
 import level.Level1;
 import level.spawner.Spawner;
+import logic.Simulation;
 import logic.Towers;
 import utils.Sound;
 import utils.Utils;
@@ -183,11 +184,16 @@ public class Game implements Draw, Tick {
 
         if(mouseEvent.getButton() == MouseButton.PRIMARY) {
             var selectedTowerButton = Main.sidebar.getTowerSelectUI().getSelected();
-            if(selectedTowerButton.isPresent() && currentLevel.getTileGrid().isTowerPlaceable(x, y)) {
+            if(selectedTowerButton.isPresent()
+                    && currentLevel.getTileGrid().isTowerPlaceable(x, y)
+                    && Main.game.getTowers().getTower(x, y).isEmpty()
+            ) {
                 Tower tower = selectedTowerButton.get().getFactory().apply(x, y);
                 towers.setTower(x, y, tower);
                 Main.sidebar.getTowerSelectUI().deselect();
 
+                Simulation.decreaseMoney(tower.getPrice());
+                Main.sidebar.getTowerInfoUI().refresh();
                 Sound.TowerPlace.play();
                 return;
             }

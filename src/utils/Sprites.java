@@ -10,7 +10,8 @@ import java.util.Optional;
 public class Sprites {
     public static Image GrassASprite, GrassBSprite, SandSprite, TowerSprite, Tower2Sprite,
             TowerType1, TowerFire, TowerIce,
-            TowerType2, TowerStrength, TowerFarm;
+            TowerType2, TowerStrength, TowerFarm,
+            TowerType3, TowerLaser, TowerBoom;
     private static final HashMap<String, Image> imagesByName = new HashMap<>();
 
     static {
@@ -18,8 +19,6 @@ public class Sprites {
             GrassASprite = Sprites.loadImage("grass_tile_1.png");
             GrassBSprite = Sprites.loadImage("grass_tile_3.png");
             SandSprite = Sprites.loadImage("sand_tile.png");
-            TowerSprite = Sprites.loadImage("tower.png");
-            Tower2Sprite = Sprites.loadImage("tower2.png");
 
             TowerType1 = Sprites.loadImage("tower_1.png");
             TowerIce = Sprites.loadImage("tower_ice.png");
@@ -28,6 +27,10 @@ public class Sprites {
             TowerType2 = Sprites.loadImage("tower_2.png");
             TowerStrength = Sprites.loadImage("tower_strength.png");
             TowerFarm = Sprites.loadImage("tower_farm.png");
+
+            TowerType3 = Sprites.loadImage("tower_3.png");
+            TowerLaser = Sprites.loadImage("tower_laser.png");
+            TowerBoom = Sprites.loadImage("tower_boom.png");
 
             System.out.println("Sprite Loaded:");
             imagesByName.forEach((k, v) -> {
