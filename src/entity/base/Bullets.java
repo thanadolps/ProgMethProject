@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import java.lang.Math;
 
 import core.Main;
+import javafx.scene.paint.Color;
 import utils.Utils;
 
 public class Bullets extends Entity {
@@ -17,9 +18,16 @@ public class Bullets extends Entity {
 	@Override
 	public void draw(GraphicsContext gc, double dt) {
 		// TODO Auto-generated method stub
+		var bulletColor = switch (type) {
+			case BURN -> Color.RED;
+			case FREEZE -> Color.BLUE;
+			case PIERCE -> Color.VIOLET;
+			case NORMAL -> Color.BLACK;
+		};
+		gc.setFill(bulletColor);
+
 		var px = Utils.grid2pixel(x, y);
 		gc.fillOval(px.getX(), px.getY(), 10, 10);
-		// gc.fillText(x + ", " + y, px.getX(), px.getY());
 	}
 
 	@Override

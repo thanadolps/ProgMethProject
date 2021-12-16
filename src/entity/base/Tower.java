@@ -2,6 +2,7 @@ package entity.base;
 
 import core.Game;
 import core.Main;
+import core.timing.Interval;
 import entity.game.Boom;
 import entity.game.Farm;
 import entity.game.Fire;
@@ -31,6 +32,8 @@ public abstract class Tower implements Cloneable {
 	private int r;
 	private BulletsType type;
 
+	private Interval attackTimer;
+
 	public BulletsType getType() {
 		return type;
 	}
@@ -47,6 +50,8 @@ public abstract class Tower implements Cloneable {
 		this.x = x;
 		this.y = y;
 		this.type = BulletsType.NORMAL;
+
+		this.attackTimer = new Interval(getPeriod());
 		// GameMap.addTower(x, y, this);
 	}
 
@@ -122,12 +127,18 @@ public abstract class Tower implements Cloneable {
 		return area;
 	}
 
+	public double getPeriod() {
+		return 10.0/(double)(speedatk);
+	}
+
 	public int getSpeedatk() {
 		return speedatk;
 	}
 
 	public void setSpeedatk(int speedatk) {
 		this.speedatk = speedatk;
+		attackTimer.setPeriod(getPeriod());
+		attackTimer.resetTime();
 	}
 
 	public int getAttack() {
@@ -172,7 +183,9 @@ public abstract class Tower implements Cloneable {
 		this.r = r;
 	}
 
-	public abstract void tick(Pair<Integer, Integer> pos, double dt);
+	public void tick(Pair<Integer, Integer> pos, double dt) {
+		attackTimer.tick(dt, p -> attack());
+	}
 
 	protected abstract Image getSprite();
 

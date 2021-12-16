@@ -8,6 +8,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.util.Pair;
 import level.Level;
 import level.Level1;
@@ -53,6 +54,7 @@ public class Game implements Draw, Tick {
     public void draw(GraphicsContext gc, double dt) {
         currentLevel.getTileGrid().draw(gc, dt);
         bullets.forEach(bullet -> {if(!bullet.isDestroyed()) bullet.draw(gc, dt);});
+        gc.setFill(Color.BLACK);
         monsters.forEach(monster -> monster.draw(gc, dt));
         this.drawTower(gc, dt);
 

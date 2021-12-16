@@ -41,8 +41,7 @@ public class type2 extends Tower {
 		if (m == null)
 			return;
 		Bullets b = new Bullets(this.getX(), this.getY(), this.getAttack(), type, m);
-		// ต้องใช้ tick ไหม
-		b.tick(1.0);
+		Main.game.addBullet(b);
 	}
 
 	@Override
@@ -59,11 +58,6 @@ public class type2 extends Tower {
 	@Override
 	public Image getSprite() {
 		return null;
-	}
-
-	@Override
-	public void tick(Pair<Integer, Integer> pos, double dt) {
-
 	}
 
 	@Override

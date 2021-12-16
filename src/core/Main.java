@@ -58,6 +58,9 @@ public class Main extends Application {
         var towerSelectUI = sidebar.getTowerSelectUI();
         towerSelectUI.addTowerButton(new TowerButton(TestTower1::new));
         towerSelectUI.addTowerButton(new TowerButton(TestTower2::new));
+        towerSelectUI.addTowerButton(new TowerButton((x, y) ->
+                new type1(10,10,10,x, y))
+        );
     }
 
     private void setupGraphics(GraphicsContext gc) {

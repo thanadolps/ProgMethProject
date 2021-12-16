@@ -2,6 +2,7 @@ package ui;
 
 import core.Main;
 import entity.base.Tower;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -14,7 +15,11 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.util.Pair;
+import logic.Simulation;
 import logic.Towers;
+
+import java.util.Optional;
+import java.util.function.Consumer;
 
 public class TowerInfoUI extends VBox {
 	GridPane grid;
@@ -165,31 +170,48 @@ public class TowerInfoUI extends VBox {
             unseeTower();
         });
 
-        var left_tower = tower.get_upgrade_lsh();
-        if(left_tower.isPresent()) {
-            upgradeLeft.setDisable(false);
-            upgradeLeft.setText("UPGRADE to " + Tower.getName(left_tower.get()));
-            upgradeLeft.setOnAction(ev -> {
-                tower.upgrade_lsh(tower.upgradePrice_lsh());
-            });
-        }
-        else {
-            upgradeLeft.setText("Upgrade Maxed out");
-            upgradeLeft.setDisable(true);
+        updateUpgradeBtn(
+                upgradeLeft,
+                ev -> tower.upgrade_lsh(tower.upgradePrice_lsh()),
+                x,
+                y,
+                tower,
+                tower.get_upgrade_lsh().orElse(null)
+        );
+
+        updateUpgradeBtn(
+                upgradeRight,
+                ev -> tower.upgrade_rsh(tower.upgraderPrice_rsh()),
+                x,
+                y,
+                tower,
+                tower.get_upgrade_rsh().orElse(null)
+        );
+    }
+
+    private void updateUpgradeBtn(Button ele, Consumer<ActionEvent> upgradeAction, int x, int y, Tower tower, Tower new_tower) {
+        // No upgrade available case
+        if(new_tower == null) {
+            ele.setText("Upgrade Maxed out");
+            ele.setDisable(true);
+            return;
         }
 
-        var right_tower = tower.get_upgrade_rsh();
-        if(right_tower.isPresent()) {
-            upgradeRight.setDisable(false);
-            upgradeRight.setText("UPGRADE to " + Tower.getName(right_tower.get()));
-            upgradeRight.setOnAction(ev -> {
-                tower.upgrade_rsh(tower.upgraderPrice_rsh());
-            });
+        // Not enough money case
+        var price = tower.upgraderPrice_rsh();
+        if(Simulation.getMoney() < price) {
+            ele.setText("Insufficient fund\n" + price);
+            ele.setDisable(true);
+            return;
         }
-        else {
-            upgradeRight.setText("Upgrade Maxed out");
-            upgradeRight.setDisable(true);
-        }
+
+        // Normal case
+        ele.setDisable(false);
+        ele.setText("UPGRADE to " + Tower.getName(new_tower) + "\n" + price);
+        ele.setOnAction(ev -> {
+            upgradeAction.accept(ev);
+            seeTower(x, y);
+        });
     }
 
     public void unseeTower() {
