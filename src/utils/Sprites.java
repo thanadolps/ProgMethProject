@@ -8,7 +8,9 @@ import java.util.HashMap;
 import java.util.Optional;
 
 public class Sprites {
-    public static Image GrassASprite, GrassBSprite, SandSprite, TowerSprite, Tower2Sprite, TowerType1, TowerFire, TowerIce;
+    public static Image GrassASprite, GrassBSprite, SandSprite, TowerSprite, Tower2Sprite,
+            TowerType1, TowerFire, TowerIce,
+            TowerType2, TowerStrength, TowerFarm;
     private static final HashMap<String, Image> imagesByName = new HashMap<>();
 
     static {
@@ -22,6 +24,10 @@ public class Sprites {
             TowerType1 = Sprites.loadImage("tower_1.png");
             TowerIce = Sprites.loadImage("tower_ice.png");
             TowerFire = Sprites.loadImage("tower_fire.png");
+
+            TowerType2 = Sprites.loadImage("tower_2.png");
+            TowerStrength = Sprites.loadImage("tower_strength.png");
+            TowerFarm = Sprites.loadImage("tower_farm.png");
 
             System.out.println("Sprite Loaded:");
             imagesByName.forEach((k, v) -> {
@@ -37,7 +43,6 @@ public class Sprites {
     }
 
     public static Image loadImage(String fileName) throws IOException {
-        new MapLoader();
         var name = fileName.split("\\.", 2)[0];
         var loadedImage = getImage(name);
         if(loadedImage.isPresent()) {

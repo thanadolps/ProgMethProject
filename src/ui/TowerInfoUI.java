@@ -197,17 +197,19 @@ public class TowerInfoUI extends VBox {
             return;
         }
 
+        String upgradeMsg = "UPGRADE to\n" + Tower.getName(new_tower) + "\n";
+
         // Not enough money case
         var price = tower.upgraderPrice_rsh();
         if(Simulation.getMoney() < price) {
-            ele.setText("Insufficient fund\n" + price);
+            ele.setText(upgradeMsg + "Insufficient fund: " + price);
             ele.setDisable(true);
             return;
         }
 
         // Normal case
         ele.setDisable(false);
-        ele.setText("UPGRADE to " + Tower.getName(new_tower) + "\n" + price);
+        ele.setText(upgradeMsg + price);
         ele.setOnAction(ev -> {
             upgradeAction.accept(ev);
             seeTower(x, y);

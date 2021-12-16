@@ -6,6 +6,7 @@ import entity.game.experiment.TestTower1;
 import entity.game.experiment.TestTower2;
 import entity.game.type1;
 import entity.game.type2;
+import entity.game.type3;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -56,10 +57,14 @@ public class Main extends Application {
         canvas.setHeight(960);
 
         var towerSelectUI = sidebar.getTowerSelectUI();
-        towerSelectUI.addTowerButton(new TowerButton(TestTower1::new));
-        towerSelectUI.addTowerButton(new TowerButton(TestTower2::new));
         towerSelectUI.addTowerButton(new TowerButton((x, y) ->
-                new type1(10,10,10,x, y))
+                new type1(10,10,10, x, y))
+        );
+        towerSelectUI.addTowerButton(new TowerButton((x, y) ->
+                new type2(10,10,10, x, y))
+        );
+        towerSelectUI.addTowerButton(new TowerButton((x, y) ->
+                new type3(10,10,10, x, y))
         );
     }
 

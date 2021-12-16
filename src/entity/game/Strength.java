@@ -1,6 +1,8 @@
 package entity.game;
 
+import javafx.scene.image.Image;
 import logic.Simulation;
+import utils.Sprites;
 
 public class Strength extends type2 {
 
@@ -11,8 +13,12 @@ public class Strength extends type2 {
 		Simulation.getStrength().add(this);
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 
+	@Override
+	public Image getSprite() {
+		return Sprites.TowerStrength;
+	}
 
+	@Override
+	public void attack() {}
 }

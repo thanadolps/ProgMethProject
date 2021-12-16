@@ -1,6 +1,8 @@
 package entity.game;
 
+import javafx.scene.image.Image;
 import logic.Simulation;
+import utils.Sprites;
 
 public class Farm extends type2 {
 	
@@ -11,5 +13,12 @@ public class Farm extends type2 {
 		Simulation.getFarm().add(this);
 		// TODO Auto-generated constructor stub
 	}
-	
+
+	@Override
+	public Image getSprite() {
+		return Sprites.TowerFarm;
+	}
+
+	@Override
+	public void attack() {}
 }
