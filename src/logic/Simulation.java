@@ -2,11 +2,10 @@ package logic;
 
 import core.Main;
 import entity.base.Monster;
-import entity.base.Tower;
 import entity.game.Farm;
 import entity.game.Strength;
-import entity.game.boss;
-import entity.game.soldier;
+import entity.game.Boss;
+import entity.game.Soldier;
 import utils.Sound;
 
 import java.util.ArrayList;
@@ -88,9 +87,9 @@ public class Simulation {
 		if (myTower.isEmpty())
 			return;
 		for (Monster m : myTower) {
-			if (m.getClass().equals(soldier.class))
+			if (m.getClass().equals(Soldier.class))
 				setLifepoint(getLifepoint() - m.getDlife());
-			if (m.getClass().equals(boss.class))
+			if (m.getClass().equals(Boss.class))
 				setLifepoint(getLifepoint() - m.getDlife());
 		}
 		myTower.clear();

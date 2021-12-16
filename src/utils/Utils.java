@@ -1,7 +1,11 @@
 package utils;
 
 import core.Main;
+import entity.base.Monster;
 import javafx.geometry.Point2D;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
 import java.io.IOException;
@@ -56,5 +60,12 @@ public class Utils {
 
     public static Point2D pair2point(Pair<Integer, Integer> pair) {
         return new Point2D(pair.getKey(), pair.getValue());
+    }
+
+    public static void drawSpriteFlipped(GraphicsContext gc, Image img, double x, double y, double w, double h) {
+        gc.drawImage(
+                img,
+                0,0, img.getWidth(), img.getHeight(),
+                x + w, y, -w, h);
     }
 }

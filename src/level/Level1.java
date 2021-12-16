@@ -1,6 +1,8 @@
 package level;
 
 import entity.base.Monster;
+import entity.game.Soldier;
+import entity.game.SpeedSoldier;
 import javafx.geometry.Point2D;
 import level.spawner.PeriodicSpawner;
 import level.spawner.SequentialSpawner;
@@ -33,8 +35,8 @@ public class Level1 extends Level{
     @Override
     public Spawner nextSpawner() {
         return new SequentialSpawner(new Spawner[]{
-            new PeriodicSpawner(() -> new Monster(10, 1), 1, 5),
-            new PeriodicSpawner(() -> new Monster(20, 2), 1, 5)
+            new PeriodicSpawner(Soldier::new, 1, 5),
+            new PeriodicSpawner(SpeedSoldier::new, 1, 5)
         }).setTrack(sampleTrack);
     }
 }

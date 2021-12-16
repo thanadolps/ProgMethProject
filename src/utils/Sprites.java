@@ -11,7 +11,8 @@ public class Sprites {
     public static Image GrassASprite, GrassBSprite, SandSprite, TowerSprite, Tower2Sprite,
             TowerType1, TowerFire, TowerIce,
             TowerType2, TowerStrength, TowerFarm,
-            TowerType3, TowerLaser, TowerBoom;
+            TowerType3, TowerLaser, TowerBoom,
+            Solider, SpeedSolider, Boss;
     private static final HashMap<String, Image> imagesByName = new HashMap<>();
 
     static {
@@ -31,6 +32,10 @@ public class Sprites {
             TowerType3 = Sprites.loadImage("tower_3.png");
             TowerLaser = Sprites.loadImage("tower_laser.png");
             TowerBoom = Sprites.loadImage("tower_boom.png");
+
+            Solider = Sprites.loadImage("soldier.png");
+            SpeedSolider = Sprites.loadImage("speed_soldier.png");
+            Boss = Sprites.loadImage("boss.png");
 
             System.out.println("Sprite Loaded:");
             imagesByName.forEach((k, v) -> {

@@ -3,13 +3,16 @@ package entity.base;
 import core.Main;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.Effect;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import level.Track;
 import logic.Simulation;
 import utils.Sound;
+import utils.Sprites;
 import utils.Utils;
 
-public class Monster extends Entity {
+public abstract class Monster extends Entity {
 
 	private int hp;
 	private double baseSpeed;
@@ -18,16 +21,8 @@ public class Monster extends Entity {
 	int trackIndex;
 	private int dlife = 1;
 
-	private double freezeDuration = 0;
-	private double burnDuration= 0;
-
-	public int getDlife() {
-		return dlife;
-	}
-
-	public void setDlife(int dlife) {
-		this.dlife = dlife;
-	}
+	protected double freezeDuration = 0;
+	protected double burnDuration= 0;
 
 	public Monster(int hp, double baseSpeed) {
 		super();
@@ -35,14 +30,37 @@ public class Monster extends Entity {
 		this.baseSpeed = baseSpeed;
 	}
 
-	public void run() {
+	public abstract double getHitBoxRadius();
+	public abstract int getBounty();
+	public abstract Image getSprite();
 
+	@Override
+	public void draw(GraphicsContext gc, double dt) {
+		var screen = Utils.grid2pixel(getPos());
+		var gridDim = Utils.getGridPixelDimension();
+
+		var gx = gridDim.getX();
+		var gy = gridDim.getY();
+
+		if(freezeDuration > 0) {
+			// gc.setEffect();
+		}
+
+		var img = getSprite();
+		var target = getTarget();
+		var x = screen.getX() - 0.5*gx;
+		var y = screen.getY() - 0.5*gy;
+		if(target.getX() - getX() > 0) {
+			gc.drawImage(img, x, y, gx, gy);
+		}
+		else {
+			// Flipped in x-axis
+			Utils.drawSpriteFlipped(gc, img, x, y, gx, gy);
+		}
 	}
 
 	public boolean isDead() {
-		if (getHp() <= 0)
-			return true;
-		return false;
+		return getHp() <= 0;
 	}
 
 	public int getHp() {
@@ -80,10 +98,7 @@ public class Monster extends Entity {
 		trackIndex = 0;
 		pos = track.path[trackIndex];
 	}
-
-	@Override
-	public void draw(GraphicsContext gc, double dt) {
-		var screen = Utils.grid2pixel(pos);
+		/*var screen = Utils.grid2pixel(pos);
 		var gridDim = Utils.getGridPixelDimension();
 
 		var gx = gridDim.getX();
@@ -95,8 +110,7 @@ public class Monster extends Entity {
 
 		gc.fillRect(screen.getX() - 0.25*gx, screen.getY() - 0.25*gy, 0.5 * gx, 0.5 * gy);
 
-		gc.setFill(Color.BLACK);
-	}
+		gc.setFill(Color.BLACK);*/
 
 	@Override
 	public void tick(double dt) {
@@ -163,14 +177,6 @@ public class Monster extends Entity {
 		return false;
 	}
 
-	public double getHitBoxRadius() {
-		return 0.5;
-	}
-
-	public int getBounty() {
-		return 100;
-	}
-
 	public double getX() {
 		return pos.getX();
 	}
@@ -181,5 +187,20 @@ public class Monster extends Entity {
 
 	public Point2D getPos() {
 		return pos;
+	}
+
+	public int getDlife() {
+		return dlife;
+	}
+
+	public void setDlife(int dlife) {
+		this.dlife = dlife;
+	}
+
+	/**
+	 * @return ต่ำแหน่งที่มอนกำลังเคลื่อนที่ไปหาเป็นเส้นตรง
+	 */
+	public Point2D getTarget() {
+		return track.path[trackIndex];
 	}
 }
