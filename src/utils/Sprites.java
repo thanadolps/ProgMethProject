@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Optional;
 
 public class Sprites {
-    public static Image GrassASprite, GrassBSprite, SandSprite, TowerSprite, Tower2Sprite;
+    public static Image GrassASprite, GrassBSprite, SandSprite, TowerSprite, Tower2Sprite, TowerType1, TowerFire, TowerIce;
     private static final HashMap<String, Image> imagesByName = new HashMap<>();
 
     static {
@@ -18,6 +18,10 @@ public class Sprites {
             SandSprite = Sprites.loadImage("sand_tile.png");
             TowerSprite = Sprites.loadImage("tower.png");
             Tower2Sprite = Sprites.loadImage("tower2.png");
+
+            TowerType1 = Sprites.loadImage("tower_1.png");
+            TowerIce = Sprites.loadImage("tower_ice.png");
+            TowerFire = Sprites.loadImage("tower_fire.png");
 
             System.out.println("Sprite Loaded:");
             imagesByName.forEach((k, v) -> {

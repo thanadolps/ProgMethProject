@@ -1,6 +1,8 @@
 package entity.game;
 
 import entity.base.BulletsType;
+import javafx.scene.image.Image;
+import utils.Sprites;
 
 public class Ice extends type1 {
 		
@@ -10,4 +12,8 @@ public class Ice extends type1 {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public Image getSprite() {
+		return Sprites.TowerIce;
+	}
 }

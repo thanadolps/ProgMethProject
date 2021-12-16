@@ -40,7 +40,7 @@ public class type1 extends Tower {
 
 	@Override
 	public Image getSprite() {
-		return null;
+		return Sprites.TowerType1;
 	}
 
 	@Override
