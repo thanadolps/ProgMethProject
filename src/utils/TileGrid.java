@@ -7,14 +7,13 @@ import javafx.scene.image.Image;
 public class TileGrid implements Draw {
     Image[][] sprites;
     boolean[][] towerPlaceable;
-    TilesProp tilesProps;
 
     public TileGrid(String[][] tile, String[][] tile_prop) {
         int h = tile.length;
         int w = h>0?tile[0].length:0;
         sprites = new Image[h][w];
         towerPlaceable = new boolean[h][w];
-        tilesProps = new TilesProp(tile_prop);
+        var tilesProps = new TilesProp(tile_prop);
 
         for (int y = 0; y < tile.length; y++) {
             for (int x = 0; x < tile[0].length; x++) {

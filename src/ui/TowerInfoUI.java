@@ -25,7 +25,6 @@ public class TowerInfoUI extends VBox {
     Button sellBtn;
     Button upgradeLeft = new Button();
     Button upgradeRight = new Button();
-    Text vac,vac2,vac3,vac4 ;
 
     int towerX;
     int towerY;
@@ -41,10 +40,8 @@ public class TowerInfoUI extends VBox {
         level = new Text();
         sellBtn = new Button("SELL");
         grid = new GridPane();
-        vac = new Text();
-        vac2 = new Text();
-        vac3 = new Text();
-        vac4 = new Text();
+        var vac = new Text();
+        var vac2 = new Text();
 
         HBox empty = new HBox();
         empty.getChildren().add(vac);

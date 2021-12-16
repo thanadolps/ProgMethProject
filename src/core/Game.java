@@ -99,39 +99,17 @@ public class Game implements Draw, Tick {
         gc.setGlobalAlpha(oldAlpha);
     }
 
-    private void debugMonsterCount(GraphicsContext gc) {
-        var grid = getCurrentLevel().getTileGrid();
-        for (int j = 0; j < grid.getIndexHeight(); j++) {
-            for (int i = 0; i < grid.getIndexWidth(); i++) {
-                var px = Utils.grid2pixel(new Point2D(i, j));
-
-                gc.fillText(Integer.toString(getMonstersAt(i, j).size()), px.getX(), px.getY());
-            }
-        }
-
-        gc.fillText(Integer.toString(monsters.size()),  gc.getCanvas().getWidth()-24, 24);
-    }
-
 
     @Override
     public void tick(double dt) {
         boolean isTurnEnd = activeSpawner.isDone();
         if(isTurnEnd) {
-            activeSpawner = currentLevel.nextSpawner();
-            activeSpawner.setOnSpawn(this::addMonster);
-
-            getTowers().iterateTower((pos, tower) -> {
-                if(tower instanceof Farm) {
-                    Simulation.increaseMoney(150);
-                }
-            });
-
-            Simulation.nextRound();
+            onTurnEnd();
         }
         activeSpawner.tick(dt);
 
         this.tickTower(dt);
-        bullets.forEach(bullet -> {if(!bullet.isDestroyed()) bullet.tick(dt);});
+        bullets.forEach(bullet -> bullet.tick(dt));
         this.tickMonster(dt);
         dmgInds.forEach(dmgInd -> dmgInd.tick(dt));
 
@@ -139,6 +117,19 @@ public class Game implements Draw, Tick {
         monsters.removeIf(Entity::isDestroyed);
         bullets.removeIf(Entity::isDestroyed);
         dmgInds.removeIf(Entity::isDestroyed);
+    }
+
+    private void onTurnEnd() {
+        activeSpawner = currentLevel.nextSpawner();
+        activeSpawner.setOnSpawn(this::addMonster);
+
+        getTowers().iterateTower((pos, tower) -> {
+            if(tower instanceof Farm) {
+                Simulation.increaseMoney(150);
+            }
+        });
+
+        Simulation.nextRound();
     }
 
     private void tickMonster(double dt) {
@@ -194,6 +185,10 @@ public class Game implements Draw, Tick {
             ) {
                 Tower tower = selectedTowerButton.get().getFactory().apply(x, y);
                 towers.setTower(x, y, tower);
+                if(Simulation.getMoney() < tower.getPrice()) {
+                    return;
+                }
+
                 Main.sidebar.getTowerSelectUI().deselect();
 
                 Simulation.decreaseMoney(tower.getPrice());
@@ -261,14 +256,8 @@ public class Game implements Draw, Tick {
 	public ArrayList<Monster> getMonsters() {
 		return monsters;
 	}
-    
-    
 
     public Towers getTowers() {
         return towers;
-    }
-
-    public ArrayList<Bullets> getBullets() {
-        return bullets;
     }
 }

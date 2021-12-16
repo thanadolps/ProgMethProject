@@ -78,16 +78,5 @@ public class Towers {
 	public Optional<Pair<Integer, Integer>> getSelectedPosition() {
 		return Optional.ofNullable(selectedPosition);
 	}
-
-	// Getter
-
-	public int getWidth() {
-		var row = getRow(0);
-		return row == null ? 0: row.size();
-	}
-
-	public int getHeight() {
-		return arrayGrid.size();
-	}
 }
 

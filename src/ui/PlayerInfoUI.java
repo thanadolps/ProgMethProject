@@ -9,11 +9,11 @@ import javafx.scene.text.Text;
 import logic.Simulation;
 
 public class PlayerInfoUI extends VBox {
-    Text round, lifepoint,maxhp,myhp,money;
+    Text round,maxhp,myhp,money;
 
     public PlayerInfoUI() {
         round = new Text();
-        lifepoint = new Text();
+        var lifepoint = new Text();
         maxhp = new Text();
         myhp = new Text();
         money = new Text();
@@ -47,6 +47,7 @@ public class PlayerInfoUI extends VBox {
         maxhp.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
         myhp.setStyle("-fx-font-size: 32px;-fx-font-family:\"Arial Black\";-fx-fill: #8B0000;");
         myhp.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
+        lifepoint.setText("LifePoint = ");
         lifepoint.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
         money.setFont(Font.font("Tahoma", FontWeight.NORMAL, 30));
 
@@ -57,7 +58,6 @@ public class PlayerInfoUI extends VBox {
         round.setText("round = " + Simulation.getRound());
         maxhp.setText("/150");
         myhp.setText(logic.Simulation.getLifepoint()+"");
-        lifepoint.setText("LifePoint = ");
         money.setText("Current Money = "+logic.Simulation.getMoney());
     }
 }

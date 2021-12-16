@@ -12,10 +12,6 @@ public class InputUtils {
         private void updatePixelPos(double x, double y) {
             this.gridPos = Utils.pixel2grid(new Point2D(x, y));
         }
-
-        public Point2D getPixelPos() {
-            return Utils.grid2pixel(gridPos);
-        }
         public Point2D getGridPos() {
             return this.gridPos;
         }

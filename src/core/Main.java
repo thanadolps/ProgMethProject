@@ -37,7 +37,7 @@ public class Main extends Application {
     public static AnimationTimer gameLoop;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         stage = primaryStage;
         stage.setScene(new Scene(new TitleScreen()));
         stage.setTitle("Tower d' Fence");
@@ -108,9 +108,6 @@ public class Main extends Application {
 
                 drawTimer.tick(dt, (deltaTime) -> {
                     gc.clearRect(0,0, w, h);
-
-                    game.preDraw(gc);
-                    fpsCounter.preDraw(gc);
 
                     game.draw(gc, deltaTime);
                     fpsCounter.draw(gc, deltaTime);
