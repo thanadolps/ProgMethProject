@@ -5,8 +5,6 @@ import entity.base.Monster;
 import javafx.scene.image.Image;
 import utils.Sprites;
 
-import java.lang.Math;
-
 public class Boom extends type3 {
 
 		public Boom(double speedatk, int attack, int price, int x , int y ) {

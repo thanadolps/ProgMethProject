@@ -3,13 +3,10 @@ package entity.base;
 import core.Main;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import level.Track;
 import logic.Simulation;
 import utils.Sound;
-import utils.Sprites;
 import utils.Utils;
 
 public abstract class Monster extends Entity {

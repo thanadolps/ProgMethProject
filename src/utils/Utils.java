@@ -1,16 +1,12 @@
 package utils;
 
 import core.Main;
-import entity.base.Monster;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 public class Utils {
     public static String[][] parseTsv(String content) throws IOException {

@@ -3,6 +3,7 @@ package core.timing;
 import core.Draw;
 import core.Tick;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 public class FpsCounter implements Draw, Tick {
     Interval fpsTimer = new Interval(5);
@@ -17,6 +18,7 @@ public class FpsCounter implements Draw, Tick {
 
     @Override
     public void draw(GraphicsContext gc, double dt) {
+        gc.setFill(Color.BLACK);
         gc.fillText("FPS (over 5s): " + Math.round(lastFps), this.x, this.y);
     }
 

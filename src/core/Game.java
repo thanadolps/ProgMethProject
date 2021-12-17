@@ -9,15 +9,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
 import level.Level;
-import level.Level1;
 import level.spawner.Spawner;
 import logic.Simulation;
 import logic.Towers;
 import utils.Sound;
 import utils.Utils;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.*;
 
 public class Game implements Draw, Tick {

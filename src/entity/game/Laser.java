@@ -5,7 +5,6 @@ import entity.base.Bullets;
 import entity.base.BulletsType;
 import entity.base.Monster;
 import entity.base.Tower;
-import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import utils.Sprites;
 

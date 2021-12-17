@@ -2,7 +2,6 @@ package entity.base;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import jdk.jshell.execution.Util;
 import utils.Utils;
 
 public class DmgInd extends Entity {

@@ -2,21 +2,13 @@ package entity.base;
 
 import core.Main;
 import core.timing.Interval;
-import entity.game.Boom;
-import entity.game.Farm;
-import entity.game.Fire;
-import entity.game.Ice;
-import entity.game.Laser;
-import entity.game.Strength;
-import entity.game.type1;
-import entity.game.type2;
-import entity.game.type3;
+import entity.game.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
 import logic.Simulation;
 import utils.Utils;
-import java.lang.Math;
+
 import java.util.Optional;
 
 public abstract class Tower implements Cloneable {

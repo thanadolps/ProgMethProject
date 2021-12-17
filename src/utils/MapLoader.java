@@ -1,13 +1,10 @@
 package utils;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class MapLoader {
-    public static TileGrid loadMap(String levelName) throws IOException, URISyntaxException {
+    public static TileGrid loadMap(String levelName) throws IOException {
         var tile = ClassLoader.getSystemResourceAsStream("map/" + levelName + "/tile.tsv");
         var tile_prop = ClassLoader.getSystemResourceAsStream("map/" + levelName + "/tile_prop.tsv");
 

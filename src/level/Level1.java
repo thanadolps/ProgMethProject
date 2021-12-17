@@ -1,6 +1,5 @@
 package level;
 
-import entity.base.Monster;
 import entity.game.Boss;
 import entity.game.Soldier;
 import entity.game.SpeedSoldier;

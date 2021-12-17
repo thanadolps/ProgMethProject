@@ -1,13 +1,11 @@
 package entity.base;
 
-import javafx.scene.canvas.GraphicsContext;
-import java.lang.Math;
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import core.Main;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import utils.Utils;
+
+import java.util.HashSet;
 
 public class Bullets extends Entity {
 	

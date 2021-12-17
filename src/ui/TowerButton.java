@@ -11,7 +11,6 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
 import java.util.function.BiFunction;
-import java.util.function.Supplier;
 
 public class TowerButton extends Button {
     ImageView imageView;

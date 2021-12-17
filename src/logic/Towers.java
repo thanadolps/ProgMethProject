@@ -1,8 +1,6 @@
 package logic;
 
-import core.Main;
 import entity.base.Tower;
-import entity.game.Strength;
 import javafx.util.Pair;
 
 import java.util.ArrayList;

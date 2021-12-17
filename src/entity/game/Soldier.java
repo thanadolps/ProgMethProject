@@ -1,11 +1,8 @@
 package entity.game;
 
 import entity.base.Monster;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import utils.Sprites;
-import utils.Utils;
 
 public class Soldier extends Monster {
 

@@ -1,6 +1,5 @@
 package utils;
 
-import entity.base.Bullets;
 import javafx.scene.media.AudioClip;
 
 import java.io.FileNotFoundException;

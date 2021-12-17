@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.layout.TilePane;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Optional;
 
 public class TowerSelectUI extends TilePane {

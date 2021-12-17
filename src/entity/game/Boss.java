@@ -1,10 +1,8 @@
 package entity.game;
 
 import entity.base.Monster;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import utils.Sprites;
-import utils.Utils;
 
 public class Boss extends Monster {
 
