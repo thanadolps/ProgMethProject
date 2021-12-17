@@ -181,10 +181,11 @@ public class Game implements Draw, Tick {
                     && Main.game.getTowers().getTower(x, y).isEmpty()
             ) {
                 Tower tower = selectedTowerButton.get().getFactory().apply(x, y);
-                towers.setTower(x, y, tower);
                 if(Simulation.getMoney() < tower.getPrice()) {
                     return;
                 }
+
+                towers.setTower(x, y, tower);
 
                 Main.sidebar.getTowerSelectUI().deselect();
 
