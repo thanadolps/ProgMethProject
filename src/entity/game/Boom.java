@@ -20,7 +20,7 @@ public class Boom extends type3 {
 				double dx = this.getX()-m.getX();
 				double dy = this.getY()-m.getY();
 				double r = Math.sqrt(Math.pow(dx, 2)+Math.pow(dy, 2));
-				if ( r < this.getR() ) m.setHp(m.getHp()-100);
+				if ( r < this.getR() ) m.takeDamage(getAttack());
 			}
 		}
 

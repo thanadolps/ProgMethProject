@@ -8,11 +8,13 @@ import level.spawner.EmptySpawner;
 import level.spawner.PeriodicSpawner;
 import level.spawner.SequentialSpawner;
 import level.spawner.Spawner;
+import logic.Simulation;
 import utils.MapLoader;
 import utils.TileGrid;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 public class Level1 extends Level{
     TileGrid tileGrid = MapLoader.loadMap("level1");
@@ -33,11 +35,19 @@ public class Level1 extends Level{
 
     @Override
     public Spawner nextSpawner() {
-        return new SequentialSpawner(new Spawner[]{
-                new PeriodicSpawner(Soldier::new, 1, 2),
-                new PeriodicSpawner(SpeedSoldier::new, 1, 2),
-                new PeriodicSpawner(Boss::new, 1, 1),
-                new EmptySpawner(10),
-        }).setTrack(sampleTrack);
+        var spawner = new ArrayList<Spawner>();
+        for (int i = 0; i < 2; i++) {
+            var amount = Math.exp(Simulation.getRound());
+            spawner.add(new PeriodicSpawner(Soldier::new, 5/amount, (int) amount));
+            spawner.add(new PeriodicSpawner(SpeedSoldier::new, 5/amount, (int) amount));
+            spawner.add(new EmptySpawner(3));
+        }
+        spawner.add(new PeriodicSpawner(Boss::new, 1, Simulation.getRound()));
+        spawner.add(new EmptySpawner(10));
+
+        var spawnerArr = new Spawner[spawner.size()];
+        spawnerArr = spawner.toArray(spawnerArr);
+
+        return new SequentialSpawner(spawnerArr).setTrack(sampleTrack);
     }
 }

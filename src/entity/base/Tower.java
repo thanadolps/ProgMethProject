@@ -11,7 +11,7 @@ import utils.Utils;
 
 import java.util.Optional;
 
-public abstract class Tower implements Cloneable {
+public abstract class Tower {
 
 	private double speedatk;
 	private int baseAttack;
