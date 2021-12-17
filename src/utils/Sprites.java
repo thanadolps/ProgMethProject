@@ -57,9 +57,9 @@ public class Sprites {
             return loadedImage.get();
         }
 
-        var file = Sprites.class.getResource("../sprite/" + fileName);
+        var file = ClassLoader.getSystemResource("sprite/" + fileName);
         if (file == null) {
-            throw new FileNotFoundException(Sprites.class.getResource("..") + "/sprite/" + fileName);
+            throw new FileNotFoundException("sprite/" + fileName);
         }
         var img = new Image(file.openStream());
         imagesByName.put(name, img);

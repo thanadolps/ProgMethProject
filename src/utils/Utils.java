@@ -13,9 +13,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class Utils {
-    public static String[][] parseTsv(Path path) throws IOException {
-        return Files
-                .lines(path)
+    public static String[][] parseTsv(String content) throws IOException {
+        return content
+                .lines()
                 .map(line -> line.split("\\s+"))
                 .toArray(String[][]::new);
     }

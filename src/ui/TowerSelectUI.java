@@ -16,7 +16,7 @@ public class TowerSelectUI extends TilePane {
     public void addTowerButton(TowerButton towerButton) {
         int i = towerButtons.size();
         towerButton.setOnAction(ev -> handleButtonClick(i));
-
+        towerButton.unhighlight();
         towerButtons.add(towerButton);
         this.getChildren().add(towerButton);
     }

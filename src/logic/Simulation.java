@@ -4,8 +4,6 @@ import core.Main;
 import entity.base.Monster;
 import entity.game.Farm;
 import entity.game.Strength;
-import entity.game.Boss;
-import entity.game.Soldier;
 import utils.Sound;
 
 import java.util.ArrayList;
@@ -23,7 +21,7 @@ public class Simulation {
 	}
 
 	public static void restart() {
-		money = 10000;
+		money = 500;
 		round = 1;
 		lifepoint = 150;
 		strength = new ArrayList<>();
